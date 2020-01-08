@@ -1,10 +1,14 @@
-import os, io, regex
+import os
+import io
+import regex
 from natsort import natsorted, natsort_keygen
 nkey = natsort_keygen()
 
-print('\nUWAGA!\nW folderze wskazanym jako ścieżka do danych może utworzyć się plik BLEDY_XML.txt\n\n')
+print('\nUWAGA!\nW folderze wskazanym jako ścieżka do danych może \
+utworzyć się plik BLEDY_XML.txt\n\n')
 sciezka = input('Ściezka do plików xml: ')
-sciezka_dane = input('Ścieżka do FOLDERU, w którym znajdują się pliki dane.txt oraz rodzaje.txt: ')
+sciezka_dane = input('Ścieżka do FOLDERU, w którym znajdują się pliki \
+dane.txt oraz rodzaje.txt: ')
 count = 1
 
 for subdir, dirs, files in os.walk(sciezka):
@@ -14,19 +18,19 @@ for subdir, dirs, files in os.walk(sciezka):
             linie = []
             cel = 0
             xml = os.path.join(subdir, file)
-            with io.open(os.path.join(sciezka_dane, 'dane.txt'), 'r', encoding = 'utf-8') as dane:
+            with io.open(os.path.join(sciezka_dane, 'dane.txt'), 'r', encoding='utf-8') as dane:
                 if not any(line.split('\t')[0] == os.path.splitext(file)[0] for line in dane):
-                    with io.open(os.path.join(sciezka_dane, 'BLEDY_XML.txt'), 'a', encoding = 'utf-8') as bledy:
+                    with io.open(os.path.join(sciezka_dane, 'BLEDY_XML.txt'), 'a', encoding='utf-8') as bledy:
                         bledy.write('BRAK ODPOWIEDNIKA W DANYCH\t'+os.path.join(subdir, file))
                     break
                 dane.seek(0)
-                for line in dane:   
+                for line in dane:
                     if line.split('\t')[0] == os.path.splitext(file)[0]:
                         nrope, przyjecie, data, opis2, opis = line.split('\t')
                         opis = opis.split('\n')[0]
-                    
+
             try:
-                with io.open(xml, 'r', encoding = 'utf-8') as oxml:
+                with io.open(xml, 'r', encoding='utf-8') as oxml:
                     for line in oxml:
                         if 'dataPrzyjecia' in line and przyjecie != '':
                             line = '    <pzg_dataPrzyjecia>'+str(przyjecie)+'</pzg_dataPrzyjecia>\n'
@@ -80,9 +84,10 @@ for subdir, dirs, files in os.walk(sciezka):
                         elif cel == 1 and 'pzg_cel' in line and pzg_cel != '':
                             linie.append(pzg_cel+'\n')
                             do_rodzaju = regex.match('^.*<pzg_cel>(.*)</pzg.*', pzg_cel)[1]
-                            with io.open(os.path.join(sciezka_dane, 'rodzaje.txt'), 'r', encoding = 'utf-8') as rodzaje:
+                            with io.open(os.path.join(sciezka_dane, 'rodzaje.txt'), 'r', encoding='utf-8') as rodzaje:
                                 if not any(line.split('\t')[0] == do_rodzaju for line in rodzaje):
-                                    with io.open(os.path.join(sciezka_dane, 'BLEDY_XML.txt'), 'a', encoding = 'utf-8') as bledy:
+                                    with io.open(os.path.join(sciezka_dane, 'BLEDY_XML.txt'), 'a',
+                                                 encoding='utf-8') as bledy:
                                         bledy.write('BRAK RODZAJU DLA TEGO CELU\t'+os.path.join(subdir, file))
                                     trzy = ''
                                     continue
@@ -94,9 +99,10 @@ for subdir, dirs, files in os.walk(sciezka):
                         elif cel == 1 and 'celArchiwalny' in line and archiwalny != '':
                             linie.append(archiwalny+'\n')
                             do_rodzaju = regex.match('^.*<celArchiwalny>(.*)</cel.*', archiwalny)[1]
-                            with io.open(os.path.join(sciezka_dane, 'rodzaje.txt'), 'r', encoding = 'utf-8') as rodzaje:
+                            with io.open(os.path.join(sciezka_dane, 'rodzaje.txt'), 'r', encoding='utf-8') as rodzaje:
                                 if not any(line.split('\t')[1] == do_rodzaju for line in rodzaje):
-                                    with io.open(os.path.join(sciezka_dane, 'BLEDY_XML.txt'), 'a', encoding = 'utf-8') as bledy:
+                                    with io.open(os.path.join(sciezka_dane, 'BLEDY_XML.txt'), 'a',
+                                                 encoding='utf-8') as bledy:
                                         bledy.write('BRAK RODZAJU DLA TEGO CELU\t'+os.path.join(subdir, file))
                                     trzy = ''
                                     continue
@@ -111,15 +117,15 @@ for subdir, dirs, files in os.walk(sciezka):
                         else:
                             linie.append(line)
 
-                with io.open(xml, 'w', encoding = 'utf-8') as wxml:
+                with io.open(xml, 'w', encoding='utf-8') as wxml:
                     for i in linie:
                         wxml.write(i)
 
                 print(count)
                 count += 1
-                        
+
             except UnicodeDecodeError:
-                with io.open(os.path.join(sciezka_dane, 'BLEDY_XML.txt'), 'a', encoding = 'utf-8') as bledy:
+                with io.open(os.path.join(sciezka_dane, 'BLEDY_XML.txt'), 'a', encoding='utf-8') as bledy:
                     bledy.write('BŁĘDNE KODOWANIE XMLa\t'+os.path.join(subdir, file))
                 continue
 

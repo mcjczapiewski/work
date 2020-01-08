@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 
-    #import bibliotek
-import os, datetime
+# import bibliotek
+import os
+import datetime
 
-    #zmienna-licznik przeskanowanych folderow i separator
+# zmienna-licznik przeskanowanych folderow i separator
 czysazdjecia = countope = 0
 lines_seen = set()
 
-    #aktualna data i godzina
+# aktualna data i godzina
 czasstart = datetime.datetime.now()
 print("~~~~~~START~~~~~~\t" + str(czasstart).split('.')[0])
 
-    #usunac jesli stosujemy rootdir a w os.walk() wstawic 'rootdir'
+# usunac jesli stosujemy rootdir a w os.walk() wstawic 'rootdir'
 print('\nPodaj ścieżkę ddo sprawdzania wykonawców:')
 sprwyk = input()
 print('\nPodaj ścieżkę dla ew. pliku z błędami:')
@@ -20,12 +21,12 @@ bledny = sciezka+'\\'+os.path.basename(os.path.normpath(sciezka))+'_'+czasstart.
 print('\nPlik zostanie umieszczony w:\n' + bledny)
 input("\nWciśnij ENTER aby kontynuować...")
 
-with open (r'V:\Dane robocze\maciej\regexy_formuly_skrypty_polecenia\spis_wykonawcow_zambrowski.txt', 'r') as spiswyk:
+with open(r'V:\Dane robocze\maciej\regexy_formuly_skrypty_polecenia\spis_wykonawcow_zambrowski.txt', 'r') as spiswyk:
     for line in spiswyk:
         lines_seen.add(line.rstrip('\n'))
 
-##for _, dirnames, _ in os.walk(sprwyk):
-##    countope += len(dirnames)
+# for _, dirnames, _ in os.walk(sprwyk):
+#     countope += len(dirnames)
 
 for subdir, dirs, files in os.walk(sprwyk):
     print(countope)
@@ -39,14 +40,13 @@ for subdir, dirs, files in os.walk(sprwyk):
                         if line.rstrip('\n') not in lines_seen:
                             with open(bledny, 'a') as bl:
                                 bl.write(line)
-                
-            
-    #czas trwania calego skryptu
+
+# czas trwania calego skryptu
 czaskoniec = datetime.datetime.now()
 roznicaczas = czaskoniec - czasstart
 czastrwania = roznicaczas.total_seconds()/60
-print ('\nCałość zajęła (minuty):')
-print ("%.2f" % czastrwania)
+print('\nCałość zajęła (minuty):')
+print("%.2f" % czastrwania)
 print("\n~~~~~~KONIEC~~~~~~\t" + str(czaskoniec).split('.')[0])
 
 input('Wciśnij ENTER aby wyjść...')
