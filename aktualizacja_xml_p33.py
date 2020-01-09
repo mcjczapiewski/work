@@ -51,7 +51,7 @@ for subdir, dirs, files in os.walk(sciezka):
             #                     wxml.write(i)
 
             with io.open(xml, 'r', encoding='utf-8') as oxml:
-                if not any(regex.match('^.*<nazwa></nazwa>.*$', line)
+                if not any(regex.match(r'^.*<nazwa></nazwa>.*$', line)
                            for line in oxml):
                     continue
                 print(count)
@@ -59,8 +59,8 @@ for subdir, dirs, files in os.walk(sciezka):
                 oxml.seek(0)
                 for line in oxml:
                     if '<nazwa></nazwa>' in line:
-                        line = regex.sub('(^.+?[>])(.*?)([<].+$)',
-                                         '\g<1>TWÓRCA NIEZNANY\g<3>', line)
+                        line = regex.sub(r'(^.+?[>])(.*?)([<].+$)',
+                                         r'\g<1>TWÓRCA NIEZNANY\g<3>', line)
                         linie.append(line)
                     else:
                         linie.append(line)

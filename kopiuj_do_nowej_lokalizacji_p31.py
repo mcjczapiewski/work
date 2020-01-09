@@ -1,4 +1,6 @@
-import os, shutil, io
+import os
+import shutil
+import io
 from natsort import natsorted, natsort_keygen
 nkey = natsort_keygen()
 
@@ -21,17 +23,19 @@ for subdir, dirs, files in os.walk(stad):
 
         if ope_doc == ope_glowny:
             for file in natsorted(files):
-                if file.upper().endswith(('.TXT', '.WKT', '.XML', '.KCD', '.DXF', '.DWG', '.DGN', '.TFW', '.DAT')):
+                if file.upper().endswith(('.TXT', '.WKT', '.XML', '.KCD', '.DXF', '.DWG', '.DGN',
+                                          '.TFW', '.DAT')):
                     plik = os.path.join(glowny, file)
                     doc_plik = os.path.join(doc, file)
-                    
+
                     try:
                         shutil.copy(plik, doc_plik)
                         print(count)
                         count += 1
 
                     except:
-                        with io.open(os.path.join(stad, 'nie_skopiowano.txt'), 'a', encoding = 'utf-8') as bledy:
-                            bledy.write(plik+'\n')
+                        with io.open(os.path.join(stad, 'nie_skopiowano.txt'), 'a',
+                                     encoding='utf-8') as bledy:
+                            bledy.write(plik + '\n')
 
 input('\nKONIEC.')

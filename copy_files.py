@@ -14,11 +14,11 @@ print("~~~~~~START~~~~~~\t" + str(czasstart).split('.')[0])
 print('\nPodaj ścieżkę, w której znajduje się plik lista.txt (plik_zrodlowy \
 TABULATOR folder_docelowy; kodowanie pliku txt w ANSI):')
 plik_lista = input()
-textfile = plik_lista+'\\lista.txt'
+textfile = plik_lista + '\\lista.txt'
 print('\nPodaj lokalizację dla pliku z błędami:')
 sciezka = input()
 wynikowy = os.path.basename(os.path.normpath(sciezka))
-bledny = sciezka+'\\'+wynikowy+'_BLEDY_'+czasstart.strftime('%Y-%m-%d')+'.txt'
+bledny = sciezka + '\\' + wynikowy + '_BLEDY_' + czasstart.strftime('%Y-%m-%d') + '.txt'
 print('\nPodaj nazwę okna skryptu:')
 nazwaokna = input()
 ctypes.windll.kernel32.SetConsoleTitleW(nazwaokna)
@@ -31,7 +31,7 @@ with open(textfile, 'r') as otxtl:
     for line in otxtl:
         alllines += 1
 
-input('\nPlików do przeniesienia: '+str(alllines)+'\n\nWciśnij ENTER aby kontynuować...')
+input('\nPlików do przeniesienia: ' + str(alllines) + '\n\nWciśnij ENTER aby kontynuować...')
 
 # glowna petla
 with open(textfile, 'r') as otxt:
@@ -55,17 +55,17 @@ with open(textfile, 'r') as otxt:
                 shutil.copy2(sourcefile, destpath)
             except:
                 with open(bledny, 'a') as bl:
-                    bl.write('Wystąpił nieokreślony błąd w linii:\t'+str(line_nb)+'\r\n')
+                    bl.write('Wystąpił nieokreślony błąd w linii:\t' + str(line_nb) + '\r\n')
                     continue
         else:
             with open(bledny, 'a') as bl:
-                bl.write('Plik z linii nr ~~'+str(line_nb)+'~~ już nie istnieje!\r\n')
+                bl.write('Plik z linii nr ~~' + str(line_nb) + '~~ już nie istnieje!\r\n')
         line_nb += 1
 
 # czas trwania calego skryptu
 czaskoniec = datetime.datetime.now()
 roznicaczas = czaskoniec - czasstart
-czastrwania = roznicaczas.total_seconds()/60
+czastrwania = roznicaczas.total_seconds() / 60
 print('\nCałość zajęła (minuty):')
 print("%.2f" % czastrwania)
 print("\n~~~~~~KONIEC~~~~~~\t" + str(czaskoniec).split('.')[0])

@@ -77,18 +77,16 @@ for subdir, dirs, files in os.walk(liczenie):
 
             except:
                 with open(bledny, 'a') as bl:
-                    bl.write('Nie udało się otworzyć zdjęcia: '
-                             + filename + '\r\n')
+                    bl.write('Nie udało się otworzyć zdjęcia: ' + filename + '\r\n')
 
             if xdpi < 300 or ydpi < 300:
                 with codecs.open(bledny, 'a', 'utf-8') as bl:
-                    bl.write(str(xdpi) + '\t' + str(ydpi) + '\t' + filename
-                             + '\r\n')
+                    bl.write(str(xdpi) + '\t' + str(ydpi) + '\t' + filename + '\r\n')
 
 # czas trwania calego skryptu
 czaskoniec = datetime.datetime.now()
 roznicaczas = czaskoniec - czasstart
-czastrwania = roznicaczas.total_seconds()/60
+czastrwania = roznicaczas.total_seconds() / 60
 print('\nCałość zajęła (minuty):')
 print("%.2f" % czastrwania)
 print("\n~~~~~~KONIEC~~~~~~\t" + str(czaskoniec).split('.')[0])

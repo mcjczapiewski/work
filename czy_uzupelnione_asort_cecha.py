@@ -18,8 +18,8 @@ print('\nPodaj ścieżkę do sprawdzania opisów:')
 sprnr = input()
 print('\nPodaj ścieżkę dla ew. pliku z błędami:')
 sciezka = input()
-bledny = (sciezka+'\\' + os.path.basename(os.path.normpath(sciezka))
-          + '_BLEDY_' + czasstart.strftime('%Y-%m-%d') + '.txt')
+bledny = sciezka + '\\' + os.path.basename(os.path.normpath(sciezka))\
+    + '_BLEDY_' + czasstart.strftime('%Y-%m-%d') + '.txt'
 print('\nPlik zostanie umieszczony w:\n' + bledny)
 input("\nWciśnij ENTER aby kontynuować...")
 dane = r'D:\_MACIEK_\cyfryzacja_wloclawski\G_lubanie\asor_cecha.txt'
@@ -32,7 +32,7 @@ for subdir, dirs, _ in os.walk(sprnr):
         nrope = os.path.basename(subdir)
         opis = os.path.join(subdir, 'opis.txt')
         if os.path.exists(opis):
-            print(str(countope)+'\t'+nrope)
+            print(str(countope) + '\t' + nrope)
             countope += 1
             try:
                 with open(dane, 'r') as d:
@@ -45,22 +45,22 @@ for subdir, dirs, _ in os.walk(sprnr):
                                 with open(opis, 'r') as o:
                                     if not any(regex.match('^A:.+', line) for line in o):
                                         with open(bledny, 'a') as bl:
-                                            bl.write(opis+'\tasortyment nieuzupełniony\n')
+                                            bl.write(opis + '\tasortyment nieuzupełniony\n')
                             elif str(asor) == 'JEST':
                                 with open(opis, 'r') as o:
                                     if any(regex.match('^A:.+', line) for line in o):
                                         with open(bledny, 'a') as bl:
-                                            bl.write(opis+'\tasortyment niepotrzebnie uzupełniony\n')
+                                            bl.write(opis + '\tasortyment niepotrzebnie uzupełniony\n')
                             if str(cecha) == 'BRAK':
                                 with open(opis, 'r') as o:
                                     if not any(regex.match('^C:.+', line) for line in o):
                                         with open(bledny, 'a') as bl:
-                                            bl.write(opis+'\tcecha nieuzupełniona\n')
+                                            bl.write(opis + '\tcecha nieuzupełniona\n')
                             elif cecha == 'JEST':
                                 with open(opis, 'r') as o:
                                     if any(regex.match('^C:.+', line) for line in o):
                                         with open(bledny, 'a') as bl:
-                                            bl.write(opis+'\tcecha niepotrzenie uzupełniona\n')
+                                            bl.write(opis + '\tcecha niepotrzenie uzupełniona\n')
             except:
                 continue
         # else:
@@ -70,7 +70,7 @@ for subdir, dirs, _ in os.walk(sprnr):
 # czas trwania calego skryptu
 czaskoniec = datetime.datetime.now()
 roznicaczas = czaskoniec - czasstart
-czastrwania = roznicaczas.total_seconds()/60
+czastrwania = roznicaczas.total_seconds() / 60
 print('\nCałość zajęła (minuty):')
 print("%.2f" % czastrwania)
 print("\n~~~~~~KONIEC~~~~~~\t" + str(czaskoniec).split('.')[0])

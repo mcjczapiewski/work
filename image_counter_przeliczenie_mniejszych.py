@@ -1,118 +1,122 @@
-# -*- coding: cp1250 -*-
+# -*- coding: utf-8 -*-
 
-	#import bibliotek
+# import bibliotek
 from PIL import Image
-import os, math, datetime, ctypes
+import os
+import math
+import datetime
+import ctypes
 
 Image.MAX_IMAGE_PIXELS = None
 
-	#zmienna-licznik przeskanowanych folderow i separator
+# zmienna-licznik przeskanowanych folderow i separator
 countope = 0
 separ = '\t'
 
-	#aktualna data i godzina
+# aktualna data i godzina
 czasstart = datetime.datetime.now()
 print("~~~~~~START~~~~~~\t" + str(czasstart).split('.')[0])
 
-	#usunac jesli stosujemy rootdir a w os.walk() wstawic 'rootdir'
-print('\nPodaj dok³adn¹ œcie¿kê folderu, z którego chcesz liczyæ strony:')
+# usunac jesli stosujemy rootdir a w os.walk() wstawic 'rootdir'
+print('\nPodaj dokÅ‚adnÄ… Å›cieÅ¼kÄ™ folderu, z ktÃ³rego chcesz liczyÄ‡ strony:')
 liczenie = input()
-print('\nPodaj œcie¿kê dla pliku wynikowego:')
+print('\nPodaj Å›cieÅ¼kÄ™ dla pliku wynikowego:')
 sciezka = input()
 wynikowy = os.path.basename(os.path.normpath(sciezka))
-plikwynik = sciezka+'\\'+wynikowy+'_zliczone_strony_'+czasstart.strftime('%Y-%m-%d')+'.txt'
+plikwynik = sciezka + '\\' + wynikowy + '_zliczone_strony_' + czasstart.strftime('%Y-%m-%d') + '.txt'
 print('\nPlik zostanie umieszczony w:\n' + plikwynik)
-bledny = sciezka+'\\'+wynikowy+'_BLEDY_'+czasstart.strftime('%Y-%m-%d')+'.txt'
-print('\nPodaj nazwê okna skryptu:')
+bledny = sciezka + '\\' + wynikowy + '_BLEDY_' + czasstart.strftime('%Y-%m-%d') + '.txt'
+print('\nPodaj nazwÄ™ okna skryptu:')
 nazwaokna = input()
 ctypes.windll.kernel32.SetConsoleTitleW(nazwaokna)
-input("\nWciœnij ENTER aby kontynuowaæ...")
-print('\nTrwa liczenie folderów, poczekaj chwilkê...\n')
+input("\nWciÅ›nij ENTER aby kontynuowaÄ‡...")
+print('\nTrwa liczenie folderow, poczekaj chwilkÄ™...\n')
 
-	#petla liczaca foldery
+# petla liczaca foldery
 for _, dirnames, _ in os.walk(liczenie):
   # ^ this idiom means "we won't be using this value"
-	countope += len(dirnames)
+    countope += len(dirnames)
 
-	#utworzenie wynikowego pliku tekstowego z pierwsza linijka zawierajaca opisy kolumn
-with open (plikwynik, 'a') as wynik:
-	wynik.write('Numer operatu\tA0\tA1\tA2\tA3\tA4\tniewymiarowe przeliczone na A4\tSUMA A4\n')
+# utworzenie wynikowego pliku tekstowego z pierwsza linijka zawierajaca opisy kolumn
+with open(plikwynik, 'a') as wynik:
+    wynik.write('Numer operatu\tA0\tA1\tA2\tA3\tA4\tniewymiarowe przeliczone na A4\tSUMA A4\n')
 
-	#glowna petla
+# glowna petla
 for subdir, dirs, files in os.walk(liczenie):
-	dirs.sort()
+    dirs.sort()
 
-		#rozbija sciezke do folderu i bierze tylko ostatni czlon jako numer operatu
-	nrope = os.path.basename(os.path.normpath(subdir))
-	
-		#deklaracja zmiennych
-	A0 = A1 = A2 = A3 = A4 = A4r = resized = 0
-		
-		#licznik petli, wskazujacy aktualnie skanowany folder z operatem
-	print (countope,separ,nrope)
-	countope -= 1
-	
-		#poczatek petli skanujacej pliki jpg
-	for file in sorted(files):
-		if file.endswith('.jpg'):
-				
-				#tworzenie pelnej sciezki do skanowanego pliku na podstawie sciezki folderu i nazwy pliku
-			filename = os.path.join(subdir, file)
-			
-			try:
-			
-					#otwarcie zdjecia
-				img = Image.open(filename)
-				
-					#czy jest informacja o DPI zdjecia
-				if img.info.get('dpi'):
-					
-						#odczytanie i spisanie wartosci pikseli i dpi
-					width, height = img.size
-					xdpi, ydpi = img.info['dpi']
-					
-						#obliczenie ;pola powierzchni; danego zdjecia
-					imagearea = float(((width * height)/(xdpi * ydpi)))
-						
-						#zalozenia typu ;co jesli zdjecie ma wymiar;
-					if 96 < imagearea < 97:
-						A4 += 1
-					elif 192.5 < imagearea < 194:
-						A3 += 1
-					elif 385 < imagearea < 388:
-						A2 += 1
-					elif 772 < imagearea < 775:
-						A1 += 1
-					elif 1544 < imagearea < 1549:
-						A0 += 1
-						
-						#jesli nie miesci sie w zadnym przedziale, to suma powierzchni dzielona przez pole powierzchni kartki A4
-					else:
-						resized = float(resized + imagearea)
-				
-					#jesli zdjecie nie ma DPI zapisz komunikat
-				else:
-					with open (bledny, 'a') as bl:
-						bl.write('Zdjêcie nie ma DPI: '+filename+'\n')
-			
-			except:
-				with open (bledny, 'a') as bl:
-					bl.write('Nie uda³o siê otworzyæ zdjêcia: '+filename+'\n')
-			
-		#math.ceil zaokragla zawsze w gore
-	A4r = int(math.ceil(float(resized/96.665)))
-	A4sum = A4+(A3*2)+(A2*4)+(A1*8)+(A0*16)+A4r
-		
-		#zapis otrzymanych wynikow z danego folderu do wskazanego pliku wynikowego
-	with open (plikwynik, 'a') as wynik:
-		wynik.write(nrope+'\t'+str(A0)+'\t'+str(A1)+'\t'+str(A2)+'\t'+str(A3)+'\t'+str(A4)+'\t'+str(A4r)+'\t'+str(A4sum)+'\n')
+    # rozbija sciezke do folderu i bierze tylko ostatni czlon jako numer operatu
+    nrope = os.path.basename(os.path.normpath(subdir))
 
-	#czas trwania calego skryptu
+    # deklaracja zmiennych
+    A0 = A1 = A2 = A3 = A4 = A4r = resized = 0
+
+    # licznik petli, wskazujacy aktualnie skanowany folder z operatem
+    print(countope, separ, nrope)
+    countope -= 1
+
+    # poczatek petli skanujacej pliki jpg
+    for file in sorted(files):
+        if file.endswith('.jpg'):
+
+            # tworzenie pelnej sciezki do skanowanego pliku na podstawie sciezki folderu i nazwy pliku
+            filename = os.path.join(subdir, file)
+
+            try:
+                # otwarcie zdjecia
+                img = Image.open(filename)
+
+                # czy jest informacja o DPI zdjecia
+                if img.info.get('dpi'):
+
+                    # odczytanie i spisanie wartosci pikseli i dpi
+                    width, height = img.size
+                    xdpi, ydpi = img.info['dpi']
+
+                    # obliczenie ;pola powierzchni; danego zdjecia
+                    imagearea = float(((width * height) / (xdpi * ydpi)))
+
+                    # zalozenia typu ;co jesli zdjecie ma wymiar;
+                    if 96 < imagearea < 97:
+                        A4 += 1
+                    elif 192.5 < imagearea < 194:
+                        A3 += 1
+                    elif 385 < imagearea < 388:
+                        A2 += 1
+                    elif 772 < imagearea < 775:
+                        A1 += 1
+                    elif 1544 < imagearea < 1549:
+                        A0 += 1
+
+                    # jesli nie miesci sie w zadnym przedziale, to suma powierzchni
+                    # dzielona przez pole powierzchni kartki A4
+                    else:
+                        resized = float(resized + imagearea)
+
+                # jesli zdjecie nie ma DPI zapisz komunikat
+                else:
+                    with open(bledny, 'a') as bl:
+                        bl.write('ZdjÄ™cie nie ma DPI: ' + filename + '\n')
+
+            except:
+                with open(bledny, 'a') as bl:
+                    bl.write('Nie udaÅ‚o siÄ™ otworzyÄ‡ zdjÄ™cia: ' + filename + '\n')
+
+    # math.ceil zaokragla zawsze w gore
+    A4r = int(math.ceil(float(resized / 96.665)))
+    A4sum = A4 + (A3 * 2) + (A2 * 4) + (A1 * 8) + (A0 * 16) + A4r
+
+    # zapis otrzymanych wynikow z danego folderu do wskazanego pliku wynikowego
+    with open(plikwynik, 'a') as wynik:
+        wynik.write(nrope + '\t' + str(A0) + '\t' + str(A1) + '\t' + str(A2) + '\t')
+        wynik.write(str(A3) + '\t' + str(A4) + '\t' + str(A4r) + '\t' + str(A4sum) + '\n')
+
+# czas trwania calego skryptu
 czaskoniec = datetime.datetime.now()
 roznicaczas = czaskoniec - czasstart
-czastrwania = roznicaczas.total_seconds()/60
-print ('\nCa³oœæ zajê³a (minuty):')
-print ("%.2f" % czastrwania)
+czastrwania = roznicaczas.total_seconds() / 60
+print('\nCaÅ‚oÅ›Ä‡ zajÄ™a (minuty):')
+print("%.2f" % czastrwania)
 print("\n~~~~~~KONIEC~~~~~~\t" + str(czaskoniec).split('.')[0])
 
-input('Wciœnij ENTER aby wyjœæ...')
+input('WciÅ›nij ENTER aby wyjÅ›Ä‡...')

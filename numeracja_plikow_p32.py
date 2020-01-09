@@ -36,7 +36,6 @@ for subdir, dirs, files in os.walk(sciezka):
             plik = os.path.join(subdir, file)
             # jak numer tomu w nazwie to dzieli inaczej
             if regex.match('^T.+', file):
-                break
                 nr_tomu = 1
                 try:
                     tom = regex.match('(^T.*?[.])([0-9])', file)[1]
@@ -71,9 +70,9 @@ for subdir, dirs, files in os.walk(sciezka):
                 if not strona == kolejna:
                     strona = kolejna
                 # nowa nazwa dokumentu
-                nowy = (poczatek + str(kolejny).zfill(2) + '_'
-                        + str(strona).zfill(dopelnij) + '_'
-                        + file.split('_')[2])
+                nowy = poczatek + str(kolejny).zfill(2) + '_'\
+                    + str(strona).zfill(dopelnij) + '_'\
+                    + file.split('_')[2]
                 # drukuje sciezke do operatu, if po to, zeby nie robil tego
                 # wiecej niz raz na folder
                 if podaj_ope == 0:
@@ -81,12 +80,12 @@ for subdir, dirs, files in os.walk(sciezka):
                     podaj_ope = 1
                 print(file + '\t' + nowy)
                 # podjecie proby zmiany nazwy, inaczej do tekstowego
-                # try:
-                #     os.rename(plik, os.path.join(subdir, nowy))
-                # except:
-                #     with io.open(os.path.join(sciezka, 'bledy_nazywania.txt'),
-                #                  'a', encoding='utf-8') as blad:
-                #         blad.write(plik + '\n')
+                try:
+                    os.rename(plik, os.path.join(subdir, nowy))
+                except:
+                    with io.open(os.path.join(sciezka, 'bledy_nazywania.txt'),
+                                 'a', encoding='utf-8') as blad:
+                        blad.write(plik + '\n')
                 # zmienne dla zachowania aktualnych numerow do sprawdzenia
                 # poprawnosci w kolejnej iteracji petli
                 numerek = kolejny
@@ -98,53 +97,53 @@ for subdir, dirs, files in os.walk(sciezka):
             if dokument == taki_sam and zmien != 1 and kolejny != 0:
                 if not strona == kolejna:
                     strona = kolejna
-                nowy = (poczatek + str(numerek).zfill(2) + '_'
-                        + str(strona).zfill(dopelnij) + '_'
-                        + file.split('_')[2])
+                nowy = poczatek + str(numerek).zfill(2) + '_'\
+                    + str(strona).zfill(dopelnij) + '_'\
+                    + file.split('_')[2]
                 if podaj_ope == 0:
                     print('\n\n' + subdir)
                     podaj_ope = 1
                 print(file + '\t' + nowy)
-                # try:
-                #     os.rename(plik, os.path.join(subdir, nowy))
-                # except:
-                #     with io.open(os.path.join(sciezka, 'bledy_nazywania.txt'),
-                #                  'a', encoding='utf-8') as blad:
-                #         blad.write(plik + '\n')
+                try:
+                    os.rename(plik, os.path.join(subdir, nowy))
+                except:
+                    with io.open(os.path.join(sciezka, 'bledy_nazywania.txt'),
+                                 'a', encoding='utf-8') as blad:
+                        blad.write(plik + '\n')
                 zmien = 1
 
             # jezli zmiany w numerze dokumentu nie powinny zajść to sprawdza
             # czy numer strony powienien sie zminic
             if not strona == kolejna and zmien != 1:
                 strona = kolejna
-                nowy = (poczatek + str(dokument).zfill(2) + '_'
-                        + str(strona).zfill(dopelnij) + '_'
-                        + file.split('_')[2])
+                nowy = poczatek + str(dokument).zfill(2) + '_'\
+                    + str(strona).zfill(dopelnij) + '_'\
+                    + file.split('_')[2]
                 if podaj_ope == 0:
                     print('\n\n' + subdir)
                     podaj_ope = 1
                 print(file + '\t' + nowy)
-                # try:
-                #     os.rename(plik, os.path.join(subdir, nowy))
-                # except:
-                #     with io.open(os.path.join(sciezka, 'bledy_nazywania.txt'),
-                #                  'a', encoding='utf-8') as blad:
-                #         blad.write(plik + '\n')
+                try:
+                    os.rename(plik, os.path.join(subdir, nowy))
+                except:
+                    with io.open(os.path.join(sciezka, 'bledy_nazywania.txt'),
+                                 'a', encoding='utf-8') as blad:
+                        blad.write(plik + '\n')
 
             if dokument == kolejny and zmien != 1:
                 kolejny += 1
             kolejna += 1
 
     # czysci nn_ z nowych nazw
-    # for _, _, files in os.walk(subdir):
-    #     for file in natsorted(files):
-    #         if file.startswith('nn_'):
-    #             plik = os.path.join(subdir, file)
-    #             try:
-    #                 os.rename(plik, os.path.join(subdir, file.split('nn_')[1]))
-    #             except:
-    #                 with io.open(os.path.join(sciezka, 'bledy_usun_nn.txt'),
-    #                              'a', encoding='utf-8') as blad:
-    #                     blad.write(plik + '\n')
+    for _, _, files in os.walk(subdir):
+        for file in natsorted(files):
+            if file.startswith('nn_'):
+                plik = os.path.join(subdir, file)
+                try:
+                    os.rename(plik, os.path.join(subdir, file.split('nn_')[1]))
+                except:
+                    with io.open(os.path.join(sciezka, 'bledy_usun_nn.txt'),
+                                 'a', encoding='utf-8') as blad:
+                        blad.write(plik + '\n')
 
 input('\nKONIEC.')

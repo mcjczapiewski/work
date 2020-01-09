@@ -20,8 +20,8 @@ print('\nPodaj ścieżkę do sprawdzania opisów:')
 sprnr = input()
 print('\nPodaj ścieżkę dla ew. pliku z błędami:')
 sciezka = input()
-bledny = (sciezka + '\\' + os.path.basename(os.path.normpath(sciezka)) + '_BLEDY_'
-          + czasstart.strftime('%Y-%m-%d') + '.txt')
+bledny = sciezka + '\\' + os.path.basename(os.path.normpath(sciezka)) + '_BLEDY_'\
+    + czasstart.strftime('%Y-%m-%d') + '.txt'
 print('\nPlik zostanie umieszczony w:\n' + bledny)
 input("\nWciśnij ENTER aby kontynuować...")
 # print('\nLiczę foldery...')
@@ -39,7 +39,7 @@ for subdir, dirs, _ in os.walk(sprnr):
 
     opis = os.path.join(subdir, 'opis.txt')
     if os.path.exists(opis):
-        print(str(countope)+'\t'+nrope)
+        print(str(countope) + '\t' + nrope)
         countope += 1
         try:
             with io.open(opis, 'r', encoding='utf-8') as f:
@@ -67,8 +67,8 @@ for subdir, dirs, _ in os.walk(sprnr):
                         if slash > 0:
                             if not przecinek == slash - 1:
                                 with io.open(bledny, 'a', encoding='utf-8') as bl:
-                                    bl.write('Błąd w działkach przed podziałem.\t'
-                                             + str(linia) + '\t' + subdir + '\n')
+                                    bl.write('Błąd w działkach przed podziałem.\t')
+                                    bl.write(str(linia) + '\t' + subdir + '\n')
 
                         przecinek = slash = 0
 
@@ -80,7 +80,8 @@ for subdir, dirs, _ in os.walk(sprnr):
                                 slash += 1
                         if not przecinek == slash - 1:
                             with io.open(bledny, 'a', encoding='utf-8') as bl:
-                                bl.write('Błąd w działkach PO podziale.\t'+str(linia)+'\t'+subdir+'\n')
+                                bl.write('Błąd w działkach PO podziale.\t')
+                                bl.write(str(linia) + '\t' + subdir + '\n')
         except UnicodeDecodeError:
             with open(opis, 'r') as f:
                 linia = 0
@@ -107,8 +108,8 @@ for subdir, dirs, _ in os.walk(sprnr):
                         if slash > 0:
                             if not przecinek == slash - 1:
                                 with io.open(bledny, 'a', encoding='utf-8') as bl:
-                                    bl.write('Błąd w działkach przed podziałem.\t'
-                                             + str(linia) + '\t' + subdir + '\n')
+                                    bl.write('Błąd w działkach przed podziałem.\t')
+                                    bl.write(str(linia) + '\t' + subdir + '\n')
 
                         przecinek = slash = 0
 
@@ -120,16 +121,17 @@ for subdir, dirs, _ in os.walk(sprnr):
                                 slash += 1
                         if not przecinek == slash - 1:
                             with io.open(bledny, 'a', encoding='utf-8') as bl:
-                                bl.write('Błąd w działkach PO podziale.\t'+str(linia)+'\t'+subdir+'\n')
+                                bl.write('Błąd w działkach PO podziale.\t')
+                                bl.write(str(linia) + '\t' + subdir + '\n')
 
         except:
             with io.open(r'D:\_MACIEK_\python_proby\bledy_otwarcia.txt', 'a', encoding='utf-8') as bl:
-                bl.write(subdir+'\n')
+                bl.write(subdir + '\n')
 
 # czas trwania calego skryptu
 czaskoniec = datetime.datetime.now()
 roznicaczas = czaskoniec - czasstart
-czastrwania = roznicaczas.total_seconds()/60
+czastrwania = roznicaczas.total_seconds() / 60
 print('\nCałość zajęła (minuty):')
 print("%.2f" % czastrwania)
 print("\n~~~~~~KONIEC~~~~~~\t" + str(czaskoniec).split('.')[0])

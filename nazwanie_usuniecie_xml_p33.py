@@ -1,4 +1,6 @@
-import os, regex, io
+import os
+import regex
+import io
 from natsort import natsorted, natsort_keygen
 nkey = natsort_keygen()
 
@@ -15,21 +17,21 @@ for subdir, dirs, files in os.walk(sciezka):
             print(count)
             count += 1
             xml = os.path.join(subdir, file)
-            with io.open(xml, 'r', encoding = 'utf-8') as oxml:
+            with io.open(xml, 'r', encoding='utf-8') as oxml:
                 for line in oxml:
                     if 'nazwa_xml' in line:
                         try:
                             nazwa = regex.match('^.+?>(.+)<.+', line)[1]
                         except:
-                            print('BRAK NAZWY W XML\t'+xml)
+                            print('BRAK NAZWY W XML\t' + xml)
                     else:
                         linie.append(line)
-            with io.open(xml, 'w', encoding = 'utf-8') as wxml:
+            with io.open(xml, 'w', encoding='utf-8') as wxml:
                 for i in linie:
                     wxml.write(i)
             try:
-                os.rename(xml, os.path.join(subdir, nazwa+os.path.splitext(file)[1]))
+                os.rename(xml, os.path.join(subdir, nazwa + os.path.splitext(file)[1]))
             except:
-                print('NAZWA NIE ZMIENIONA\t'+xml)
+                print('NAZWA NIE ZMIENIONA\t' + xml)
 
 input('KONIEC.')

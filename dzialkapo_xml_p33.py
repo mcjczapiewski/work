@@ -16,13 +16,13 @@ for subdir, dirs, files in os.walk(sciezka):
     for file in natsorted(files):
         if file.upper().endswith('.XML'):
             xml = os.path.join(subdir, file)
-            print(str(count)+'\t'+subdir)
+            print(str(count) + '\t' + subdir)
             count += 1
             dzialki = set()
             with io.open(xml, 'r', encoding='utf-8') as oxml:
-                if (any(regex.match(r'^.+dzialkaPrzed.+04.+', line) for line in oxml)
-                        and not any(regex.match(r'^.+dzialkaPo.+04.+', line) for line in oxml)):
-                    nowyxml = os.path.join(subdir, os.path.splitext(file)[0]+'_nowy.xml')
+                if (any(regex.match(r'^.+dzialkaPrzed.+04.+', line) for line
+                        in oxml) and not any(regex.match(r'^.+dzialkaPo.+04.+', line) for line in oxml)):
+                    nowyxml = os.path.join(subdir, os.path.splitext(file)[0] + '_nowy.xml')
                     with io.open(xml, 'r', encoding='utf-8') as oxml:
                         with io.open(nowyxml, 'a', encoding='utf-8') as nxml:
                             for line in oxml:
@@ -32,12 +32,12 @@ for subdir, dirs, files in os.walk(sciezka):
                                     dzialki.add(przed)
                                 elif 'dzialkaPo' in line:
                                     for i in dzialki:
-                                        nxml.write('    <dzialkaPo>'+str(i)+'</dzialkaPo>\n')
+                                        nxml.write('    <dzialkaPo>' + str(i) + '</dzialkaPo>\n')
                                 else:
                                     nxml.write(line)
                     with io.open(r'D:\_MACIEK_\python_proby\p33\dzialka_po_xml\zmienionexml.txt',
                                  'a', encoding='utf-8') as zmienione:
-                        zmienione.write(xml+'\n')
+                        zmienione.write(xml + '\n')
 
 
 with io.open(r'D:\_MACIEK_\python_proby\p33\dzialka_po_xml\zmienionexml.txt', 'r', encoding='utf-8') as usun:

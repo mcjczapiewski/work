@@ -11,11 +11,11 @@ print("~~~~~~START~~~~~~\t" + str(czasstart).split('.')[0])
 
 print('\nPodaj ścieżkę, w której znajduje się plik sprawdzaj.txt (format ANSI) :')
 plik_lista = input()
-textfile = plik_lista+'\\sprawdzaj.txt'
+textfile = plik_lista + '\\sprawdzaj.txt'
 print('\nPodaj lokalizację dla pliku z błędami:')
 sciezka = input()
 wynikowy = os.path.basename(os.path.normpath(sciezka))
-bledny = sciezka+'\\'+wynikowy+'_NIEISTNIEJACE_'+czasstart.strftime('%Y-%m-%d')+'.txt'
+bledny = sciezka + '\\' + wynikowy + '_NIEISTNIEJACE_' + czasstart.strftime('%Y-%m-%d') + '.txt'
 print('\nPodaj nazwę okna skryptu:')
 nazwaokna = input()
 ctypes.windll.kernel32.SetConsoleTitleW(nazwaokna)
@@ -26,7 +26,7 @@ with open(textfile, 'r') as otxtl:
     for line in otxtl:
         alllines += 1
 
-input('\nPlików do sprawdzenia: '+str(alllines)+'\n\nWciśnij ENTER aby kontynuować...')
+input('\nPlików do sprawdzenia: ' + str(alllines) + '\n\nWciśnij ENTER aby kontynuować...')
 
 with open(textfile, 'r') as otxt:
     for line in otxt:
@@ -36,12 +36,12 @@ with open(textfile, 'r') as otxt:
 
         if not Path(sprawdz).exists():
             with open(bledny, 'a') as bl:
-                bl.write(sprawdz+'\n')
+                bl.write(sprawdz + '\n')
 
 # czas trwania calego skryptu
 czaskoniec = datetime.datetime.now()
 roznicaczas = czaskoniec - czasstart
-czastrwania = roznicaczas.total_seconds()/60
+czastrwania = roznicaczas.total_seconds() / 60
 print('\nCałość zajęła (minuty):')
 print("%.2f" % czastrwania)
 print("\n~~~~~~KONIEC~~~~~~\t" + str(czaskoniec).split('.')[0])

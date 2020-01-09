@@ -1,7 +1,9 @@
-import os, io, regex
+import os
+import io
+import regex
 from natsort import natsorted, natsort_keygen
-nkey = natsort_keygen()
 from chardet.universaldetector import UniversalDetector
+nkey = natsort_keygen()
 detector = UniversalDetector()
 
 wkt = input('Scieżka do folderu z wkt: ')
@@ -10,7 +12,7 @@ plikwynik = os.path.join(wynik, 'polaczone_wkt.txt')
 
 count = 1
 
-with io.open(plikwynik, 'a', encoding = 'utf-8') as pw:
+with io.open(plikwynik, 'a', encoding='utf-8') as pw:
     for subdir, dirs, files in os.walk(wkt):
         dirs.sort(key=nkey)
         if not any(fname.upper().endswith('.WKT') for fname in os.listdir(subdir)):
@@ -30,27 +32,26 @@ with io.open(plikwynik, 'a', encoding = 'utf-8') as pw:
                 detector.close()
                 kodek = str(detector.result['encoding'])
                 if not kodek == 'ascii':
-                    with io.open(stad, 'r', encoding = str(kodek)) as kopiuj:
+                    with io.open(stad, 'r', encoding=str(kodek)) as kopiuj:
                         for line in kopiuj:
-                            if regex.match('^.+\)\n', line):
-                                zlacz = line.split('\n')[0]+';'+os.path.splitext(file)[0]+'\n'
+                            if regex.match(r'^.+\)\n', line):
+                                zlacz = line.split('\n')[0] + ';' + os.path.splitext(file)[0] + '\n'
                             else:
-                                zlacz = line+';'+os.path.splitext(file)[0]+'\n'
+                                zlacz = line + ';' + os.path.splitext(file)[0] + '\n'
                             pw.write(zlacz)
                             zapisane = 1
 
-
                 else:
-                    with io.open(stad, 'r', encoding = 'utf-8') as kopiuj:
+                    with io.open(stad, 'r', encoding='utf-8') as kopiuj:
                         for line in kopiuj:
-                            if regex.match('^.+\)\n', line):
-                                zlacz = line.split('\n')[0]+';'+os.path.splitext(file)[0]+'\n'
+                            if regex.match(r'^.+\)\n', line):
+                                zlacz = line.split('\n')[0] + ';' + os.path.splitext(file)[0] + '\n'
                             else:
-                                zlacz = line+';'+os.path.splitext(file)[0]+'\n'
+                                zlacz = line + ';' + os.path.splitext(file)[0] + '\n'
                             pw.write(zlacz)
                             zapisane = 1
 
                 if zapisane == 0:
-                    pw.write(';'+os.path.splitext(file)[0]+'\n')
-                        
+                    pw.write(';' + os.path.splitext(file)[0] + '\n')
+
 input('KONIEC.')

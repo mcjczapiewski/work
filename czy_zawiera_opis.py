@@ -14,4 +14,4 @@ for subdir, dirs, files in os.walk(sciezka):
     if not os.path.exists(os.path.join(subdir, 'opis.txt')):
         # print(subdir)
         with open(os.path.join(sciezka, 'brak_opisu.txt'), 'a') as bl:
-            bl.write(subdir+'\n')
+            bl.write(subdir + '\n')

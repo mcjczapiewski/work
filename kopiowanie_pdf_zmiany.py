@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import os, shutil
+import os
+import shutil
 import fnmatch as fn
 
 zrodlo = input('podaj źródło: ')

@@ -18,9 +18,9 @@ liczenie = input()
 print('\nPodaj ścieżkę dla pliku wynikowego:')
 sciezka = input()
 wynikowy = os.path.basename(os.path.normpath(sciezka))
-plikwynik = sciezka+'\\'+wynikowy+'_opisy_'+czasstart.strftime('%Y-%m-%d')+'.txt'
+plikwynik = sciezka + '\\' + wynikowy + '_opisy_' + czasstart.strftime('%Y-%m-%d') + '.txt'
 print('\nPlik zostanie umieszczony w:\n' + plikwynik)
-bledny = sciezka+'\\'+wynikowy+'_BLEDY_'+czasstart.strftime('%Y-%m-%d')+'.txt'
+bledny = sciezka + '\\' + wynikowy + '_BLEDY_' + czasstart.strftime('%Y-%m-%d') + '.txt'
 input("\nWciśnij ENTER aby kontynuować...")
 print('\nTrwa liczenie folderów, poczekaj chwilkę...\n')
 
@@ -55,12 +55,12 @@ for subdir, dirs, files in os.walk(liczenie):
 
             except:
                 with open(bledny, 'a') as bl:
-                    bl.write('Nie udało się otworzyć pliku: '+filename+'\n')
+                    bl.write('Nie udało się otworzyć pliku: ' + filename + '\n')
 
 # czas trwania calego skryptu
 czaskoniec = datetime.datetime.now()
 roznicaczas = czaskoniec - czasstart
-czastrwania = roznicaczas.total_seconds()/60
+czastrwania = roznicaczas.total_seconds() / 60
 print('\nCałość zajęła (minuty):')
 print("%.2f" % czastrwania)
 print("\n~~~~~~KONIEC~~~~~~\t" + str(czaskoniec).split('.')[0])

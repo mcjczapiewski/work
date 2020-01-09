@@ -1,60 +1,62 @@
-# -*- coding: cp1250 -*-
+# -*- coding: utf-8 -*-
 
-    #import bibliotek
-import os, datetime, ctypes
+# import bibliotek
+import os
+import datetime
+import ctypes
 from natsort import natsorted, natsort_keygen
 nkey = natsort_keygen()
 
-    #zmienna-licznik przeskanowanych folderow i separator
+# zmienna-licznik przeskanowanych folderow i separator
 countope = zdjecia = 0
 separ = '\t'
 
-    #aktualna data i godzina
+# aktualna data i godzina
 czasstart = datetime.datetime.now()
 print("~~~~~~START~~~~~~\t" + str(czasstart).split('.')[0])
 
-    #usunac jesli stosujemy rootdir a w os.walk() wstawic 'rootdir'
-print('\nPodaj dok³adn¹ œcie¿kê folderu, z którego chcesz liczyæ zdjêcia:')
+# usunac jesli stosujemy rootdir a w os.walk() wstawic 'rootdir'
+print('\nPodaj dokÅ‚adnÄ… Å›cieÅ¼kÄ™ folderu, z ktÃ³rego chcesz liczyÄ‡ zdjÄ™cia:')
 liczenie = input()
-print('\nPodaj œcie¿kê dla pliku wynikowego:')
+print('\nPodaj Å›cieÅ¼kÄ™ dla pliku wynikowego:')
 sciezka = input()
 wynikowy = os.path.basename(os.path.normpath(sciezka))
-bledny = sciezka+'\\'+wynikowy+'_PONAD_1000_'+czasstart.strftime('%Y-%m-%d')+'.txt'
+bledny = sciezka + '\\' + wynikowy + '_PONAD_1000_' + czasstart.strftime('%Y-%m-%d') + '.txt'
 print('\nPlik zostanie umieszczony w:\n' + bledny)
-print('\nPodaj nazwê okna skryptu:')
+print('\nPodaj nazwÄ™ okna skryptu:')
 nazwaokna = input()
 ctypes.windll.kernel32.SetConsoleTitleW(nazwaokna)
-input("\nWciœnij ENTER aby kontynuowaæ...")
+input("\nWciÅ›nij ENTER aby kontynuowaÄ‡...")
 
-    #glowna petla
+# glowna petla
 for subdir, dirs, files in os.walk(liczenie):
     dirs.sort(key=nkey)
     if not any(fname.upper().endswith(('.JPG', '.JPEG')) for fname in os.listdir(subdir)):
         continue
-        #rozbija sciezke do folderu i bierze tylko ostatni czlon jako numer operatu
+    # rozbija sciezke do folderu i bierze tylko ostatni czlon jako numer operatu
     nrope = os.path.basename(os.path.normpath(subdir))
-        
-        #licznik petli, wskazujacy aktualnie skanowany folder z operatem
+
+    # licznik petli, wskazujacy aktualnie skanowany folder z operatem
     countope += 1
-    print (countope,separ,nrope)
-    
-        #poczatek petli skanujacej pliki jpg
+    print(countope, separ, nrope)
+
+    # poczatek petli skanujacej pliki jpg
     for file in natsorted(files):
         if file.upper().endswith(('.JPG', '.JPEG')):
-            zdjecia += 1    
-    
+            zdjecia += 1
+
     if zdjecia >= 1000:
         with open(bledny, 'a') as bl:
-            bl.write(subdir+'\n')
-            
+            bl.write(subdir + '\n')
+
     zdjecia = 0
-            
-    #czas trwania calego skryptu
+
+# czas trwania calego skryptu
 czaskoniec = datetime.datetime.now()
 roznicaczas = czaskoniec - czasstart
-czastrwania = roznicaczas.total_seconds()/60
-print ('\nCa³oœæ zajê³a (minuty):')
-print ("%.2f" % czastrwania)
+czastrwania = roznicaczas.total_seconds() / 60
+print('\nCaÅ‚oÅ›Ä‡ zajÄ™a (minuty):')
+print("%.2f" % czastrwania)
 print("\n~~~~~~KONIEC~~~~~~\t" + str(czaskoniec).split('.')[0])
 
-input('Wciœnij ENTER aby wyjœæ...')
+input('WciÅ›nij ENTER aby wyjÅ›Ä‡...')

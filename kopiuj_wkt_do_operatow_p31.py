@@ -1,4 +1,5 @@
-import os, regex, shutil, io
+import os
+import shutil
 from natsort import natsorted, natsort_keygen
 nkey = natsort_keygen()
 
@@ -29,7 +30,7 @@ for subdir, dirs, files in os.walk(sciezka):
                     docplik = os.path.join(doc, file)
                     if os.path.exists(docplik):
                         with open(os.path.join(sciezka, 'juz_istnialy_nie_skopiowano.txt'), 'a') as bl:
-                            bl.write(plik+'\t'+docplik+'\n')
+                            bl.write(plik + '\t' + docplik + '\n')
                         continue
                     else:
                         try:
@@ -39,6 +40,6 @@ for subdir, dirs, files in os.walk(sciezka):
 
                         except:
                             with open(os.path.join(sciezka, 'bledy.txt'), 'a') as bl:
-                                bl.write(plik+'\n')    
+                                bl.write(plik + '\n')
 
 input('KONIEC.')

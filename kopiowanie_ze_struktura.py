@@ -1,20 +1,25 @@
 # -*- coding: utf-8 -*-
 
-import os, shutil, io
-from natsort import natsorted, natsort_keygen
+import os
+import shutil
+# import io
+from natsort import natsort_keygen
 nkey = natsort_keygen()
 
 count = 1
+
+numery = ['P.0418.2012.257', 'P.0418.1961.14', 'P.0418.1962.11', 'P.0418.1961.12']
 
 zrodlo = input('podaj źródło: ')
 desti = input('podaj dest: ')
 
 for subdir, dirs, _ in os.walk(zrodlo):
-#    if 'gotowe' not in subdir:
-#        continue
+    # if 'gotowe' not in subdir:
+    #     continue
     dirs.sort(key=nkey)
-    opis = os.path.join(subdir, 'opis.txt')
-    if os.path.exists(opis):
+    if any(i == os.path.basename(subdir) for i in numery):
+        # opis = os.path.join(subdir, 'opis.txt')
+        # if os.path.exists(opis):
         print(count)
         count += 1
 
@@ -26,12 +31,12 @@ for subdir, dirs, _ in os.walk(zrodlo):
 #        subdir = os.path.dirname(opis)
 
         tutaj = os.path.join(desti, str.split(subdir, ':\\')[1])
-        if os.path.exists(tutaj):
-            continue
-        else:
-            os.makedirs(tutaj)
+        # if os.path.exists(tutaj):
+        #     continue
+        # else:
+        #     os.makedirs(tutaj)
         try:
-            shutil.copy2(opis, tutaj)
+            shutil.copytree(subdir, tutaj)
         except:
             raise
-            print(opis)
+            print(subdir)

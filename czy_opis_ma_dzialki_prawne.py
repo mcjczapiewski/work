@@ -11,7 +11,7 @@ for subdir, dirs, _ in os.walk(r'J:\0418102'):
             try:
                 with open(opis, 'r') as ooo:
                     if not any('|' in line for line in ooo):
-                        zebrane.write(subdir+'\n')
+                        zebrane.write(subdir + '\n')
         #    except UnicodeDecodeError:
         #        with io.open(opis, 'r', encoding = 'utf-8') as ooo:
         #            if not any('|' in line for line in ooo):

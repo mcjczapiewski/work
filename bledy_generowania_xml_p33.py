@@ -38,11 +38,11 @@ for subdir, dirs, files in os.walk(r'I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\
                                                 </dzialkaPo>).*', line):
                                 with io.open(r'D:\_MACIEK_\python_proby\p33\BLEDY_XML_PRZED-PO.txt',
                                              'a', encoding='utf-8') as bl:
-                                    bl.write(xml+'\n')
+                                    bl.write(xml + '\n')
                                 with io.open(r'D:\_MACIEK_\python_proby\p33\BLEDY_XML_PRZED-PO-linijki.txt',
                                              'a', encoding='utf-8') as bl:
-                                    bl.write(xml+'\n'+line+'\n\n')
+                                    bl.write(xml + '\n' + line + '\n\n')
 
             except:
                 with io.open(r'D:\_MACIEK_\python_proby\p33\inne_kodowanie.txt', 'a', encoding='utf-8') as bl:
-                    bl.write(xml+'\n')
+                    bl.write(xml + '\n')

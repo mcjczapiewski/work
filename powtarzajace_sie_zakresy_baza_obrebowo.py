@@ -1,11 +1,9 @@
-import os
-
 duble = {}
 ciag = stary_rodzic = ''
 
 with open(r'D:\_MACIEK_\python_proby\takie_same_zakresy\baza.txt', 'r') as baza:
     for line in baza:
-        rodzic = line.split('\t')[1]+'__'+line.split('\t')[2]
+        rodzic = line.split('\t')[1] + '__' + line.split('\t')[2]
         wsp = line.split('\t')[4]
         numer = line.split('\t')[3]
         if int(numer) == 1:
@@ -17,7 +15,7 @@ with open(r'D:\_MACIEK_\python_proby\takie_same_zakresy\baza.txt', 'r') as baza:
 
 with open(r'D:\_MACIEK_\python_proby\takie_same_zakresy\duble.txt', 'a') as ddd:
     for i in duble:
-        ddd.write(i+'\t'+duble[i]+'\n')
+        ddd.write(i + '\t' + duble[i] + '\n')
 
 with open(r'D:\_MACIEK_\python_proby\takie_same_zakresy\duble.txt', 'r') as plik:
     for line in plik:
@@ -32,4 +30,4 @@ with open(r'D:\_MACIEK_\python_proby\takie_same_zakresy\duble.txt', 'r') as plik
 
 with open(r'D:\_MACIEK_\python_proby\takie_same_zakresy\wynik.txt', 'a') as ddd:
     for i in duble:
-        ddd.write(duble[i]+'\n')
+        ddd.write(duble[i] + '\n')
