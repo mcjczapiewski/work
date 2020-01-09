@@ -1,4 +1,5 @@
-import os, re
+import os
+import re
 from natsort import natsorted, natsort_keygen
 nkey = natsort_keygen()
 
@@ -15,4 +16,3 @@ for subdir, dirs, files in os.walk(r'J:\0418102'):
             if not re.match('^.+?_.+?_.+$', file):
                 with open(r'J:\0418102\bledy.txt', 'a') as bl:
                     bl.write(subdir+'\n')
-            

@@ -1,6 +1,8 @@
 import os
 
-rootdir = 'FOLDERY'  # TU WPISUJESZ NAZWE FOLDERU, TEN PLIK MUSI BYC W JEDNYM FOLDERZE Z LOKALIZACJ¥ CO TU WPISZESZ
+# TU WPISUJESZ NAZWE FOLDERU, TEN PLIK MUSI BYC
+# W JEDNYM FOLDERZE Z LOKALIZACJÄ„ CO TU WPISZESZ
+rootdir = 'FOLDERY'
 
 for subdir, dirs, files in os.walk(rootdir):
     for file in files:

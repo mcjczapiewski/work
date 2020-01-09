@@ -1,4 +1,6 @@
-import os, datetime, regex
+import os
+import datetime
+import regex
 from natsort import natsorted, natsort_keygen
 nkey = natsort_keygen()
 
@@ -13,44 +15,47 @@ if os.path.exists(tyle_zrobili):
 
 for subdir, dirs, _ in os.walk(r'P:\cyfryzacja_powiat_wloclawski\ETAP_3\wloclawek_gmina\na_zewnatrz'):
     dirs.sort(key=nkey)
-##    if 'na_zewnatrz' in subdir or not 'zlecone' in subdir:
-##        continue
+    # if 'na_zewnatrz' in subdir or not 'zlecone' in subdir:
+    #     continue
     plik = os.path.join(subdir, 'opis.txt')
     if os.path.exists(plik):
         print(count)
         count += 1
         if 'ponad' in subdir:
-            nrobrebu = subdir.split('\\')[5]+'_ponad'
+            nrobrebu = subdir.split('\\')[5] + '_ponad'
         else:
             nrobrebu = subdir.split('\\')[5]
         data = (str(datetime.datetime.fromtimestamp(os.path.getctime(plik)))).split(' ')[0]
-        if not data in ile_dni:
+        if data not in ile_dni:
             ile_dni.add(data)
 
         if o_nrobrebu == 0:
             o_nrobrebu = nrobrebu
-        
+
         if nrobrebu == o_nrobrebu:
             if o_data == 0:
                 o_data = data
-                
+
             if data == o_data:
                 tego_dnia += 1
-                if 'PRAWNE' in subdir.split('\\')[6] or 'EWIDENCJI' in subdir.split('\\')[6] or 'MODERNI' in subdir.split('\\')[6]:
+                if ('PRAWNE' in subdir.split('\\')[6] or 'EWIDENCJI' in
+                        subdir.split('\\')[6] or 'MODERNI' in subdir.split('\\')[6]):
                     prawne += 1
                 elif 'SYT-WYS' in subdir.split('\\')[6]:
                     sytwys += 1
                 elif 'ponad' in subdir.split('\\')[6]:
                     duze += 1
                 continue
-                
+
             else:
                 with open(tyle_zrobili, 'a') as tutaj:
-                    tutaj.write(o_nrobrebu+'\t'+o_data+'\t'+str(prawne)+'\t'+str(sytwys)+'\t'+str(duze)+'\n')
+                    tutaj.write(o_nrobrebu + '\t' + o_data + '\t' + str(prawne))
+                    tutaj.write('\t' + str(sytwys) + '\t' + str(duze) + '\n')
                 o_data = data
                 ile_ope += tego_dnia
                 tego_dnia = 1
-                if 'PRAWNE' in subdir.split('\\')[6] or 'EWIDENCJI' in subdir.split('\\')[6] or 'MODERNI' in subdir.split('\\')[6]:
+                if ('PRAWNE' in subdir.split('\\')[6] or 'EWIDENCJI' in
+                        subdir.split('\\')[6] or 'MODERNI' in subdir.split('\\')[6]):
                     prawne = 1
                     sytwys = 0
                     duze = 0
@@ -65,11 +70,13 @@ for subdir, dirs, _ in os.walk(r'P:\cyfryzacja_powiat_wloclawski\ETAP_3\wloclawe
                 continue
         else:
             with open(tyle_zrobili, 'a') as tutaj:
-                tutaj.write(o_nrobrebu+'\t'+o_data+'\t'+str(prawne)+'\t'+str(sytwys)+'\t'+str(duze)+'\n')
+                tutaj.write(o_nrobrebu + '\t' + o_data + '\t' + str(prawne))
+                tutaj.write('\t' + str(sytwys) + '\t' + str(duze) + '\n')
             o_nrobrebu = nrobrebu
             o_data = data
             ile_ope += tego_dnia
-            if 'PRAWNE' in subdir.split('\\')[6] or 'EWIDENCJI' in subdir.split('\\')[6] or 'MODERNI' in subdir.split('\\')[6]:
+            if ('PRAWNE' in subdir.split('\\')[6] or 'EWIDENCJI'
+                    in subdir.split('\\')[6] or 'MODERNI' in subdir.split('\\')[6]):
                 prawne = 1
                 sytwys = 0
                 duze = 0
@@ -85,7 +92,8 @@ for subdir, dirs, _ in os.walk(r'P:\cyfryzacja_powiat_wloclawski\ETAP_3\wloclawe
 
 ile_ope += tego_dnia
 with open(tyle_zrobili, 'a') as tutaj:
-    tutaj.write(o_nrobrebu+'\t'+o_data+'\t'+str(prawne)+'\t'+str(sytwys)+'\t'+str(duze)+'\n')
+    tutaj.write(o_nrobrebu + '\t' + o_data + '\t' + str(prawne))
+    tutaj.write('\t' + str(sytwys) + '\t' + str(duze) + '\n')
 
 with open(tyle_zrobili, 'r') as tutaj:
     for line in tutaj:
@@ -102,31 +110,32 @@ for i in natsorted(porzadkuj):
         suma_prawne = int(do_tego_prawne) + int(dodaj_prawne)
         suma_sytwys = int(do_tego_sytwys) + int(dodaj_sytwys)
         suma_duze = int(do_tego_duze) + int(dodaj_duze)
-        duble[klucz] = str(suma_prawne)+'\t'+str(suma_sytwys)+'\t'+str(suma_duze)
+        duble[klucz] = str(suma_prawne) + '\t' + str(suma_sytwys) + '\t' + str(suma_duze)
     else:
-        wartosc = regex.search('^.+?\t.+?\t\K.+$', i)
+        wartosc = regex.search(r'^.+?\t.+?\t\K.+$', i)
         duble[klucz] = wartosc[0]
 
 kto_ile = {}
 for i in natsorted(duble):
-    klucz = str(regex.match('^00.._zlecone_.*\t(.+$)', i)[1]+str(regex.match('^00.._zlecone_(.*?)\t', i)[1])+'\t')
+    klucz = str(regex.match(r'^00.._zlecone_.*\t(.+$)', i)[1])\
+        + str(regex.match(r'^00.._zlecone_(.*?)\t', i)[1]) + '\t'
     if klucz in kto_ile:
         do_tego_prawne, do_tego_sytwys, do_tego_duze = kto_ile[klucz].split('\t')
         dodaj_prawne, dodaj_sytwys, dodaj_duze = duble[i].split('\t')
         suma_prawne = int(do_tego_prawne) + int(dodaj_prawne)
         suma_sytwys = int(do_tego_sytwys) + int(dodaj_sytwys)
         suma_duze = int(do_tego_duze) + int(dodaj_duze)
-        kto_ile[klucz] = str(suma_prawne)+'\t'+str(suma_sytwys)+'\t'+str(suma_duze)
+        kto_ile[klucz] = str(suma_prawne) + '\t' + str(suma_sytwys) + '\t' + str(suma_duze)
     else:
         kto_ile[klucz] = duble[i]
 
 with open(tyle_zrobili, 'w') as tutaj:
     tutaj.write('OBREB\tDATA\tILE TEGO DNIA\n')
     for i in natsorted(duble):
-        tutaj.write(i+str(duble[i])+'\n')
+        tutaj.write(i + str(duble[i]) + '\n')
     tutaj.write('\n')
     for i in natsorted(kto_ile):
-        tutaj.write(i+str(kto_ile[i])+'\n')
-    tutaj.write('\nW '+str(len(ile_dni))+' dni zrobionych '+str(ile_ope)+' operatów.')
+        tutaj.write(i + str(kto_ile[i]) + '\n')
+    tutaj.write('\nW ' + str(len(ile_dni)) + ' dni zrobionych ' + str(ile_ope) + ' operatów.')
 
 input('\nKONIEC.')

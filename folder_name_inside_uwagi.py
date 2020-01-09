@@ -1,6 +1,6 @@
 import os
 
-print ('Podaj ścieżkę do fodleru:')
+print('Podaj ścieżkę do fodleru:')
 uwaga = input()
 
 for subdir, dirs, files in os.walk(uwaga):
@@ -12,4 +12,4 @@ for subdir, dirs, files in os.walk(uwaga):
                 old = r.read()
             with open(path, 'w') as f:
                 f.seek(0)
-                f.write(subdir+'\n'+old)
+                f.write(subdir + '\n' + old)

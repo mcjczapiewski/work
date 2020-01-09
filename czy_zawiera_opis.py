@@ -1,5 +1,5 @@
-import os, re
-from natsort import natsorted, natsort_keygen
+import os
+from natsort import natsort_keygen
 nkey = natsort_keygen()
 
 count = 1
@@ -12,6 +12,6 @@ for subdir, dirs, files in os.walk(sciezka):
     print(count)
     count += 1
     if not os.path.exists(os.path.join(subdir, 'opis.txt')):
-##        print(subdir)
+        # print(subdir)
         with open(os.path.join(sciezka, 'brak_opisu.txt'), 'a') as bl:
             bl.write(subdir+'\n')
