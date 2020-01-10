@@ -19,7 +19,7 @@ with io.open(r'D:\_MACIEK_\cyfryzacja_wloclawski\cechy.txt', 'r', encoding='utf-
         for i in bb:
             cechy.add(i)
 
-opisy = r'V:\P32_kopie_prac\Cyfryzacja_powiat włocławski\ROBOTA\TOMEK\do_poprawy_10122019'
+opisy = r'P:\cyfryzacja_powiat_wloclawski\ETAP_3\wloclawek_gmina_2'
 
 for subdir, dirs, files in os.walk(opisy):
     dirs.sort(key=nkey)

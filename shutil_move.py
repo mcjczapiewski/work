@@ -3,7 +3,7 @@ import shutil
 import io
 
 i = 1
-plik = r'H:\ETAP_2.1_WLOCLAWEK\SKANY\przenies.txt'
+plik = r'J:\0418052\przenies.txt'
 
 with io.open(plik, 'r', encoding='utf-8') as sciezki:
     for line in sciezki:

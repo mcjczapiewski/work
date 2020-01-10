@@ -29,9 +29,9 @@ input("\nWciśnij ENTER aby kontynuować...")
 # glowna petla
 for subdir, dirs, files in os.walk(liczenie):
     dirs.sort()
-    if not any(fname.upper().endswith(('.JPG', '.JPEG')) for fname
-               in os.listdir(subdir)) or 'DOKUMENTACJA' in subdir or 'ZAŁOŻE'\
-            in subdir or 'MODERNIZACJA' in subdir or 'ponad' in subdir:
+    if (not any(fname.upper().endswith(('.JPG', '.JPEG')) for fname
+                in os.listdir(subdir)) or 'DOKUMENTACJA' in subdir or 'ZAŁOŻE'
+            in subdir or 'MODERNIZACJA' in subdir or 'ponad' in subdir):
         continue
     # rozbija sciezke do folderu i bierze tylko ostatni czlon jako numer operatu
     nrope = os.path.basename(os.path.normpath(subdir))

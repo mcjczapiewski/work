@@ -3,7 +3,7 @@ from natsort import natsort_keygen
 nkey = natsort_keygen()
 
 count = 1
-sciezka = r'J:\0418052'
+sciezka = r'P:\cyfryzacja_powiat_wloclawski\ETAP_3\wloclawek_gmina_2'
 
 for subdir, dirs, files in os.walk(sciezka):
     dirs.sort(key=nkey)
