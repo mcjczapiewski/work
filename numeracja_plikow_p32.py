@@ -33,6 +33,7 @@ for subdir, dirs, files in os.walk(sciezka):
             nr_tomu = zmien = 0
             # poczatek nazwy nowego pliku
             poczatek = 'nn_'
+            tom = ''
             plik = os.path.join(subdir, file)
             # jak numer tomu w nazwie to dzieli inaczej
             if regex.match('^T.+', file):
@@ -78,7 +79,7 @@ for subdir, dirs, files in os.walk(sciezka):
                 if podaj_ope == 0:
                     print('\n\n' + subdir)
                     podaj_ope = 1
-                print(file + '\t' + nowy)
+                print(tom + file + '\t' + nowy)
                 # podjecie proby zmiany nazwy, inaczej do tekstowego
                 try:
                     os.rename(plik, os.path.join(subdir, nowy))
@@ -103,7 +104,7 @@ for subdir, dirs, files in os.walk(sciezka):
                 if podaj_ope == 0:
                     print('\n\n' + subdir)
                     podaj_ope = 1
-                print(file + '\t' + nowy)
+                print(tom + file + '\t' + nowy)
                 try:
                     os.rename(plik, os.path.join(subdir, nowy))
                 except:
@@ -122,7 +123,7 @@ for subdir, dirs, files in os.walk(sciezka):
                 if podaj_ope == 0:
                     print('\n\n' + subdir)
                     podaj_ope = 1
-                print(file + '\t' + nowy)
+                print(tom + file + '\t' + nowy)
                 try:
                     os.rename(plik, os.path.join(subdir, nowy))
                 except:

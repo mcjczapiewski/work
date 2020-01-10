@@ -1,4 +1,5 @@
-import os, shutil
+import os
+import shutil
 from natsort import natsorted, natsort_keygen
 nkey = natsort_keygen()
 
@@ -15,7 +16,7 @@ for subdir, dirs, files in os.walk(stad):
             xml = os.path.join(subdir, file)
             doc = os.path.join(tutaj, file)
             if os.path.exists(doc):
-                print(str(count)+'\tNR JUŻ ISTNIEJE!\t'+xml)
+                print(str(count) + '\tNR JUŻ ISTNIEJE!\t' + xml)
             else:
                 shutil.copy(xml, doc)
                 print(count)

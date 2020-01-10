@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import os, re
+import os
+import re
 
 braki = r'D:\python_proby\braki.txt'
 nr_ope = r'D:\python_proby\nr_ope.txt'
@@ -27,4 +28,4 @@ with open(braki, 'r') as b:
                         znaleziona = 1
         if not znaleziona == 1:
             with open(r'D:\python_proby\jaka_gmina.txt', 'a') as wynik:
-                wynik.write(czy+'\tNie znaleziono odpowiednika.\n')
+                wynik.write(czy + '\tNie znaleziono odpowiednika.\n')

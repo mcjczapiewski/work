@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import os, re
+import os
+import re
 from natsort import natsorted
 
 zrodlo = input('podaj źródło: ')
@@ -14,8 +15,8 @@ with open(r'D:\python_proby\tu\lili.txt', 'r') as lili:
 for _, dirnames, _ in os.walk(zrodlo):
     for dirname in natsorted(dirnames):
         if re.match('^P((?![a-zA-Z]).)*$', dirname):
-            print(str(count)+'\t'+dirname)
+            print(str(count) + '\t' + dirname)
             count += 1
             if dirname in nazwy:
                 with open(r'D:\python_proby\tu\znalezione_nie_kradzione.txt', 'a') as znk:
-                    znk.write(dirname+'\n')
+                    znk.write(dirname + '\n')

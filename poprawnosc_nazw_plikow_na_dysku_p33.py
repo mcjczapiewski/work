@@ -29,7 +29,9 @@ for subdir, dirs, files in os.walk(sciezka):
     for file in natsorted(files):
         if file.upper().endswith('.PDF'):
             if not regex.match(r'^P.+[0-9]\.PDF', file.upper()):
-                with io.open(r'I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\DĄBROWA BISKUPIA\BRAKUJĄCE_OPEARTY_19.11.2019\brakujące_operaty_Dąbrowa_Biskupia\GMINA DABROWA BISKUPIA\niepoprawne_nazwy.txt',
+                with io.open(r'I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\DĄBROWA BISKUPIA\
+                             BRAKUJĄCE_OPEARTY_19.11.2019\brakujące_operaty_Dąbrowa_Biskupia\
+                             GMINA DABROWA BISKUPIA\niepoprawne_nazwy.txt',
                              'a', encoding='utf-8') as np:
                     np.write(os.path.join(subdir, file) + '\n')
             else:
@@ -38,6 +40,8 @@ for subdir, dirs, files in os.walk(sciezka):
                 except:
                     print('\t\t\t' + os.path.join(subdir, file))
                 if nazwa not in nazwy:
-                    with io.open(r'I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\DĄBROWA BISKUPIA\BRAKUJĄCE_OPEARTY_19.11.2019\brakujące_operaty_Dąbrowa_Biskupia\GMINA DABROWA BISKUPIA\niepoprawne_nazwy.txt',
+                    with io.open(r'I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\DĄBROWA BISKUPIA\
+                                 BRAKUJĄCE_OPEARTY_19.11.2019\brakujące_operaty_Dąbrowa_Biskupia\
+                                 GMINA DABROWA BISKUPIA\niepoprawne_nazwy.txt',
                                  'a', encoding='utf-8') as np:
                         np.write(os.path.join(subdir, file) + '\n')

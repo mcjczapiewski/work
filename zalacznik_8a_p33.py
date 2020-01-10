@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import os, io
+import os
+import io
 from natsort import natsorted, natsort_keygen
 nkey = natsort_keygen()
 
@@ -26,8 +27,8 @@ for subdir, dirs, files in os.walk(sciezka):
             wkt += 1
     if wkt > 1:
         wkt -= 1
-    with io.open(os.path.join(sciezka, 'zalacznik8a.txt'), 'a', encoding = 'utf-8') as wynik:
-        wynik.write(str(count)+'\t'+str(id_ope)+'\t'+str(nr_ope)+'\t'+str(cyfrowe)+'\t'+str(wkt)+'\n')
+    with io.open(os.path.join(sciezka, 'zalacznik8a.txt'), 'a', encoding='utf-8') as wynik:
+        wynik.write(str(count) + '\t' + str(id_ope) + '\t' + str(nr_ope) + '\t')
+        wynik.write(str(cyfrowe) + '\t' + str(wkt) + '\n')
     print(count)
     count += 1
-
