@@ -14,8 +14,9 @@ for subdir, dirs, files in os.walk(sciezka):
     dirs.sort(key=nkey)
 
     if not any(fname.upper().endswith('.JPG') for fname in os.listdir(subdir)):
-        with open(r'D:\_MACIEK_\python_proby\foldery_bez_JPG.txt', 'a') as np:
-            np.write(os.path.join(subdir) + '\n')
+        if os.path.basename(subdir).startswith('P.'):
+            with open(os.path.join(sciezka, 'foldery_bez_JPG.txt'), 'a') as np:
+                np.write(os.path.join(subdir) + '\n')
         continue
 
     print(str(count) + '\t' + os.path.basename(os.path.dirname(subdir)) + '\\' + os.path.basename(subdir))
@@ -23,7 +24,10 @@ for subdir, dirs, files in os.walk(sciezka):
 
     for file in natsorted(files):
         if file.upper().endswith('.JPG'):
-            nazwa = regex.match(r'^.+_(.+)\.jpg', file.lower())[1]
-            if nazwa not in nazwy:
-                with open(r'D:\_MACIEK_\python_proby\niepoprawne_nazwy.txt', 'a') as np:
-                    np.write(os.path.join(subdir, file) + '\n')
+            try:
+                nazwa = regex.match(r'^.+_(.+)\.jpg', file.lower())[1]
+                if nazwa not in nazwy:
+                    with open(os.path.join(sciezka, 'niepoprawne_nazwy.txt'), 'a') as np:
+                        np.write(os.path.join(subdir, file) + '\n')
+            except:
+                continue

@@ -2,6 +2,7 @@
 
 # import bibliotek
 import os
+import regex
 import datetime
 import ctypes
 from natsort import natsorted, natsort_keygen
@@ -31,7 +32,7 @@ input("\nWciśnij ENTER aby kontynuować...")
 # glowna petla
 for subdir, dirs, files in os.walk(liczenie):
     dirs.sort(key=nkey)
-    if not any(fname.upper().endswith(('.JPG', '.JPEG')) for fname in os.listdir(subdir)):
+    if not any(regex.match(r'^.+_.+_.+(.JPG|.JPEG)', fname) for fname in os.listdir(subdir)):
         continue
     # rozbija sciezke do folderu i bierze tylko ostatni czlon jako numer operatu
     nrope = os.path.basename(os.path.normpath(subdir))

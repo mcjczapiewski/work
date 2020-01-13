@@ -3,7 +3,7 @@ import shutil
 import io
 
 i = 1
-plik = r'J:\0418052\przenies.txt'
+plik = r'P:\cyfryzacja_powiat_wloclawski\ETAP_3\do_nazwania\IV_PARTIA_32700\przenies.txt'
 
 with io.open(plik, 'r', encoding='utf-8') as sciezki:
     for line in sciezki:
