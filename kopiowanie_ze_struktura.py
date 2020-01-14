@@ -2,16 +2,23 @@
 
 import os
 import shutil
+
 # import io
 from natsort import natsort_keygen
+
 nkey = natsort_keygen()
 
 count = 1
 
-numery = ['P.0418.2012.257', 'P.0418.1961.14', 'P.0418.1962.11', 'P.0418.1961.12']
+numery = [
+    "P.0418.2012.257",
+    "P.0418.1961.14",
+    "P.0418.1962.11",
+    "P.0418.1961.12",
+]
 
-zrodlo = input('podaj źródło: ')
-desti = input('podaj dest: ')
+zrodlo = input("podaj źródło: ")
+desti = input("podaj dest: ")
 
 for subdir, dirs, _ in os.walk(zrodlo):
     # if 'gotowe' not in subdir:
@@ -23,14 +30,18 @@ for subdir, dirs, _ in os.walk(zrodlo):
         print(count)
         count += 1
 
-# with io.open(r'P:\cyfryzacja_powiat_wloclawski\ETAP_4_WR\kopiuj.txt', 'r', encoding = 'utf-8') as opisy:
-#    for line in opisy:
-#        print(count)
-#        count += 1
-#        opis = line.split('\n')[0]
-#        subdir = os.path.dirname(opis)
+# with io.open(
+#     r"P:\cyfryzacja_powiat_wloclawski\ETAP_4_WR\kopiuj.txt",
+#     "r",
+#     encoding="utf-8",
+# ) as opisy:
+#     for line in opisy:
+#         print(count)
+#         count += 1
+#         opis = line.split("\n")[0]
+#         subdir = os.path.dirname(opis)
 
-        tutaj = os.path.join(desti, str.split(subdir, ':\\')[1])
+        tutaj = os.path.join(desti, str.split(subdir, ":\\")[1])
         # if os.path.exists(tutaj):
         #     continue
         # else:

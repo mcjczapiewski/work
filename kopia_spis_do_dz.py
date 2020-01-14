@@ -5,20 +5,21 @@ import os
 import datetime
 import shutil
 from natsort import natsort_keygen
+
 nkey = natsort_keygen()
 
 # zmienna-licznik przeskanowanych folderow i separator
 countope = 0
-separ = '\t'
+separ = "\t"
 
 # aktualna data i godzina
 czasstart = datetime.datetime.now()
-print("~~~~~~START~~~~~~\t" + str(czasstart).split('.')[0])
+print("~~~~~~START~~~~~~\t" + str(czasstart).split(".")[0])
 
 # usunac jesli stosujemy rootdir a w os.walk() wstawic 'rootdir'
-print('\nPodaj ścieżkę folderu, z którego chcesz rozrzucić pliki:')
+print("\nPodaj ścieżkę folderu, z którego chcesz rozrzucić pliki:")
 tutaj = input()
-print('\nPodaj ścieżkę docelowych folderów:')
+print("\nPodaj ścieżkę docelowych folderów:")
 nowe = input()
 input("\nWciśnij ENTER aby kontynuować...")
 
@@ -33,8 +34,8 @@ for _, _, files in os.walk(tutaj):
 czaskoniec = datetime.datetime.now()
 roznicaczas = czaskoniec - czasstart
 czastrwania = roznicaczas.total_seconds() / 60
-print('\nCałość zajęła (minuty):')
+print("\nCałość zajęła (minuty):")
 print("%.2f" % czastrwania)
-print("\n~~~~~~KONIEC~~~~~~\t" + str(czaskoniec).split('.')[0])
+print("\n~~~~~~KONIEC~~~~~~\t" + str(czaskoniec).split(".")[0])
 
-input('Wciśnij ENTER aby wyjść...')
+input("Wciśnij ENTER aby wyjść...")
