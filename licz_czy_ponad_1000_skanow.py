@@ -21,22 +21,9 @@ print("~~~~~~START~~~~~~\t" + str(czasstart).split(".")[0])
 # usunac jesli stosujemy rootdir a w os.walk() wstawic 'rootdir'
 print("\nPodaj dokładną ścieżkę folderu, z którego chcesz liczyć zdjęcia:")
 liczenie = input()
-print("\nPodaj ścieżkę dla pliku wynikowego:")
-sciezka = input()
-wynikowy = os.path.basename(os.path.normpath(sciezka))
-bledny = (
-    sciezka
-    + "\\"
-    + wynikowy
-    + "_PONAD_1000_"
-    + czasstart.strftime("%Y-%m-%d")
-    + ".txt"
-)
-print("\nPlik zostanie umieszczony w:\n" + bledny)
 # print("\nPodaj nazwę okna skryptu:")
 # nazwaokna = input()
 # ctypes.windll.kernel32.SetConsoleTitleW(nazwaokna)
-input("\nWciśnij ENTER aby kontynuować...")
 
 # glowna petla
 for subdir, dirs, files in os.walk(liczenie):
