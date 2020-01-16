@@ -3,7 +3,7 @@ import shutil
 import io
 
 i = 1
-plik = r"P:\cyfryzacja_powiat_wloclawski\ETAP_3\do_nazwania\IV_PARTIA_32700\przenies.txt"  # noqa
+plik = r"P:\cyfryzacja_powiat_wloclawski\ETAP_3\do_nazwania\IV_PARTIA_32700\0418115\przenies.txt"  # noqa
 
 with io.open(plik, "r", encoding="utf-8") as sciezki:
     for line in sciezki:
@@ -18,7 +18,7 @@ with io.open(plik, "r", encoding="utf-8") as sciezki:
             print(
                 str(i)
                 + "\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\
-                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + line
             )
         i += 1

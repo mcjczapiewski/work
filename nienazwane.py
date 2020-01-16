@@ -11,3 +11,5 @@ for subdir, dirs, files in os.walk(sciezka):
         ):
             print(count)
             count += 1
+            print(subdir)
+            break

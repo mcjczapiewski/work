@@ -53,9 +53,9 @@ for subdir, dirs, files in os.walk(liczenie):
             ):
                 nowe = regex.sub(r"(^.+_)(.+_.+)", r"\g<1>0\g<2>", file)
                 print(file + "\t" + nowe)
-                # os.rename(
-                #     os.path.join(subdir, file), os.path.join(subdir, nowe)
-                # )
+                os.rename(
+                    os.path.join(subdir, file), os.path.join(subdir, nowe)
+                )
 
     elif zdjecia >= 10000:
         for file in natsorted(files):
@@ -64,9 +64,9 @@ for subdir, dirs, files in os.walk(liczenie):
             ):
                 nowe = regex.sub(r"(^.+_)(.+_.+)", r"\g<1>0\g<2>", file)
                 print(file + "\t" + nowe)
-                # os.rename(
-                #     os.path.join(subdir, file), os.path.join(subdir, nowe)
-                # )
+                os.rename(
+                    os.path.join(subdir, file), os.path.join(subdir, nowe)
+                )
 
     zdjecia = 0
 
