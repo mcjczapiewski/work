@@ -4,6 +4,7 @@
 import os
 import regex
 import datetime
+
 # import ctypes
 from natsort import natsorted, natsort_keygen
 
@@ -58,9 +59,30 @@ for subdir, dirs, files in os.walk(liczenie):
         if file.upper().endswith((".JPG", ".JPEG")):
             zdjecia += 1
 
-    if zdjecia >= 1000:
+    if 1000 <= zdjecia < 10000:
         with open(bledny, "a") as bl:
             bl.write(subdir + "\n")
+
+        for file in natsorted(files):
+            if file.upper().endswith(".JPG") and regex.match(
+                r".+_[0-9][0-9][0-9]_.+", file
+            ):
+                nowe = regex.sub(r"(^.+_)(.+_.+)", r"\g<1>0\g<2>", file)
+                print(file + "\t" + nowe)
+                os.rename(
+                    os.path.join(subdir, file), os.path.join(subdir, nowe)
+                )
+
+    elif zdjecia >= 10000:
+        for file in natsorted(files):
+            if file.upper().endswith(".JPG") and regex.match(
+                r".+_[0-9][0-9][0-9][0-9]_.+", file
+            ):
+                nowe = regex.sub(r"(^.+_)(.+_.+)", r"\g<1>0\g<2>", file)
+                print(file + "\t" + nowe)
+                os.rename(
+                    os.path.join(subdir, file), os.path.join(subdir, nowe)
+                )
 
     zdjecia = 0
 
