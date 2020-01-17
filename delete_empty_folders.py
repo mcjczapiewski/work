@@ -5,6 +5,7 @@ nkey = natsort_keygen()
 again = "y"
 
 path = input("\nEnter the path: ")
+thumbs = input("Scan for and delete any 'Thumbs.db' file?  y/n: ")
 print("\n")
 
 while again == "y":
@@ -12,12 +13,18 @@ while again == "y":
     number = 0
 
     # iterates through folders and adding to list empty once
+    # deleting thumbs beforehand if user want it
     for subdir, dirs, _ in os.walk(path):
         dirs.sort(key=nkey)
-        if "zrobione" not in subdir.lower() and not os.listdir(subdir):
-            delete.append(subdir)
-            print(str(number) + "\t" + subdir)
-            number += 1
+        if "zrobione" not in subdir.lower():
+            if thumbs.lower() == "y":
+                thumb = os.path.join(subdir, "Thumbs.db")
+                if os.path.exists(thumb):
+                    os.remove(thumb)
+            if not os.listdir(subdir):
+                delete.append(subdir)
+                print(str(number) + "\t" + subdir)
+                number += 1
 
     # if there is something in list, ask to delete them
     if delete:
