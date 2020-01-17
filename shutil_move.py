@@ -3,17 +3,17 @@ import shutil
 import io
 
 i = 1
-plik = r"P:\cyfryzacja_powiat_wloclawski\ETAP_3\do_nazwania\IV_PARTIA_32700\0418115\przenies.txt"  # noqa
+my_file = r"P:\cyfryzacja_powiat_wloclawski\ETAP_3\__DODAC_DO_ZASILENIA\przenies.txt"  # noqa
 
-with io.open(plik, "r", encoding="utf-8") as sciezki:
-    for line in sciezki:
-        stad = line.split("\t")[0]
-        tutaj = (line.split("\t")[1]).split("\n")[0]
+with io.open(my_file, "r", encoding="utf-8") as paths:
+    for line in paths:
+        from_here = line.split("\t")[0]
+        there = (line.split("\t")[1]).split("\n")[0]
         print(i)
         try:
-            if not os.path.exists(os.path.dirname(tutaj)):
-                os.makedirs(os.path.dirname(tutaj))
-            shutil.move(stad, tutaj)
+            if not os.path.exists(os.path.dirname(there)):
+                os.makedirs(os.path.dirname(there))
+            shutil.move(from_here, there)
         except:
             print(
                 str(i)

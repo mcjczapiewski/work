@@ -1,10 +1,11 @@
 import os
+import io
 from natsort import natsort_keygen
 
 nkey = natsort_keygen()
 
 count = notdoneyet = 1
-path = r"P:\cyfryzacja_powiat_wloclawski\ETAP_4_WR\ZWYKLE_90000"
+path = r"P:\cyfryzacja_powiat_wloclawski\ETAP_3"
 
 for subdir, dirs, files in os.walk(path):
     dirs.sort(key=nkey)
@@ -18,7 +19,9 @@ for subdir, dirs, files in os.walk(path):
     if not os.path.exists(os.path.join(subdir, "opis.txt")):
         print(str(notdoneyet) + "\t" + subdir)
         notdoneyet += 1
-        with open(os.path.join(path, "brak_opisu.txt"), "a") as bl:
+        with io.open(
+            os.path.join(path, "brak_opisu.txt"), "a", encoding="utf-8"
+        ) as bl:
             bl.write(subdir + "\n")
 
 print("KONIEC.")

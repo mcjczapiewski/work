@@ -20,7 +20,10 @@ while again == "y":
             if thumbs.lower() == "y":
                 thumb = os.path.join(subdir, "Thumbs.db")
                 if os.path.exists(thumb):
-                    os.remove(thumb)
+                    try:
+                        os.remove(thumb)
+                    except PermissionError:
+                        continue
             if not os.listdir(subdir):
                 delete.append(subdir)
                 print(str(number) + "\t" + subdir)
