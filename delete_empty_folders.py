@@ -5,7 +5,7 @@ nkey = natsort_keygen()
 again = "y"
 
 path = input("\nEnter the path: ")
-thumbs = input("Scan for and delete any 'Thumbs.db' file?  y/n: ")
+thumbs = input("Scan for and delete any 'Thumbs.db' files?  y/n: ")
 print("\n")
 
 while again == "y":
