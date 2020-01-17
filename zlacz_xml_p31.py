@@ -10,7 +10,7 @@ print(
     W podanej poniżej ścieżce utworzy się plik zlaczone.txt
     Mogą także utworzyć się pliki .txt z błędami.\n\n"""
 )
-sciezka = input("Podaj ścieżkę: ")
+sciezka = input("Enter the path: ")
 
 poprzednia = ""
 count = 1

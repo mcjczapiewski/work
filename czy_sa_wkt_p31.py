@@ -11,7 +11,7 @@ print(
     "\nUWAGA!\nPLIK Z EWENTUALNYMI BŁĘDAMI ZOSTANIE ZAPISANY \
     W PODANEJ PONIŻEJ LOKALIZACJI!\n\n"
 )
-sciezka = input("Podaj ścieżkę: ")
+sciezka = input("Enter the path: ")
 
 for subdir, dirs, files in os.walk(sciezka):
     dirs.sort(key=nkey)

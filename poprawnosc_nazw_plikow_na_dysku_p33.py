@@ -18,7 +18,7 @@ nazwy = (
     "W-S", "W-WSP", "W-WYW", "W-ZDE", "Z-KAT", "Z-POM",
     "ZASW", "ZAW-ZGL", "ZAW-IN", "ZAW-KW", "ZGL-PRAC", "ZW",
 )
-sciezka = input("Podaj ścieżkę: ")
+sciezka = input("Enter the path: ")
 
 count = 1
 

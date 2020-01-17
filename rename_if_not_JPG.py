@@ -1,7 +1,7 @@
 import os
 from natsort import natsorted
 
-sciezka = input("Podaj ścieżkę: ")
+sciezka = input("Enter the path: ")
 
 count = 1
 

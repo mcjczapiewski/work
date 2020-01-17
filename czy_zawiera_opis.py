@@ -3,10 +3,10 @@ from natsort import natsort_keygen
 
 nkey = natsort_keygen()
 
-count = niezrobione = 1
-sciezka = r"P:\cyfryzacja_powiat_wloclawski\ETAP_3\wloclawek_gmina"
+count = notdoneyet = 1
+path = r"P:\cyfryzacja_powiat_wloclawski\ETAP_4_WR\ZWYKLE_90000"
 
-for subdir, dirs, files in os.walk(sciezka):
+for subdir, dirs, files in os.walk(path):
     dirs.sort(key=nkey)
     if (
         not any(fname.upper().endswith(".JPG") for fname in os.listdir(subdir))
@@ -16,7 +16,9 @@ for subdir, dirs, files in os.walk(sciezka):
     # print(count)
     # count += 1
     if not os.path.exists(os.path.join(subdir, "opis.txt")):
-        print(str(niezrobione) + "\t" + subdir)
-        niezrobione += 1
-        # with open(os.path.join(sciezka, "brak_opisu.txt"), "a") as bl:
-        #     bl.write(subdir + "\n")
+        print(str(notdoneyet) + "\t" + subdir)
+        notdoneyet += 1
+        with open(os.path.join(path, "brak_opisu.txt"), "a") as bl:
+            bl.write(subdir + "\n")
+
+print("KONIEC.")

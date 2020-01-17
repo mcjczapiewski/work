@@ -6,7 +6,7 @@
 
 import os
 
-sciezka = input("Podaj ścieżkę: ")
+sciezka = input("Enter the path: ")
 
 for subdir, dirs, files in os.walk(sciezka):
     for file in files:

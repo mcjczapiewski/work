@@ -18,7 +18,7 @@ nazwy = (
     "szkic",
     "wykaz współrzędnych",
 )
-sciezka = input("Podaj ścieżkę: ")
+sciezka = input("Enter the path: ")
 
 count = 1
 

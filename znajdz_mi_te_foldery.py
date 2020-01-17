@@ -1,7 +1,7 @@
 import os
 
 foldery = ["P.0418.1965.150", "P.0418.1975.275"]
-sciezka = input("Podaj ścieżkę: ")
+sciezka = input("Enter the path: ")
 
 for subdir, dirs, _ in os.walk(sciezka):
     if any(

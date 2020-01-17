@@ -7,7 +7,7 @@ nkey = natsort_keygen()
 
 count = 1
 
-sciezka = input("Podaj ścieżkę: ")
+sciezka = input("Enter the path: ")
 
 for subdir, dirs, files in os.walk(sciezka):
     dirs.sort(key=nkey)
