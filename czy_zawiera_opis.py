@@ -5,13 +5,14 @@ from natsort import natsort_keygen
 nkey = natsort_keygen()
 
 count = notdoneyet = 1
-path = r"P:\cyfryzacja_powiat_wloclawski\ETAP_3"
+path = r"P:\cyfryzacja_powiat_wloclawski\ETAP_3\do_nazwania\IV_PARTIA_32700"
 
 for subdir, dirs, files in os.walk(path):
     dirs.sort(key=nkey)
     if (
         not any(fname.upper().endswith(".JPG") for fname in os.listdir(subdir))
         or "DOKUMENTACJA" in subdir
+        or 'NIE_RUSZAC' in subdir
     ):
         continue
     # print(count)
