@@ -24,72 +24,75 @@ with io.open(
         for i in bb:
             cechy.add(i)
 
-opisy = r"P:\cyfryzacja_powiat_wloclawski\ETAP_3\wloclawek_gmina_2"
+opisy = r"P:\cyfryzacja_powiat_wloclawski"
 
-for subdir, dirs, files in os.walk(opisy):
+for subdir, dirs, _ in os.walk(opisy):
     dirs.sort(key=nkey)
-    if not any(fname.endswith(".txt") for fname in os.listdir(subdir)):
+    if (
+        not any(fname.endswith(".txt") for fname in os.listdir(subdir))
+        or "Fabianki" in subdir
+        or "BDOT500" in subdir
+    ):
         continue
-    for file in files:
-        if file == "opis.txt":
-            opis = os.path.join(subdir, file)
-            print(str(count) + "\t" + opis)
-            count += 1
-            try:
-                with io.open(opis, "r", encoding="utf-8") as op:
-                    for line in op:
-                        if line.startswith("C:"):
-                            bb = regex.sub(r"^C:(.+?)(\n|$)", r"\g<1>", line)
-                            bb = regex.split(",", bb)
-                            for i in bb:
-                                if i not in cechy:
-                                    with io.open(
-                                        r"D:\_MACIEK_\python_proby\bledy_cechy.txt",  # noqa
-                                        "a",
-                                        encoding="utf-8",
-                                    ) as bl:
-                                        bl.write(subdir + "\n")
-                        elif line.startswith("A:"):
-                            bb = regex.sub(r"^A:(.+?)(\n|$)", r"\g<1>", line)
-                            bb = regex.split(",", bb)
-                            for i in bb:
-                                if i not in asor:
-                                    with io.open(
-                                        r"D:\_MACIEK_\python_proby\bledy_asort.txt",  # noqa
-                                        "a",
-                                        encoding="utf-8",
-                                    ) as bl:
-                                        bl.write(subdir + "\n")
-            except UnicodeDecodeError:
-                with open(opis, "r") as op:
-                    for line in op:
-                        if line.startswith("C:"):
-                            bb = regex.sub(r"^C:(.+?)(\n|$)", r"\g<1>", line)
-                            bb = regex.split(",", bb)
-                            for i in bb:
-                                if i not in cechy:
-                                    with io.open(
-                                        r"D:\_MACIEK_\python_proby\bledy_cechy.txt",  # noqa
-                                        "a",
-                                        encoding="utf-8",
-                                    ) as bl:
-                                        bl.write(subdir + "\n")
-                        elif line.startswith("A:"):
-                            bb = regex.sub(r"^A:(.+?)(\n|$)", r"\g<1>", line)
-                            bb = regex.split(",", bb)
-                            for i in bb:
-                                if i not in asor:
-                                    with io.open(
-                                        r"D:\_MACIEK_\python_proby\bledy_asort.txt",  # noqa
-                                        "a",
-                                        encoding="utf-8",
-                                    ) as bl:
-                                        bl.write(subdir + "\n")
-            except:
-                with io.open(
-                    r"D:\_MACIEK_\python_proby\bledy_otwarcia.txt",
-                    "a",
-                    encoding="utf-8",
-                ) as bl:
-                    bl.write(subdir + "\n")
+    opis = os.path.join(subdir, "opis.txt")
+    if os.path.exists(opis):
+        print(str(count) + "\t" + opis)
+        count += 1
+        try:
+            with io.open(opis, "r", encoding="utf-8") as op:
+                for line in op:
+                    if line.startswith("C:"):
+                        bb = regex.sub(r"^C:(.+?)(\n|$)", r"\g<1>", line)
+                        bb = regex.split(",", bb)
+                        for i in bb:
+                            if i not in cechy:
+                                with io.open(
+                                    r"D:\_MACIEK_\python_proby\bledy_cechy.txt",  # noqa
+                                    "a",
+                                    encoding="utf-8",
+                                ) as bl:
+                                    bl.write(subdir + "\n")
+                    elif line.startswith("A:"):
+                        bb = regex.sub(r"^A:(.+?)(\n|$)", r"\g<1>", line)
+                        bb = regex.split(",", bb)
+                        for i in bb:
+                            if i not in asor:
+                                with io.open(
+                                    r"D:\_MACIEK_\python_proby\bledy_asort.txt",  # noqa
+                                    "a",
+                                    encoding="utf-8",
+                                ) as bl:
+                                    bl.write(subdir + "\n")
+        except UnicodeDecodeError:
+            with open(opis, "r") as op:
+                for line in op:
+                    if line.startswith("C:"):
+                        bb = regex.sub(r"^C:(.+?)(\n|$)", r"\g<1>", line)
+                        bb = regex.split(",", bb)
+                        for i in bb:
+                            if i not in cechy:
+                                with io.open(
+                                    r"D:\_MACIEK_\python_proby\bledy_cechy.txt",  # noqa
+                                    "a",
+                                    encoding="utf-8",
+                                ) as bl:
+                                    bl.write(subdir + "\n")
+                    elif line.startswith("A:"):
+                        bb = regex.sub(r"^A:(.+?)(\n|$)", r"\g<1>", line)
+                        bb = regex.split(",", bb)
+                        for i in bb:
+                            if i not in asor:
+                                with io.open(
+                                    r"D:\_MACIEK_\python_proby\bledy_asort.txt",  # noqa
+                                    "a",
+                                    encoding="utf-8",
+                                ) as bl:
+                                    bl.write(subdir + "\n")
+        except:
+            with io.open(
+                r"D:\_MACIEK_\python_proby\bledy_otwarcia.txt",
+                "a",
+                encoding="utf-8",
+            ) as bl:
+                bl.write(subdir + "\n")
 print("KONIEC")
