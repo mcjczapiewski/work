@@ -9,7 +9,7 @@ nkey = natsort_keygen()
 count = 1
 
 # sprawdzanie kodowania plikow - 1 metoda
-for subdir, dirs, _ in os.walk(r"P:\cyfryzacja_powiat_wloclawski\ETAP_3"):
+for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\proba\opisy"):
     dirs.sort(key=nkey)
     if os.path.exists(os.path.join(subdir, "opis.txt")):
         print(count)
@@ -19,8 +19,10 @@ for subdir, dirs, _ in os.walk(r"P:\cyfryzacja_powiat_wloclawski\ETAP_3"):
         result = chardet.detect(rawdata)
         # print(result)
         charenc = result["encoding"]
+        if not charenc:
+            charenc = ""
         with open(
-            r"D:\_MACIEK_\cyfryzacja_wloclawski\G_brzesc\kodowania_plikow.txt",
+            r"D:\_MACIEK_\python_proby\proba\opisy\kodowania_plikow1.txt",
             "a",
         ) as kodowanie:
             kodowanie.write(opis + "\t" + charenc + "\n")
@@ -28,7 +30,7 @@ for subdir, dirs, _ in os.walk(r"P:\cyfryzacja_powiat_wloclawski\ETAP_3"):
 
 # sprawdzanie kodowania plikow - 2 metoda
 detector = UniversalDetector()
-for subdir, dirs, _ in os.walk(r"P:\cyfryzacja_powiat_wloclawski\ETAP_3"):
+for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\proba\opisy"):
     dirs.sort(key=nkey)
     if os.path.exists(os.path.join(subdir, "opis.txt")):
         print(count)
@@ -41,24 +43,22 @@ for subdir, dirs, _ in os.walk(r"P:\cyfryzacja_powiat_wloclawski\ETAP_3"):
                 if detector.done:
                     break
         detector.close()
-        if "utf-8" in str(detector.result):
-            with open(
-                r"D:\_MACIEK_\cyfryzacja_wloclawski\G_brzesc\kodowania_plikow.txt",  # noqa
-                "a",
-            ) as kodowanie:
-                kodowanie.write(opis + "\t" + str(detector.result) + "\n")
+        # if "utf-8" in str(detector.result):
+        with open(
+            r"D:\_MACIEK_\python_proby\proba\opisy\kodowania_plikow2.txt",  # noqa
+            "a",
+        ) as kodowanie:
+            kodowanie.write(opis + "\t" + str(detector.result) + "\n")
 
 
 # zapis plikow z nowym kodowaniem
-for subdir, dirs, _ in os.walk(
-    r"D:\_MACIEK_\cyfryzacja_wloclawski\G_brzesc\utf-8"
-):
-    dirs.sort(key=nkey)
-    if os.path.exists(os.path.join(subdir, "opis.txt")):
-        stad = os.path.join(subdir, "opis.txt")
-        with io.open(stad, "r", encoding="utf-8") as pobierz:
-            tresc = pobierz.read()
-        with io.open(
-            stad + ".new", "w", encoding="ascii", errors="ignore"
-        ) as zapisz:
-            zapisz.write(tresc)
+# for subdir, dirs, _ in os.walk(
+#     r"D:\_MACIEK_\cyfryzacja_wloclawski\G_brzesc\utf-8"
+# ):
+#     dirs.sort(key=nkey)
+#     if os.path.exists(os.path.join(subdir, "opis.txt")):
+#         stad = os.path.join(subdir, "opis.txt")
+#         with io.open(stad, "r", encoding="utf-8") as pobierz:
+#             tresc = pobierz.read()
+#         with io.open(stad + ".new", "w", encoding="ansi") as zapisz:
+#             zapisz.write(tresc)
