@@ -4,6 +4,7 @@
 import os
 import datetime
 import regex
+import io
 from natsort import natsort_keygen
 
 # zmienna-licznik przeskanowanych folderow i separator
@@ -28,7 +29,7 @@ bledny = (
 )
 print("\nPlik zostanie umieszczony w:\n" + bledny)
 input("\nWciśnij ENTER aby kontynuować...")
-dane = r"D:\_MACIEK_\cyfryzacja_wloclawski\G_lubanie\asor_cecha.txt"
+dane = r"D:\_MACIEK_\python_proby\jest_brak.txt"
 
 
 # glowna petla
@@ -37,10 +38,12 @@ for subdir, dirs, _ in os.walk(sprnr):
     if (
         any(fname.upper().endswith(".JPG") for fname in os.listdir(subdir))
         and "DOKUMEN" not in subdir
+        and "BDOT500" not in subdir
+        and "Fabianki" not in subdir
     ):
-        nrope = os.path.basename(subdir)
         opis = os.path.join(subdir, "opis.txt")
         if os.path.exists(opis):
+            nrope = os.path.basename(subdir)
             print(str(countope) + "\t" + nrope)
             countope += 1
             try:
@@ -51,53 +54,115 @@ for subdir, dirs, _ in os.walk(sprnr):
                             cecha = (line.split("\t")[2]).split("\n")[0]
 
                             if str(asor) == "BRAK":
-                                with open(opis, "r") as o:
-                                    if not any(
-                                        regex.match("^A:.+", line)
-                                        for line in o
-                                    ):
-                                        with open(bledny, "a") as bl:
-                                            bl.write(
-                                                opis
-                                                + "\tasortyment \
-                                                    nieuzupełniony\n"
-                                            )
+                                try:
+                                    with open(opis, "r") as o:
+                                        if not any(
+                                            regex.match("^A:.+", line)
+                                            for line in o
+                                        ):
+                                            with open(bledny, "a") as bl:
+                                                bl.write(
+                                                    opis
+                                                    + "\tasortyment \
+                                                        nieuzupełniony\n"
+                                                )
+                                except UnicodeDecodeError:
+                                    with io.open(
+                                        opis, "r", encoding="utf-8"
+                                    ) as o:
+                                        if not any(
+                                            regex.match("^A:.+", line)
+                                            for line in o
+                                        ):
+                                            with open(bledny, "a") as bl:
+                                                bl.write(
+                                                    opis
+                                                    + "\tasortyment \
+                                                        nieuzupełniony\n"
+                                                )
                             elif str(asor) == "JEST":
-                                with open(opis, "r") as o:
-                                    if any(
-                                        regex.match("^A:.+", line)
-                                        for line in o
-                                    ):
-                                        with open(bledny, "a") as bl:
-                                            bl.write(
-                                                opis
-                                                + "\tasortyment niepotrzebnie \
-                                                    uzupełniony\n"
-                                            )
+                                try:
+                                    with open(opis, "r") as o:
+                                        if any(
+                                            regex.match("^A:.+", line)
+                                            for line in o
+                                        ):
+                                            with open(bledny, "a") as bl:
+                                                bl.write(
+                                                    opis
+                                                    + "\tasortyment niepotrzebnie \
+                                                        uzupełniony\n"
+                                                )
+                                except UnicodeDecodeError:
+                                    with io.open(
+                                        opis, "r", encoding="utf-8"
+                                    ) as o:
+                                        if any(
+                                            regex.match("^A:.+", line)
+                                            for line in o
+                                        ):
+                                            with open(bledny, "a") as bl:
+                                                bl.write(
+                                                    opis
+                                                    + "\tasortyment niepotrzebnie \
+                                                        uzupełniony\n"
+                                                )
                             if str(cecha) == "BRAK":
-                                with open(opis, "r") as o:
-                                    if not any(
-                                        regex.match("^C:.+", line)
-                                        for line in o
-                                    ):
-                                        with open(bledny, "a") as bl:
-                                            bl.write(
-                                                opis
-                                                + "\tcecha nieuzupełniona\n"
-                                            )
+                                try:
+                                    with open(opis, "r") as o:
+                                        if not any(
+                                            regex.match("^C:.+", line)
+                                            for line in o
+                                        ):
+                                            with open(bledny, "a") as bl:
+                                                bl.write(
+                                                    opis
+                                                    + "\tcecha \
+                                                        nieuzupełniona\n"
+                                                )
+                                except UnicodeDecodeError:
+                                    with io.open(
+                                        opis, "r", encoding="utf-8"
+                                    ) as o:
+                                        if not any(
+                                            regex.match("^C:.+", line)
+                                            for line in o
+                                        ):
+                                            with open(bledny, "a") as bl:
+                                                bl.write(
+                                                    opis
+                                                    + "\tcecha \
+                                                        nieuzupełniona\n"
+                                                )
                             elif cecha == "JEST":
-                                with open(opis, "r") as o:
-                                    if any(
-                                        regex.match("^C:.+", line)
-                                        for line in o
-                                    ):
-                                        with open(bledny, "a") as bl:
-                                            bl.write(
-                                                opis
-                                                + "\tcecha niepotrzenie \
-                                                    uzupełniona\n"
-                                            )
+                                try:
+                                    with open(opis, "r") as o:
+                                        if any(
+                                            regex.match("^C:.+", line)
+                                            for line in o
+                                        ):
+                                            with open(bledny, "a") as bl:
+                                                bl.write(
+                                                    opis
+                                                    + "\tcecha niepotrzenie \
+                                                        uzupełniona\n"
+                                                )
+                                except UnicodeDecodeError:
+                                    with io.open(
+                                        opis, "r", encoding="utf-8"
+                                    ) as o:
+                                        if any(
+                                            regex.match("^C:.+", line)
+                                            for line in o
+                                        ):
+                                            with open(bledny, "a") as bl:
+                                                bl.write(
+                                                    opis
+                                                    + "\tcecha niepotrzenie \
+                                                        uzupełniona\n"
+                                                )
             except:
+                print(subdir)
                 continue
         # else:
         #     with open(bledny, "a") as bl:
