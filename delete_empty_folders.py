@@ -73,8 +73,11 @@ y/n/r: """
         if is_it.lower() == "y":
             ile = 1
             for item in delete:
-                os.rmdir(item)
-                print(ile)
+                try:
+                    os.rmdir(item)
+                    print(ile)
+                except PermissionError:
+                    print(str(ile) + "\tZABLOKOWANY\n" + item)
                 ile += 1
             print("~~~THE END.~~~\n")
         # ends if user don't want to delete
