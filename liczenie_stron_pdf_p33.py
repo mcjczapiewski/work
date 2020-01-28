@@ -83,4 +83,4 @@ roznicaczas = czaskoniec - czasstart
 czastrwania = roznicaczas.total_seconds() / 60
 print("Czas trwania (min):")
 print("%.2f" % czastrwania)
-input("KONIEC.")
+input("THE END. Press something...")

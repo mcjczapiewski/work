@@ -84,4 +84,4 @@ for subdir, dirs, files in os.walk(sciezka):
                 ) as zle:
                     zle.write(xml + "\n")
 
-input("KONIEC.")
+input("THE END. Press something...")

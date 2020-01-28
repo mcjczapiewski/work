@@ -219,4 +219,4 @@ for subdir, dirs, files in os.walk(sciezka):
             except:
                 raise
 
-input("KONIEC.")
+input("THE END. Press something...")

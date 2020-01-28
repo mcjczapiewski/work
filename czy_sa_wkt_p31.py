@@ -62,4 +62,4 @@ for subdir, dirs, files in os.walk(sciezka):
                     ) as bl:
                         bl.write(os.path.join(subdir, file) + "\n")
 
-input("KONIEC.")
+input("THE END. Press something...")

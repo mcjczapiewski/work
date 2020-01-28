@@ -59,4 +59,4 @@ for subdir, dirs, files in os.walk(stad):
                         ) as bledy:
                             bledy.write(plik + "\n")
 
-input("\nKONIEC.")
+input("\nTHE END. Press something...")

@@ -28,4 +28,4 @@ for subdir, dirs, files in os.walk(path):
         ) as bl:
             bl.write(subdir + "\n")
 
-print("KONIEC.")
+print("THE END. Press something...")

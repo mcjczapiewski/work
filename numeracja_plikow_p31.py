@@ -495,4 +495,4 @@ for subdir, dirs, files in os.walk(sciezka):
                     + "\tNie udało się zmienić nazwy pliku.\n"
                 )
 
-input("\nKONIEC.")
+input("\nTHE END. Press something...")

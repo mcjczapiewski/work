@@ -23,4 +23,4 @@ for subdir, dirs, files in os.walk(stad):
                 print(count)
             count += 1
 
-input("KONIEC.")
+input("THE END. Press something...")

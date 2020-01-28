@@ -77,4 +77,4 @@ with io.open(plikwynik, "a", encoding="utf-8") as pw:
                 if zapisane == 0:
                     pw.write(";" + os.path.splitext(file)[0] + "\n")
 
-input("KONIEC.")
+input("THE END. Press something...")

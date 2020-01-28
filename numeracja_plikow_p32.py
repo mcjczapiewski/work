@@ -182,4 +182,4 @@ for subdir, dirs, files in os.walk(sciezka):
                     ) as blad:
                         blad.write(plik + "\n")
 
-input("\nKONIEC.")
+input("\nTHE END. Press something...")

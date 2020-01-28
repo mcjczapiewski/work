@@ -56,4 +56,4 @@ for subdir, dirs, files in os.walk(sciezka):
                             ) as bl:
                                 bl.write(plik + "\n")
 
-input("KONIEC.")
+input("THE END. Press something...")

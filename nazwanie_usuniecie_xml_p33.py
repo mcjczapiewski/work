@@ -38,4 +38,4 @@ for subdir, dirs, files in os.walk(sciezka):
             except:
                 print("NAZWA NIE ZMIENIONA\t" + xml)
 
-input("KONIEC.")
+input("THE END. Press something...")

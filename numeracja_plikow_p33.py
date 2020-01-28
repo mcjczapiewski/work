@@ -97,4 +97,4 @@ for subdir, dirs, files in os.walk(sciezka):
 
                     duble[typ] = do_tego
 
-input("\nKONIEC.")
+input("\nTHE END. Press something...")
