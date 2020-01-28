@@ -60,11 +60,13 @@ for subdir, dirs, _ in os.walk(sprnr):
                                             regex.match("^A:.+", line)
                                             for line in o
                                         ):
-                                            with open(bledny, "a") as bl:
+                                            with io.open(
+                                                bledny, "a", encoding="utf-8"
+                                            ) as bl:
                                                 bl.write(
                                                     opis
                                                     + "\tasortyment \
-                                                        nieuzupełniony\n"
+nieuzupełniony\n"
                                                 )
                                 except UnicodeDecodeError:
                                     with io.open(
@@ -74,11 +76,13 @@ for subdir, dirs, _ in os.walk(sprnr):
                                             regex.match("^A:.+", line)
                                             for line in o
                                         ):
-                                            with open(bledny, "a") as bl:
+                                            with io.open(
+                                                bledny, "a", encoding="utf-8"
+                                            ) as bl:
                                                 bl.write(
                                                     opis
                                                     + "\tasortyment \
-                                                        nieuzupełniony\n"
+nieuzupełniony\n"
                                                 )
                             elif str(asor) == "JEST":
                                 try:
@@ -87,11 +91,13 @@ for subdir, dirs, _ in os.walk(sprnr):
                                             regex.match("^A:.+", line)
                                             for line in o
                                         ):
-                                            with open(bledny, "a") as bl:
+                                            with io.open(
+                                                bledny, "a", encoding="utf-8"
+                                            ) as bl:
                                                 bl.write(
                                                     opis
-                                                    + "\tasortyment niepotrzebnie \
-                                                        uzupełniony\n"
+                                                    + "\tasortyment \
+niepotrzebnie uzupełniony\n"
                                                 )
                                 except UnicodeDecodeError:
                                     with io.open(
@@ -101,11 +107,13 @@ for subdir, dirs, _ in os.walk(sprnr):
                                             regex.match("^A:.+", line)
                                             for line in o
                                         ):
-                                            with open(bledny, "a") as bl:
+                                            with io.open(
+                                                bledny, "a", encoding="utf-8"
+                                            ) as bl:
                                                 bl.write(
                                                     opis
-                                                    + "\tasortyment niepotrzebnie \
-                                                        uzupełniony\n"
+                                                    + "\tasortyment \
+niepotrzebnie uzupełniony\n"
                                                 )
                             if str(cecha) == "BRAK":
                                 try:
@@ -114,11 +122,13 @@ for subdir, dirs, _ in os.walk(sprnr):
                                             regex.match("^C:.+", line)
                                             for line in o
                                         ):
-                                            with open(bledny, "a") as bl:
+                                            with io.open(
+                                                bledny, "a", encoding="utf-8"
+                                            ) as bl:
                                                 bl.write(
                                                     opis
                                                     + "\tcecha \
-                                                        nieuzupełniona\n"
+nieuzupełniona\n"
                                                 )
                                 except UnicodeDecodeError:
                                     with io.open(
@@ -128,11 +138,13 @@ for subdir, dirs, _ in os.walk(sprnr):
                                             regex.match("^C:.+", line)
                                             for line in o
                                         ):
-                                            with open(bledny, "a") as bl:
+                                            with io.open(
+                                                bledny, "a", encoding="utf-8"
+                                            ) as bl:
                                                 bl.write(
                                                     opis
                                                     + "\tcecha \
-                                                        nieuzupełniona\n"
+nieuzupełniona\n"
                                                 )
                             elif cecha == "JEST":
                                 try:
@@ -141,11 +153,13 @@ for subdir, dirs, _ in os.walk(sprnr):
                                             regex.match("^C:.+", line)
                                             for line in o
                                         ):
-                                            with open(bledny, "a") as bl:
+                                            with io.open(
+                                                bledny, "a", encoding="utf-8"
+                                            ) as bl:
                                                 bl.write(
                                                     opis
-                                                    + "\tcecha niepotrzenie \
-                                                        uzupełniona\n"
+                                                    + "\tcecha \
+niepotrzenie uzupełniona\n"
                                                 )
                                 except UnicodeDecodeError:
                                     with io.open(
@@ -155,11 +169,13 @@ for subdir, dirs, _ in os.walk(sprnr):
                                             regex.match("^C:.+", line)
                                             for line in o
                                         ):
-                                            with open(bledny, "a") as bl:
+                                            with io.open(
+                                                bledny, "a", encoding="utf-8"
+                                            ) as bl:
                                                 bl.write(
                                                     opis
-                                                    + "\tcecha niepotrzenie \
-                                                        uzupełniona\n"
+                                                    + "\tcecha \
+niepotrzenie uzupełniona\n"
                                                 )
             except:
                 print(subdir)
