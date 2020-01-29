@@ -44,7 +44,7 @@ for subdir, dirs, files in os.walk(liczenie):
         or "DOKUMENTACJA" in subdir
         or "ZAŁOŻE" in subdir
         or "MODERNIZACJA" in subdir
-        or "ponad" in subdir
+        or "ponad_50" in subdir
     ):
         continue
     # rozbija sciezke do folderu i bierze tylko
@@ -60,7 +60,7 @@ for subdir, dirs, files in os.walk(liczenie):
         if file.upper().endswith("SZKIC.JPG" or "SZKIC.JPEG"):
             zdjecia += 1
 
-    if zdjecia >= 6:
+    if zdjecia >= 35:
         with open(bledny, "a") as bl:
             bl.write(subdir + "\n")
 

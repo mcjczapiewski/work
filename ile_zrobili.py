@@ -163,11 +163,11 @@ kto_ile = {}
 for i in natsorted(duble):
     try:
         _who_done_it = regex.match(
-            r"(^0[0-9][0-9][0-9].*?)_([A-Z].*?)(\t|_)", i
+            r"(^0[0-9][0-9][0-9].*?)_([A-Z].*?)(\t|_[0-9])", i
         )[2]
     except TypeError:
         _who_done_it = regex.match(
-            r"(^0[0-9][0-9][0-9].*?)_([0-9].*?)(\t|_)", i
+            r"(^0[0-9][0-9][0-9].*?)_([0-9].*?)(\t|_[0-9])", i
         )[2]
     klucz = (
         str(
