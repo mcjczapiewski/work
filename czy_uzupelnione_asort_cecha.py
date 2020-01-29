@@ -29,6 +29,7 @@ bledny = (
 )
 print("\nPlik zostanie umieszczony w:\n" + bledny)
 input("\nWciśnij ENTER aby kontynuować...")
+print("ROBIĘ...")
 dane = r"D:\_MACIEK_\python_proby\jest_brak.txt"
 
 

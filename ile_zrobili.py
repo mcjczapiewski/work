@@ -10,13 +10,13 @@ tego_dnia = o_data = o_nrobrebu = ile_ope = sytwys = prawne = duze = 0
 count = 1
 ile_dni = set()
 porzadkuj = set()
-tyle_zrobili = r"D:\_MACIEK_\python_proby\proba\tyle_zrobili2.txt"
+tyle_zrobili = r"D:\_MACIEK_\python_proby\tyle_zrobili_wloclawek_2.txt"
 
 if os.path.exists(tyle_zrobili):
     os.remove(tyle_zrobili)
 
 for subdir, dirs, _ in os.walk(
-    r"P:\cyfryzacja_powiat_wloclawski\ETAP_3\do_nazwania"
+    r"P:\cyfryzacja_powiat_wloclawski\ETAP_3\wloclawek_gmina_2"
 ):
     dirs.sort(key=nkey)
     # if "na_zewnatrz" in subdir or "zlecone" not in subdir:
@@ -25,7 +25,7 @@ for subdir, dirs, _ in os.walk(
     if os.path.exists(plik):
         print(count)
         count += 1
-        nrobrebu = subdir.split("\\")[6]
+        nrobrebu = subdir.split("\\")[4]
         data = (
             str(datetime.datetime.fromtimestamp(os.path.getctime(plik)))
         ).split(" ")[0]
@@ -42,14 +42,14 @@ for subdir, dirs, _ in os.walk(
             if data == o_data:
                 tego_dnia += 1
                 if (
-                    "PRAWNE" in subdir.split("\\")[7]
-                    or "EWIDENCJI" in subdir.split("\\")[7]
-                    or "MODERNI" in subdir.split("\\")[7]
+                    "PRAWNE" in subdir.split("\\")[5]
+                    or "EWIDENCJI" in subdir.split("\\")[5]
+                    or "MODERNI" in subdir.split("\\")[5]
                 ):
                     prawne += 1
-                elif "SYT-WYS" in subdir.split("\\")[7]:
+                elif "SYT-WYS" in subdir.split("\\")[5]:
                     sytwys += 1
-                elif "ponad" in subdir.split("\\")[7]:
+                elif "ponad" in subdir.split("\\")[5]:
                     duze += 1
                 continue
 
@@ -71,18 +71,18 @@ for subdir, dirs, _ in os.walk(
                 ile_ope += tego_dnia
                 tego_dnia = 1
                 if (
-                    "PRAWNE" in subdir.split("\\")[7]
-                    or "EWIDENCJI" in subdir.split("\\")[7]
-                    or "MODERNI" in subdir.split("\\")[7]
+                    "PRAWNE" in subdir.split("\\")[5]
+                    or "EWIDENCJI" in subdir.split("\\")[5]
+                    or "MODERNI" in subdir.split("\\")[5]
                 ):
                     prawne = 1
                     sytwys = 0
                     duze = 0
-                elif "SYT-WYS" in subdir.split("\\")[7]:
+                elif "SYT-WYS" in subdir.split("\\")[5]:
                     sytwys = 1
                     prawne = 0
                     duze = 0
-                elif "ponad" in subdir.split("\\")[7]:
+                elif "ponad" in subdir.split("\\")[5]:
                     duze = 1
                     prawne = 0
                     sytwys = 0
@@ -105,18 +105,18 @@ for subdir, dirs, _ in os.walk(
             o_data = data
             ile_ope += tego_dnia
             if (
-                "PRAWNE" in subdir.split("\\")[7]
-                or "EWIDENCJI" in subdir.split("\\")[7]
-                or "MODERNI" in subdir.split("\\")[7]
+                "PRAWNE" in subdir.split("\\")[5]
+                or "EWIDENCJI" in subdir.split("\\")[5]
+                or "MODERNI" in subdir.split("\\")[5]
             ):
                 prawne = 1
                 sytwys = 0
                 duze = 0
-            elif "SYT-WYS" in subdir.split("\\")[7]:
+            elif "SYT-WYS" in subdir.split("\\")[5]:
                 sytwys = 1
                 prawne = 0
                 duze = 0
-            elif "ponad" in subdir.split("\\")[7]:
+            elif "ponad" in subdir.split("\\")[5]:
                 duze = 1
                 prawne = 0
                 sytwys = 0
@@ -195,4 +195,4 @@ with io.open(tyle_zrobili, "w", encoding="utf-8") as tutaj:
         + " operatów."
     )
 
-input("\nKONIEC.")
+input("\nTHE END. Press something...")

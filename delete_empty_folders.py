@@ -16,18 +16,18 @@ while again == "y":
     # deleting thumbs beforehand if user want it
     for subdir, dirs, _ in os.walk(path):
         dirs.sort(key=nkey)
-        if "zrobione" not in subdir.lower():
-            if thumbs.lower() == "y":
-                thumb = os.path.join(subdir, "Thumbs.db")
-                if os.path.exists(thumb):
-                    try:
-                        os.remove(thumb)
-                    except PermissionError:
-                        continue
-            if not os.listdir(subdir):
-                delete.append(subdir)
-                print(str(number) + "\t" + subdir)
-                number += 1
+        # if "zrobione" not in subdir.lower():
+        if thumbs.lower() == "y":
+            thumb = os.path.join(subdir, "Thumbs.db")
+            if os.path.exists(thumb):
+                try:
+                    os.remove(thumb)
+                except PermissionError:
+                    continue
+        if not os.listdir(subdir):
+            delete.append(subdir)
+            print(str(number) + "\t" + subdir)
+            number += 1
 
     # if there is something in list, ask to delete them
     if delete:
