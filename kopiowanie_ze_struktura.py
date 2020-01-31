@@ -10,12 +10,12 @@ nkey = natsort_keygen()
 
 count = 1
 
-numery = [
-    "P.0418.2012.257",
-    "P.0418.1961.14",
-    "P.0418.1962.11",
-    "P.0418.1961.12",
-]
+# numery = [
+#     "P.0418.2012.257",
+#     "P.0418.1961.14",
+#     "P.0418.1962.11",
+#     "P.0418.1961.12",
+# ]
 
 # zrodlo = input("podaj źródło: ")
 desti = input("podaj dest: ")
@@ -24,14 +24,14 @@ desti = input("podaj dest: ")
 #     # if 'gotowe' not in subdir:
 #     #     continue
 #     dirs.sort(key=nkey)
-#     if any(i == os.path.basename(subdir) for i in numery):
-#         # opis = os.path.join(subdir, 'opis.txt')
-#         # if os.path.exists(opis):
+#     # if any(i == os.path.basename(subdir) for i in numery):
+#     opis = os.path.join(subdir, 'opis.txt')
+#     if os.path.exists(opis):
 #         print(count)
 #         count += 1
 
 with io.open(
-    r"D:\_MACIEK_\cyfryzacja_wloclawski\uwagi_lista.txt",
+    r"D:\_MACIEK_\cyfryzacja_wloclawski\lista_mdb.txt",  # noqa
     "r",
     encoding="utf-8",
 ) as opisy:
@@ -43,7 +43,7 @@ with io.open(
 
         tutaj = os.path.join(desti, str.split(subdir, ":\\")[1])
         if os.path.exists(tutaj):
-            continue
+            pass
         else:
             os.makedirs(tutaj)
         try:
