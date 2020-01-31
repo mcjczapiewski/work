@@ -8,7 +8,7 @@ nkey = natsort_keygen()
 _all_ = ""
 count = 1
 
-for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\proba\opisy"):
+for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\opisy_2.1"):
     dirs.sort(key=nkey)
     opis = os.path.join(subdir, "opis.txt")
     if os.path.exists(opis):
@@ -51,10 +51,14 @@ for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\proba\opisy"):
                         _all_ = zle.read()
                 except:
                     print(subdir)
+        except:
+            print(subdir)
+            continue
 
-        with io.open(
-            opis,
-            "w",
-            encoding="Windows-1250"
-        ) as _good_once:
-            _good_once.write(_all_)
+        if _all_:
+            with io.open(
+                opis,
+                "w",
+                encoding="Windows-1250"
+            ) as _good_once:
+                _good_once.write(_all_)
