@@ -17,6 +17,7 @@ nazwy = (
     "sprawozdanie techniczne",
     "szkic",
     "wykaz współrzędnych",
+    "wykaz współrzędnych",
 )
 sciezka = input("Enter the path: ")
 
@@ -27,7 +28,9 @@ for subdir, dirs, files in os.walk(sciezka):
 
     if not any(fname.upper().endswith(".JPG") for fname in os.listdir(subdir)):
         if os.path.basename(subdir).startswith("P."):
-            with open(os.path.join(sciezka, "foldery_bez_JPG.txt"), "a") as np:
+            with open(
+                os.path.join(sciezka, "directories_w-o_JPGs.txt"), "a"
+            ) as np:
                 np.write(os.path.join(subdir) + "\n")
         continue
 
@@ -46,7 +49,7 @@ for subdir, dirs, files in os.walk(sciezka):
                 nazwa = regex.match(r"^.+_(.+)\.jpg", file.lower())[1]
                 if nazwa not in nazwy:
                     with open(
-                        os.path.join(sciezka, "niepoprawne_nazwy.txt"), "a"
+                        os.path.join(sciezka, "mixed_names.txt"), "a"
                     ) as np:
                         np.write(os.path.join(subdir, file) + "\n")
             except:

@@ -158,7 +158,7 @@ for subdir, dirs, _ in os.walk(sprnr):
 
         except:
             with io.open(
-                r"D:\_MACIEK_\python_proby\bledy_otwarcia.txt",
+                r"P:\cyfryzacja_powiat_wloclawski\ZASILENIE_22\bledy_otwarcia.txt",  # noqa
                 "a",
                 encoding="utf-8",
             ) as bl:

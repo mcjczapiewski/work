@@ -11,4 +11,4 @@ for subdir, dirs, files in os.walk(path):
         ):
             print(str(count) + "\t" + subdir)
             count += 1
-            break
+            # break

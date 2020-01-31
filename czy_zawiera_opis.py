@@ -19,10 +19,10 @@ for subdir, dirs, files in os.walk(path):
             for fname in os.listdir(subdir)
         )
         or "DOKUMENTACJA" in subdir
-        or "NIE_RUSZAC" in subdir
-        or "ZARYSY" in subdir
-        or "BDOT500" in subdir
-        or "wielkie" in subdir
+        # or "NIE_RUSZAC" in subdir
+        # or "ZARYSY" in subdir
+        # or "BDOT500" in subdir
+        # or "wielkie" in subdir
     ):
         continue
     # print(count)

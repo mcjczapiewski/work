@@ -3,7 +3,7 @@ import shutil
 import io
 
 i = 1
-my_file = r"P:\cyfryzacja_powiat_wloclawski\wielkie_ponad_20\przenies.txt"  # noqa
+my_file = r"P:\cyfryzacja_powiat_wloclawski\ZASILENIE_22\przenies_EN.txt"  # noqa
 
 with io.open(my_file, "r", encoding="utf-8") as paths:
     for line in paths:

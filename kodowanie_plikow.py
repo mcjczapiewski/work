@@ -9,7 +9,7 @@ nkey = natsort_keygen()
 count = 1
 
 # sprawdzanie kodowania plikow - 1 metoda
-for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\proba\opisy"):
+for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\opisy_2.1"):
     dirs.sort(key=nkey)
     if os.path.exists(os.path.join(subdir, "opis.txt")):
         print(count)
@@ -22,7 +22,7 @@ for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\proba\opisy"):
         if not charenc:
             charenc = ""
         with open(
-            r"D:\_MACIEK_\python_proby\proba\opisy\kodowania_plikow1.txt",
+            r"D:\_MACIEK_\python_proby\opisy_2.1\kodowania_plikow1.txt",
             "a",
         ) as kodowanie:
             kodowanie.write(opis + "\t" + charenc + "\n")
@@ -30,7 +30,7 @@ for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\proba\opisy"):
 
 # sprawdzanie kodowania plikow - 2 metoda
 detector = UniversalDetector()
-for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\proba\opisy"):
+for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\opisy_2.1"):
     dirs.sort(key=nkey)
     if os.path.exists(os.path.join(subdir, "opis.txt")):
         print(count)
@@ -45,7 +45,7 @@ for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\proba\opisy"):
         detector.close()
         # if "utf-8" in str(detector.result):
         with open(
-            r"D:\_MACIEK_\python_proby\proba\opisy\kodowania_plikow2.txt",  # noqa
+            r"D:\_MACIEK_\python_proby\opisy_2.1\kodowania_plikow2.txt",  # noqa
             "a",
         ) as kodowanie:
             kodowanie.write(opis + "\t" + str(detector.result) + "\n")

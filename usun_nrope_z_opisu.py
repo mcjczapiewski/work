@@ -5,7 +5,7 @@ from natsort import natsort_keygen
 
 nkey = natsort_keygen()
 
-for subdir, dirs, _ in os.walk(r"H:\0418102"):
+for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\opisy_2.1"):
     dirs.sort(key=nkey)
     opis = os.path.join(subdir, "opis.txt")
     if os.path.exists(opis):
