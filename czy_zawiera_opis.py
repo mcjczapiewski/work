@@ -5,7 +5,7 @@ from natsort import natsort_keygen
 nkey = natsort_keygen()
 
 count = notdoneyet = 1
-path = r"P:\cyfryzacja_powiat_wloclawski\ZASILENIE_22"  # noqa
+path = r"P:\cyfryzacja_powiat_wloclawski\wielkie_ponad_20"  # noqa
 # _file = r"P:\cyfryzacja_powiat_wloclawski\brak_opisu.txt"
 
 # with io.open(_file, "r", encoding="utf-8") as missing:

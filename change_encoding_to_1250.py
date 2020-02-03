@@ -8,7 +8,7 @@ nkey = natsort_keygen()
 _all_ = ""
 count = 1
 
-for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\opisy_2.1"):
+for subdir, dirs, _ in os.walk(r"P:\cyfryzacja_powiat_wloclawski\wielkie_ponad_20\DO_BAZY\N"):  # noqa
     dirs.sort(key=nkey)
     opis = os.path.join(subdir, "opis.txt")
     if os.path.exists(opis):

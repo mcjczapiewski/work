@@ -5,9 +5,10 @@ from natsort import natsort_keygen
 
 nkey = natsort_keygen()
 
-for subdir, dirs, _ in os.walk(r"D:\_MACIEK_\python_proby\opisy_2.1"):
+for subdir, dirs, _ in os.walk(r"P:\cyfryzacja_powiat_wloclawski\wielkie_ponad_20\DO_BAZY\N"):  # noqa
     dirs.sort(key=nkey)
     opis = os.path.join(subdir, "opis.txt")
+    print(subdir)
     if os.path.exists(opis):
         linie = []
         try:

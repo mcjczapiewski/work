@@ -7,6 +7,7 @@ desti = input(
     "Enter the path to destination directory to copy files \
 with changed names: "
 )
+
 _copy = []
 count = 1
 
@@ -16,14 +17,21 @@ for subdir, dirs, files in os.walk(_path):
         print("NAMES CHANGING: " + str(count))
         count += 1
         for file in sorted(files):
-            if file.upper().endswith(".JPG") and file.startswith("T"):
+            if file.upper().endswith((".JPG", "JPEG")) and file.startswith(
+                "T"
+            ):
                 _old = file
-                _new = regex.sub(
-                    r"^(T.*?\.)(.+?_)(.+$)", r"\g<2>\g<1>\g<3>", file
-                )
-                os.rename(
-                    os.path.join(subdir, _old), os.path.join(subdir, _new)
-                )
+                try:
+                    _new = regex.sub(
+                        r"^(T.*?\.)(.+?_)(.+$)", r"\g<2>\g<1>\g<3>", file
+                    )
+                    os.rename(
+                        os.path.join(subdir, _old), os.path.join(subdir, _new)
+                    )
+                except:
+                    print(subdir)
+                    break
+
         _copy.append(subdir)
 
 count = 1
