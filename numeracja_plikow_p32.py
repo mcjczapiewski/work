@@ -25,6 +25,7 @@ for subdir, dirs, files in os.walk(sciezka):
     okladka = stara_nazwa = 0
     # zmienna dla zfill, jak wiecej niz 1000 skanow w folderze
     dopelnij = 3
+    # print(subdir)
     if any(
         regex.match("^.+_[0-9][0-9][0-9][0-9]_.+", fname)
         for fname in os.listdir(subdir)
@@ -90,7 +91,8 @@ for subdir, dirs, files in os.walk(sciezka):
                 # drukuje sciezke do operatu, if po to, zeby nie robil tego
                 # wiecej niz raz na folder
                 if podaj_ope == 0:
-                    print("\n\n" + subdir)
+                    print("\n\n" + str(count) + "\t" + subdir)
+                    count += 1
                     podaj_ope = 1
                 print(tom + file + "\t" + nowy)
                 # podjecie proby zmiany nazwy, inaczej do tekstowego
@@ -123,7 +125,8 @@ for subdir, dirs, files in os.walk(sciezka):
                     + file.split("_")[2]
                 )
                 if podaj_ope == 0:
-                    print("\n\n" + subdir)
+                    print("\n\n" + str(count) + "\t" + subdir)
+                    count += 1
                     podaj_ope = 1
                 print(tom + file + "\t" + nowy)
                 try:
@@ -150,7 +153,8 @@ for subdir, dirs, files in os.walk(sciezka):
                     + file.split("_")[2]
                 )
                 if podaj_ope == 0:
-                    print("\n\n" + subdir)
+                    print("\n\n" + str(count) + "\t" + subdir)
+                    count += 1
                     podaj_ope = 1
                 print(tom + file + "\t" + nowy)
                 try:
