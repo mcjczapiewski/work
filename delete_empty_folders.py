@@ -16,7 +16,6 @@ while again == "y":
     # deleting thumbs beforehand if user want it
     for subdir, dirs, _ in os.walk(path):
         dirs.sort(key=nkey)
-        # if "zrobione" not in subdir.lower():
         if thumbs.lower() == "y":
             thumb = os.path.join(subdir, "Thumbs.db")
             if os.path.exists(thumb):
@@ -71,14 +70,14 @@ y/n/r: """
 
         # removing directories if user said so
         if is_it.lower() == "y":
-            ile = 1
+            how_many = 1
             for item in delete:
                 try:
                     os.rmdir(item)
-                    print(ile)
+                    print(how_many)
                 except PermissionError:
-                    print(str(ile) + "\tZABLOKOWANY\n" + item)
-                ile += 1
+                    print(str(how_many) + "\tIT'S BLOCKED\n" + item)
+                how_many += 1
             print("~~~THE END.~~~\n")
         # ends if user don't want to delete
         else:
