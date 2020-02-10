@@ -1,3 +1,6 @@
 {
-    "cSpell.enabled": false
+    "cSpell.enabled": false,
+    "python.pythonPath": "C:\\Python37\\python.exe",
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
 }
