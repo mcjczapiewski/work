@@ -1,5 +1,5 @@
-# musi byc w folderze, w ktorym zawieraja sie podfoldery, folder nie moze
-# nazywac sie 'test' ani byc tylko liczba
+# it has to be in directory which contains subfolders, folder
+# cannot be named 'test' neither be just a number
 
 import os
 
