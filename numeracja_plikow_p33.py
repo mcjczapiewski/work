@@ -25,7 +25,17 @@ for subdir, dirs, files in os.walk(sciezka):
     kolejny = 1
     for file in natsorted(files):
         if file.upper().endswith(".PDF") and file.upper().startswith("P."):
-            bez_ope = file.split(os.path.basename(subdir))[1]
+            plik = os.path.join(subdir, file)
+            try:
+                bez_ope = file.split(os.path.basename(subdir))[1]
+            except IndexError:
+                with io.open(
+                    os.path.join(write_out, "nieprawidlowy_nr_operatu.txt"),
+                    "a",
+                    encoding="utf-8",
+                ) as bl_nazwy:
+                    bl_nazwy.write(plik + "\n")
+                break
             nr_tomu = myslnik = 0
             if regex.match(r"^.T.+", bez_ope):
                 nr_tomu = 1
@@ -33,7 +43,6 @@ for subdir, dirs, files in os.walk(sciezka):
                 bez_ope = regex.match(
                     r"^.T.*?((_[1-9].+$)|-[1-9].+$)", bez_ope
                 )[1]
-            plik = os.path.join(subdir, file)
             try:
                 if bez_ope.startswith("-"):
                     myslnik = 1
