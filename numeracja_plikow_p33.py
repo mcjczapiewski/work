@@ -15,6 +15,7 @@ sciezka = input("Podaj ścieżkę do folderu: ")
 write_out = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\GNIEWKOWO\Kontrole\Kontrola nazw plikow"  # noqa
 
 for subdir, dirs, files in os.walk(sciezka):
+    break_loop = 0
     dirs.sort(key=nkey)
     if not any(
         fname.upper().endswith(".PDF") for fname in os.listdir(subdir)
@@ -35,6 +36,7 @@ for subdir, dirs, files in os.walk(sciezka):
                     encoding="utf-8",
                 ) as bl_nazwy:
                     bl_nazwy.write(plik + "\n")
+                break_loop = 1
                 break
             nr_tomu = myslnik = 0
             if regex.match(r"^.T.+", bez_ope):
@@ -85,6 +87,9 @@ for subdir, dirs, files in os.walk(sciezka):
                     dokumentu.write(plik + "\t" + nazwa + "\n")
 
             kolejny += 1
+
+    if break_loop == 1:
+        break
 
     duble = {}
     for _, _, files in os.walk(subdir):
