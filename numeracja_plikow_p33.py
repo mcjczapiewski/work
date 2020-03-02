@@ -12,6 +12,7 @@ print(
     może pojawić się plik bledy.txt!\n\n"
 )
 sciezka = input("Podaj ścieżkę do folderu: ")
+write_out = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\GNIEWKOWO\Kontrole\Kontrola nazw plikow"  # noqa
 
 for subdir, dirs, files in os.walk(sciezka):
     dirs.sort(key=nkey)
@@ -59,7 +60,7 @@ for subdir, dirs, files in os.walk(sciezka):
                     dokument = "-" + file.split("-", 1)[1]
                 nazwa = os.path.join(subdir, operat + str(kolejny) + dokument)
                 with io.open(
-                    os.path.join(sciezka, "bledny_nr_dokumentu.txt"),
+                    os.path.join(write_out, "bledny_nr_dokumentu.txt"),
                     "a",
                     encoding="utf-8",
                 ) as dokumentu:
@@ -89,7 +90,7 @@ for subdir, dirs, files in os.walk(sciezka):
                         rozszerzenie = os.path.splitext(file)[1]
                         bedzie = bylo + str(do_tego).zfill(3) + rozszerzenie
                         with io.open(
-                            os.path.join(sciezka, "bledny_numer_strony.txt"),
+                            os.path.join(write_out, "bledny_numer_strony.txt"),
                             "a",
                             encoding="utf-8",
                         ) as strony:
