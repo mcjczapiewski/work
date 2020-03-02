@@ -15,9 +15,11 @@ count = 1
 #         print(sciezka)
 for subdir, dirs, files in os.walk(xmle):
     dirs.sort(key=nkey)
+    if not os.path.basename(subdir).startswith("P"):
+        continue
     if not any(fname.upper().endswith(".XML") for fname in os.listdir(subdir)):
         with io.open(
-            os.path.join(os.path.dirname(xmle), "bez_xml.txt"),
+            r"D:\_MACIEK_\python_proby\p33\numer_p_do_xml\bez_xml.txt",
             "a",
             encoding="utf-8",
         ) as bx:
@@ -63,7 +65,6 @@ for subdir, dirs, files in os.walk(xmle):
                             data_wplywu = regex.match(r"^.+\>(.+?)\<.+", line)[
                                 1
                             ]
-                            print(data_wplywu)
                         elif "<dataWplywu></" in line:
                             zapis = regex.sub(
                                 r"(^.*<dataWplywu>)(.+$)",
