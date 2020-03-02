@@ -33,13 +33,22 @@ for subdir, dirs, files in os.walk(sciezka):
                 bez_ope = regex.match(
                     r"^.T.*?((_[1-9].+$)|-[1-9].+$)", bez_ope
                 )[1]
-            if bez_ope.startswith("-"):
-                myslnik = 1
-                numer = int(bez_ope.split("-", 1)[1].split("-")[0])
-            else:
-                numer = int(bez_ope.split("_")[1].split("-")[0])
+            plik = os.path.join(subdir, file)
+            try:
+                if bez_ope.startswith("-"):
+                    myslnik = 1
+                    numer = int(bez_ope.split("-", 1)[1].split("-")[0])
+                else:
+                    numer = int(bez_ope.split("_")[1].split("-")[0])
+            except IndexError:
+                with io.open(
+                    os.path.join(write_out, "bledy_w_nazwach_plikow.txt"),
+                    "a",
+                    encoding="utf-8",
+                ) as bl_nazwy:
+                    bl_nazwy.write(plik + "\n")
+                continue
             if not numer == kolejny:
-                plik = os.path.join(subdir, file)
                 if nr_tomu == 1:
                     if regex.match(
                         os.path.basename(subdir) + "-T[0-9].+", file
