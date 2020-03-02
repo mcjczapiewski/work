@@ -2,6 +2,8 @@ import datetime
 import os
 import io
 
+external_files = r"\\Waw-dt1409\h\Poprawa_Inowrocław_cz.3"
+internal_files = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\INOWROCŁAW"
 those_files = r"D:\_MACIEK_\python_proby\p33\dysk_zew.txt"
 with_those = r"D:\_MACIEK_\python_proby\p33\dysk_v.txt"
 differences = r"D:\_MACIEK_\python_proby\p33\wkt_differences.txt"
@@ -13,7 +15,25 @@ def write_diffs():
         diffs.write(line + "\n")
 
 
-print("MAKING THE LIST...")
+print("SCANNING FOR CATALOGS", end="")
+i = 0
+with io.open(those_files, "a", encoding="utf-8") as original:
+    for subdir, dirs, _ in os.walk(external_files):
+        if os.listdir(subdir):
+            original.write(subdir + "\n")
+        if i % 500 == 0:
+            print(".", end="")
+        i += 1
+with io.open(with_those, "a", encoding="utf-8") as newer:
+    for subdir, dirs, _ in os.walk(internal_files):
+        if os.listdir(subdir):
+            newer.write(subdir + "\n")
+        if i % 500 == 0:
+            print(".", end="")
+        i += 1
+
+print("\nMAKING THE LIST", end="")
+i = 0
 with io.open(those_files, "r", encoding="utf-8") as original:
     for line in original:
         ori_path = line.split("\n")[0]
@@ -33,10 +53,17 @@ with io.open(those_files, "r", encoding="utf-8") as original:
                 if ori_number == new_number:
                     with io.open(to_compare, "a", encoding="utf-8") as compare:
                         compare.write(ori_path + "\t" + new_path + "\n")
+                    if i % 500 == 0:
+                        print(".", end="")
+                    i += 1
 
-print("COMPARING...")
+print("\nCOMPARING", end="")
+i = 0
 with io.open(to_compare, "r", encoding="utf-8") as compare:
     for line in compare:
+        if i % 500 == 0:
+            print(".", end="")
+        i += 1
         original, new = line.split('\n')[0].split('\t')
         ori_wkt = new_wkt = break_it = 0
         for subdir, dirs, files in os.walk(original):
