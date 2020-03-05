@@ -25,12 +25,16 @@ for subdir, dirs, files in os.walk(sciezka):
     okladka = stara_nazwa = 0
     # zmienna dla zfill, jak wiecej niz 1000 skanow w folderze
     dopelnij = 3
-    # print(subdir)
     if any(
         regex.match("^.+_[0-9][0-9][0-9][0-9]_.+", fname)
         for fname in os.listdir(subdir)
     ):
         dopelnij = 4
+    elif any(
+        regex.match("^.+_[0-9][0-9][0-9][0-9][0-9]_.+", fname)
+        for fname in os.listdir(subdir)
+    ):
+        dopelnij = 5
     # jak nie ma okladki to pierwszy plik zaczyna sie od 01_001
     for file in natsorted(files):
         if file.upper().endswith(".JPG") and "okładka" not in file:
