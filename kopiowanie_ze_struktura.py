@@ -31,7 +31,7 @@ desti = input("podaj dest: ")
 #         count += 1
 
 with io.open(
-    r"D:\_MACIEK_\cyfryzacja_wloclawski\lista_mdb.txt",  # noqa
+    r"D:\_MACIEK_\cyfryzacja_wloclawski\kontrola_etap_2.2\sciezki.txt",  # noqa
     "r",
     encoding="utf-8",
 ) as opisy:
@@ -39,15 +39,18 @@ with io.open(
         print(count)
         count += 1
         opis = line.split("\n")[0]
-        subdir = os.path.dirname(opis)
+        # subdir = os.path.dirname(opis)
 
-        tutaj = os.path.join(desti, str.split(subdir, ":\\")[1])
-        if os.path.exists(tutaj):
-            pass
-        else:
-            os.makedirs(tutaj)
+        tutaj = os.path.join(desti, str.split(opis, ":\\")[1])
+        # if os.path.exists(tutaj):
+        #     pass
+        # else:
+        #     os.makedirs(tutaj)
         try:
-            shutil.copy2(opis, tutaj)
+            shutil.copytree(opis, tutaj)
+        except FileNotFoundError:
+            print(opis)
+            continue
         except:
             raise
-            print(subdir)
+            print(opis)
