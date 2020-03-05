@@ -43,9 +43,7 @@ for subdir, dirs, files in os.walk(sciezka):
         if file.upper().endswith(".PDF"):
             if not regex.match(r"^P.+[0-9]\.PDF", file.upper()):
                 with io.open(
-                    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\DĄBROWA BISKUPIA\
-                             BRAKUJĄCE_OPEARTY_19.11.2019\brakujące_operaty_Dąbrowa_Biskupia\
-                             GMINA DABROWA BISKUPIA\niepoprawne_nazwy.txt",
+                    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\GNIEWKOWO\Kontrole\Kontrola nazw plikow\niepoprawne_nazwy.txt",  # noqa
                     "a",
                     encoding="utf-8",
                 ) as np:
@@ -56,12 +54,15 @@ for subdir, dirs, files in os.walk(sciezka):
                         r"^.+?-(.+[A-Z])-[0-9].+PDF", file.upper()
                     )[1]
                 except:
-                    print("\t\t\t" + os.path.join(subdir, file))
+                    with io.open(
+                        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\GNIEWKOWO\Kontrole\Kontrola nazw plikow\niepoprawne_nazwy.txt",  # noqa
+                        "a",
+                        encoding="utf-8",
+                    ) as np:
+                        np.write(os.path.join(subdir, file) + "\n")
                 if nazwa not in nazwy:
                     with io.open(
-                        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\DĄBROWA BISKUPIA\
-                                 BRAKUJĄCE_OPEARTY_19.11.2019\brakujące_operaty_Dąbrowa_Biskupia\
-                                 GMINA DABROWA BISKUPIA\niepoprawne_nazwy.txt",
+                        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\GNIEWKOWO\Kontrole\Kontrola nazw plikow\niepoprawne_nazwy.txt",  # noqa
                         "a",
                         encoding="utf-8",
                     ) as np:
