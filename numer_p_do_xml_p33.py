@@ -5,7 +5,7 @@ from natsort import natsorted, natsort_keygen
 
 nkey = natsort_keygen()
 
-xmle = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\GNIEWKOWO"  # noqa
+xmle = r"\\waw-dt1409\h\Inowrocław"  # noqa
 numery_p = r"D:\_MACIEK_\python_proby\p33\p_do_xml.txt"
 count = 1
 
@@ -19,7 +19,7 @@ for subdir, dirs, files in os.walk(xmle):
         continue
     if not any(fname.upper().endswith(".XML") for fname in os.listdir(subdir)):
         with io.open(
-            r"D:\_MACIEK_\python_proby\p33\numer_p_do_xml\bez_xml.txt",
+            r"\\waw-dt1409\h\Inowrocław\bez_xml.txt",
             "a",
             encoding="utf-8",
         ) as bx:
@@ -36,49 +36,49 @@ for subdir, dirs, files in os.walk(xmle):
             try:
                 with io.open(xml, "r", encoding="utf-8") as r_xml:
                     for line in r_xml:
-                        if regex.match(r"^.*pierwszyCzlon><", line):
+                        if regex.match(r"^.*pierwszyCzlon", line):
                             zapis = regex.sub(
-                                r"(^.*<pierwszyCzlon>)(.+$)",
-                                r"\g<1>" + zasob + r"\g<2>",
+                                r"(^.*<pierwszyCzlon)(.+$)",
+                                r"\g<1>>" + zasob + r"</pierwszyCzlon>",
                                 line,
                             )
-                        elif regex.match(r"^.*drugiCzlon><", line):
+                        elif regex.match(r"^.*drugiCzlon", line):
                             zapis = regex.sub(
-                                r"(^.*<drugiCzlon>)(.+$)",
-                                r"\g<1>" + powiat + r"\g<2>",
+                                r"(^.*<drugiCzlon)(.+$)",
+                                r"\g<1>>" + powiat + r"</drugiCzlon>",
                                 line,
                             )
-                        elif regex.match(r"^.*trzeciCzlon><", line):
+                        elif regex.match(r"^.*trzeciCzlon", line):
                             zapis = regex.sub(
-                                r"(^.*<trzeciCzlon>)(.+$)",
-                                r"\g<1>" + rok + r"\g<2>",
+                                r"(^.*<trzeciCzlon)(.+$)",
+                                r"\g<1>>" + rok + r"</trzeciCzlon>",
                                 line,
                             )
-                        elif regex.match(r"^.*czwartyCzlon><", line):
+                        elif regex.match(r"^.*czwartyCzlon", line):
                             zapis = regex.sub(
-                                r"(^.*<czwartyCzlon>)(.+$)",
-                                r"\g<1>" + numer + r"\g<2>",
+                                r"(^.*<czwartyCzlon)(.+$)",
+                                r"\g<1>>" + numer + r"</czwartyCzlon>",
                                 line,
                             )
-                        elif "<pzg_dataPrzyjecia" in line:
-                            zapis = line
-                            data_wplywu = regex.match(r"^.+\>(.+?)\<.+", line)[
-                                1
-                            ]
-                        elif "<dataWplywu></" in line:
-                            zapis = regex.sub(
-                                r"(^.*<dataWplywu>)(.+$)",
-                                r"\g<1>" + data_wplywu + r"\g<2>",
-                                line,
-                            )
-                        elif (
-                            "<pzg_nazwa>operat techniczny</pzg_nazwa>" in line
-                        ):
-                            zapis = regex.sub(
-                                r"(^.*<pzg_nazwa>)operat techniczny(.+$)",
-                                r"\g<1>" + "operatTechniczny" + r"\g<2>",
-                                line,
-                            )
+                        # elif "<pzg_dataPrzyjecia" in line:
+                        #     zapis = line
+                        #     data_wplywu = regex.match(r"^.+\>(.+?)\<.+", line)[
+                        #         1
+                        #     ]
+                        # elif "<dataWplywu></" in line:
+                        #     zapis = regex.sub(
+                        #         r"(^.*<dataWplywu>)(.+$)",
+                        #         r"\g<1>" + data_wplywu + r"\g<2>",
+                        #         line,
+                        #     )
+                        # elif (
+                        #     "<pzg_nazwa>operat techniczny</pzg_nazwa>" in line
+                        # ):
+                        #     zapis = regex.sub(
+                        #         r"(^.*<pzg_nazwa>)operat techniczny(.+$)",
+                        #         r"\g<1>" + "operatTechniczny" + r"\g<2>",
+                        #         line,
+                        #     )
                         else:
                             zapis = line
                         tresc.append(zapis)
@@ -87,14 +87,14 @@ for subdir, dirs, files in os.walk(xmle):
                         nowy.write(i)
             except PermissionError:
                 with io.open(
-                    r"D:\_MACIEK_\python_proby\p33\numer_p_do_xml\bledy_otwarcia.txt",  # noqa
+                    r"\\waw-dt1409\h\Inowrocław\bledy_otwarcia.txt",  # noqa
                     "a",
                     encoding="utf-8",
                 ) as bl:
                     bl.write(xml + "\n")
             except:
                 with io.open(
-                    r"D:\_MACIEK_\python_proby\p33\numer_p_do_xml\bledy_nieznane.txt",  # noqa
+                    r"\\waw-dt1409\h\Inowrocław\bledy_nieznane.txt",  # noqa
                     "a",
                     encoding="utf-8",
                 ) as bl:
