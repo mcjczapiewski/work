@@ -312,31 +312,31 @@ count = 1
 
 # # czy do pliku wkt jest odpowiednik w pdf
 # braki = 0
-# sciezka = r"D:\_MACIEK_\python_proby\p33\kontrola\DOKUMENTY_KATASTRALNE"
+# sciezka = r"\\waw-dt1409\h\Poprawa_Inowrocław_cz.3\INOWROCŁAW\dla_macka_wkt"
 # with open(
 #     r"D:\_MACIEK_\python_proby\p33\kontrola\sciezki.txt", "r", encoding="utf-8"
 # ) as sciezki:
 #     for line in sciezki:
 #         sciezka = line.split("\n")[0]
-#         for subdir, dirs, files in os.walk(sciezka):
-#             dirs.sort(key=nkey)
-#             for file in natsorted(files):
-#                 if file.endswith(".wkt"):
-#                     wkt = os.path.join(subdir, file)
-#                     print(str(count))
-#                     count += 1
-#                     if (
-#                         not os.path.exists((wkt.split(".wkt")[0]) + ".PDF")
-#                         and os.path.basename(subdir) != file.split(".wkt")[0]
-#                     ):
-#                         # braki += 1
-#                         # print("\t\t" + str(braki))
-#                         with io.open(
-#                             r"D:\_MACIEK_\python_proby\p33\kontrola\wkt_bez_odpowiednika_pdf.txt",  # noqa
-#                             "a",
-#                             encoding="utf-8",
-#                         ) as brak:
-#                             brak.write(wkt + "\n")
+# for subdir, dirs, files in os.walk(sciezka):
+#     dirs.sort(key=nkey)
+#     for file in natsorted(files):
+#         if file.endswith(".wkt"):
+#             wkt = os.path.join(subdir, file)
+#             print(str(count))
+#             count += 1
+#             if (
+#                 not os.path.exists((wkt.split(".wkt")[0]) + ".PDF")
+#                 and os.path.basename(subdir) != file.split(".wkt")[0]
+#             ):
+#                 # braki += 1
+#                 # print("\t\t" + str(braki))
+#                 with io.open(
+#                     r"\\waw-dt1409\h\Poprawa_Inowrocław_cz.3\INOWROCŁAW\wkt_bez_odpowiednika_pdf.txt",  # noqa
+#                     "a",
+#                     encoding="utf-8",
+#                 ) as brak:
+#                     brak.write(wkt + "\n")
 
 
 # # kiedy bledne wkt byly utworzone
@@ -484,47 +484,48 @@ count = 1
 #                             shutil.copy(wkt, new)
 
 # rozkopiowanie wkt operatow na poszczegolne dokumenty
-# with open(
-#     r"D:\_MACIEK_\python_proby\p33\kontrola\sciezki.txt", "r", encoding="utf-8"
-# ) as sciezki:
-#     for line in sciezki:
-#         sciezka = line.split("\n")[0]
-#         for subdir, dirs, files in os.walk(sciezka):
-#             dirs.sort(key=nkey)
-#             wkt_operatu = os.path.join(
-#                 subdir, os.path.basename(subdir) + ".wkt"
-#             )
-#             if os.path.exists(wkt_operatu):
-#                 for file in natsorted(files):
-#                     if regex.match(r".+((-M-)|(-SZK-)).+\.PDF", file.upper()):
-#                         new_wkt = os.path.join(
-#                             subdir, os.path.splitext(file)[0] + ".wkt"
-#                         )
-#                         if os.path.exists(new_wkt):
-#                             continue
-#                         else:
-#                             try:
-#                                 shutil.copy(wkt_operatu, new_wkt)
-#                                 print(str(count) + "\t" + new_wkt)
-#                                 count += 1
-#                             except:
-#                                 with open(
-#                                     r"D:\_MACIEK_\python_proby\p33\kontrola\nie_udalo_sie_utworzyc.txt",  # noqa
-#                                     "a",
-#                                     encoding="utf-8",
-#                                 ) as bledy:
-#                                     bledy.write(new_wkt + "\n")
-#             else:
-#                 if any(
-#                     fname.upper().endswith(".PDF")
-#                     for fname in os.listdir(subdir)
-#                 ):
-#                     with open(
-#                         r"D:\_MACIEK_\python_proby\p33\kontrola\brak_wkt_operatu.txt",
-#                         "a",
-#                         encoding="utf-8",
-#                     ) as bledy:
-#                         bledy.write(subdir + "\n")
+with open(
+    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\sciezki.txt", "r", encoding="utf-8"
+) as sciezki:
+    for line in sciezki:
+        sciezka = line.split("\n")[0]
+# sciezka = r"\\waw-dt1409\h\Poprawa_Inowrocław_cz.3\INOWROCŁAW\dla_macka_wkt"
+        for subdir, dirs, files in os.walk(sciezka):
+            dirs.sort(key=nkey)
+            wkt_operatu = os.path.join(
+                subdir, os.path.basename(subdir) + ".wkt"
+            )
+            if os.path.exists(wkt_operatu):
+                for file in natsorted(files):
+                    if regex.match(r".+((-M-)|(-SZK-)|(-Z-KAT-)).+\.PDF", file.upper()):
+                        new_wkt = os.path.join(
+                            subdir, os.path.splitext(file)[0] + ".wkt"
+                        )
+                        if os.path.exists(new_wkt):
+                            continue
+                        else:
+                            try:
+                                shutil.copy(wkt_operatu, new_wkt)
+                                print(str(count) + "\t" + new_wkt)
+                                count += 1
+                            except:
+                                with open(
+                                    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\nie_udalo_sie_utworzyc.txt",  # noqa
+                                    "a",
+                                    encoding="utf-8",
+                                ) as bledy:
+                                    bledy.write(new_wkt + "\n")
+            else:
+                if any(
+                    fname.upper().endswith(".PDF")
+                    for fname in os.listdir(subdir)
+                ):
+                    with open(
+                        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\brak_wkt_operatu.txt",
+                        "a",
+                        encoding="utf-8",
+                    ) as bledy:
+                        bledy.write(subdir + "\n")
 
 # czy wkt są tylko dla szkiców i map
 # with open(
@@ -532,30 +533,30 @@ count = 1
 # ) as sciezki:
 #     for line in sciezki:
 #         sciezka = line.split("\n")[0]
-#         for subdir, dirs, files in os.walk(sciezka):
-#             dirs.sort(key=nkey)
-#             if not any(fname.upper().endswith(".WKT") for fname in os.listdir(subdir)):
-#                 continue
-#             wkt_operatu = os.path.join(subdir, os.path.basename(subdir) + ".wkt")
-#             print(count)
-#             count += 1
-#             for file in files:
-#                 if file.endswith(".wkt") and (
-#                     file != (os.path.basename(subdir) + ".wkt")
-#                     and "-M-" not in file
-#                     and "-SZK-" not in file
-#                     and "-Z-KAT" not in file
-#                 ):
-#                     with open(
-#                         r"D:\_MACIEK_\python_proby\p33\kontrola\wkt_do_niewlasciwych_plikow.txt",
-#                         "a",
-#                         encoding="utf-8",
-#                     ) as bledy:
-#                         bledy.write(os.path.join(subdir, file) + "\n")
+# for subdir, dirs, files in os.walk(sciezka):
+#     dirs.sort(key=nkey)
+#     if not any(fname.upper().endswith(".WKT") for fname in os.listdir(subdir)):
+#         continue
+#     wkt_operatu = os.path.join(subdir, os.path.basename(subdir) + ".wkt")
+#     print(count)
+#     count += 1
+#     for file in files:
+#         if file.endswith(".wkt") and (
+#             file != (os.path.basename(subdir) + ".wkt")
+#             and "-M-" not in file
+#             and "-SZK-" not in file
+#             and "-Z-KAT" not in file
+#         ):
+#             with open(
+#                 r"\\waw-dt1409\h\Poprawa_Inowrocław_cz.3\INOWROCŁAW\wkt_do_niewlasciwych_plikow.txt",
+#                 "a",
+#                 encoding="utf-8",
+#             ) as bledy:
+#                 bledy.write(os.path.join(subdir, file) + "\n")
 
 # czy sa wkt dla plikow i operatow
 # with open(
-#     r"D:\_MACIEK_\python_proby\p33\kontrola\sciezki.txt", "r", encoding="utf-8"
+#     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\sciezki.txt", "r", encoding="utf-8"
 # ) as sciezki:
 #     for line in sciezki:
 #         sciezka = line.split("\n")[0]
@@ -579,14 +580,14 @@ count = 1
 #                     )
 #                     if not os.path.exists(new_wkt):
 #                         with open(
-#                             r"D:\_MACIEK_\python_proby\p33\kontrola\brak_wkt_dla_plikow.txt",  # noqa
+#                             r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\brak_wkt_dla_plikow.txt",  # noqa
 #                             "a",
 #                             encoding="utf-8",
 #                         ) as bledy:
 #                             bledy.write(new_wkt + "\n")
 #             if not os.path.exists(wkt_operatu):
 #                 with open(
-#                     r"D:\_MACIEK_\python_proby\p33\kontrola\brak_wkt_operatu.txt",
+#                     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\brak_wkt_operatu.txt",
 #                     "a",
 #                     encoding="utf-8",
 #                 ) as bledy:

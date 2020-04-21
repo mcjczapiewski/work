@@ -31,7 +31,7 @@ desti = input("podaj dest: ")
 #         count += 1
 
 with io.open(
-    r"D:\_MACIEK_\cyfryzacja_wloclawski\kontrola_etap_2.2\sciezki.txt",  # noqa
+    r"\\waw-dt1407\g\20200401\kopiowanie22.txt",  # noqa
     "r",
     encoding="utf-8",
 ) as opisy:
@@ -41,7 +41,7 @@ with io.open(
         opis = line.split("\n")[0]
         # subdir = os.path.dirname(opis)
 
-        tutaj = os.path.join(desti, str.split(opis, ":\\")[1])
+        tutaj = os.path.join(desti, str.split(opis, "\\\\")[1])
         # if os.path.exists(tutaj):
         #     pass
         # else:
