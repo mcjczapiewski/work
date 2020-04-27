@@ -229,11 +229,22 @@ def fix_numbers(path):
                 file_doc_number = tail.strip("_").split("-", 1)[0]
                 if int(file_doc_number) != doc_number:
                     doc_numbers_to_change.append(
-                        f"{subdir}\t{file}\
+                        f"{subdir}\t{file} --> \
 _--_{operat}_{doc_number}-{tail.strip('_').split('-', 1)[1]}"
                     )
                 doc_number += 1
+    if doc_numbers_to_change:
+        make_changes = changes("dokumentów", doc_numbers_to_change)
 
+    for subdir, dirs, files in os.walk(path):
+        dirs.sort(key=natsort_keygen())
+        if not any(
+            regex.search(r"-.+-", fname) for fname in os.listdir(subdir)
+        ):
+            continue
+        operat = os.path.basename(subdir)
+        if "merge" in subdir:
+            operat = os.path.basename(os.path.dirname(subdir))
         names_seen = {}
         for file in natsorted(files):
             if regex.search(r"-.+-.+.PDF", file.upper()):
@@ -248,25 +259,13 @@ _--_{operat}_{doc_number}-{tail.strip('_').split('-', 1)[1]}"
                     names_seen[file_type] += 1
                 if file_page_number != str(names_seen[file_type]).zfill(3):
                     page_numbers_to_change.append(
-                        f"{subdir}\t{file}\
+                        f"{subdir}\t{file} --> \
 _--_{operat}{tail.split(file_page_number)[0]}{str(names_seen[file_type]).zfill(3)}\
 {tail.split(file_page_number)[1]}"
                     )
-
-    delete_double_underscore = []
-    if doc_numbers_to_change:
-        delete_double_underscore, make_changes = changes(
-            "dokumentów", doc_numbers_to_change, delete_double_underscore
-        )
     if page_numbers_to_change:
-        delete_double_underscore, make_changes = changes(
-            "stron", page_numbers_to_change, delete_double_underscore
-        )
-    for underscore in delete_double_underscore:
-        os.rename(
-            underscore,
-            underscore.split("_--_")[0] + underscore.split("_--_")[1],
-        )
+        make_changes = changes("stron", page_numbers_to_change)
+
     if not doc_numbers_to_change and not page_numbers_to_change:
         print(" --- BRAK BŁĘDÓW --- ")
     elif make_changes == "t":
@@ -275,7 +274,7 @@ _--_{operat}{tail.split(file_page_number)[0]}{str(names_seen[file_type]).zfill(3
         print(" --- POZOSTAWIONO W AKTUALNYM STANIE --- ")
 
 
-def changes(change_type, numbers_to_change, double_underscore):
+def changes(change_type, numbers_to_change):
     print(
         f"Chcesz zobaczyć zmiany w numerach {change_type}, zanim je zrobię? \
 t/n\n> ",
@@ -292,20 +291,26 @@ t/n\n> ",
     make_changes = msvcrt.getwche().lower()
     print()
     if make_changes == "t":
+        delete_double_underscore = []
         for change in natsorted(numbers_to_change):
             file_path = change.split("\t")[0]
-            old_name, new_name = change.split("\t")[1].split("_--_")
+            old_name, new_name = change.split("\t")[1].split(" --> ")
             os.rename(
                 os.path.join(file_path, old_name),
                 os.path.join(file_path, new_name),
             )
-            double_underscore.append(os.path.join(file_path, new_name))
-    return double_underscore, make_changes
+            delete_double_underscore.append(os.path.join(file_path, new_name))
+        for underscore in delete_double_underscore:
+            os.rename(
+                underscore,
+                underscore.split("_--_")[0] + underscore.split("_--_")[1],
+            )
+    return make_changes
 
 
 def main():
-    path = r"D:\WPG\inowroclawski\040701_1.0006"
-    # path = input("\nWklej ścieżkę:\n> ")
+    # path = r"D:\WPG\inowroclawski\040701_1.0006"
+    path = input("\nWklej ścieżkę:\n> ")
     end_script = ""
     while end_script != "0":
         print("\nWybierz jedną z opcji:")
