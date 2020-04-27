@@ -229,7 +229,7 @@ def fix_numbers(path):
                 file_doc_number = tail.strip("_").split("-", 1)[0]
                 if int(file_doc_number) != doc_number:
                     doc_numbers_to_change.append(
-                        f"{subdir}\t{file} --> \
+                        f"{subdir}\t{file}\
 _--_{operat}_{doc_number}-{tail.strip('_').split('-', 1)[1]}"
                     )
                 doc_number += 1
@@ -248,7 +248,7 @@ _--_{operat}_{doc_number}-{tail.strip('_').split('-', 1)[1]}"
                     names_seen[file_type] += 1
                 if file_page_number != str(names_seen[file_type]).zfill(3):
                     page_numbers_to_change.append(
-                        f"{subdir}\t{file} --> \
+                        f"{subdir}\t{file}\
 _--_{operat}{tail.split(file_page_number)[0]}{str(names_seen[file_type]).zfill(3)}\
 {tail.split(file_page_number)[1]}"
                     )
@@ -294,7 +294,7 @@ t/n\n> ",
     if make_changes == "t":
         for change in natsorted(numbers_to_change):
             file_path = change.split("\t")[0]
-            old_name, new_name = change.split("\t")[1].split(" --> ")
+            old_name, new_name = change.split("\t")[1].split("_--_")
             os.rename(
                 os.path.join(file_path, old_name),
                 os.path.join(file_path, new_name),
