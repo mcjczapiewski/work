@@ -308,6 +308,39 @@ t/n\n> ",
     return make_changes
 
 
+def no_missing_names(path):
+    no_errors = True
+    for subdir, dirs, files in os.walk(path):
+        operat = os.path.basename(subdir)
+        if subdir.endswith(
+            os.path.join(os.path.basename(subdir), os.path.basename(subdir))
+        ):
+            names_of_files = [
+                regex.search(r"-([A-Z].*[A-Z])", x)[1]
+                for x in os.listdir(subdir)
+                if x.upper().endswith(".PDF")
+            ]
+            names_of_files = set(names_of_files)
+            merge_folder = os.path.join(subdir, "merge")
+            if os.path.exists(merge_folder):
+                names_of_merged = [
+                    regex.search(r"-([A-Z].*[A-Z])", x)[1]
+                    for x in os.listdir(merge_folder)
+                    if x.upper().endswith(".PDF")
+                ]
+                names_of_merged = set(names_of_merged)
+                for name in names_of_files:
+                    if name not in names_of_merged:
+                        print(fr"W {operat}\merge brak '{name}'")
+                        no_errors = False
+                for name in names_of_merged:
+                    if name not in names_of_files:
+                        print(f"W {operat} brak '{name}'")
+                        no_errors = False
+    if no_errors is True:
+        print(" --- BRAK BŁĘDÓW --- ")
+
+
 def main():
     # path = r"D:\WPG\inowroclawski\040701_1.0006"
     path = input("\nWklej ścieżkę:\n> ")
@@ -321,6 +354,7 @@ def main():
     (3)  Sprawdź czy w każdym operacie jest mapa, szkic i wykaz
     (4)  Zagnieżdżone katalogi
     (5)  Popraw numerację dokumentów i stron
+    (6)  Czy w merge są wszytkie nazwy plików
     (0)  Wyjście z programu
     """
         )
@@ -336,6 +370,8 @@ def main():
             move_up_nested_merge(path)
         elif end_script == "5":
             fix_numbers(path)
+        elif end_script == "6":
+            no_missing_names(path)
     input("\nWciśnij ENTER lub zamknij okno ręcznie...\n> ")
 
 
