@@ -51,19 +51,20 @@ input("\nWciśnij ENTER aby kontynuować...\n")
 print("\nTrwa liczenie PDFów, poczekaj chwilkę...\n")
 
 # petla liczaca pdfy
-for _, _, filenames in os.walk(rozdziel):
-    # ^ this idiom means "we won't be using this value"
-    for filename in filenames:
-        if filename.endswith((".pdf", ".PDF")):
-            countope += 1
+# for _, _, filenames in os.walk(rozdziel):
+#     # ^ this idiom means "we won't be using this value"
+#     for filename in filenames:
+#         if filename.endswith((".pdf", ".PDF")):
+#             countope += 1
 
 # glowna petla
 for subdir, dirs, files in os.walk(rozdziel):
     dirs.sort(key=nkey)
-
+    if "merge" not in subdir:
+        continue
     # rozbija sciezke do folderu i bierze tylko
     # ostatni czlon jako numer operatu
-    nrope = os.path.basename(os.path.normpath(subdir))
+    nrope = os.path.basename(os.path.dirname(subdir))
 
     # poczatek petli skanujacej pliki pdf
     for file in natsorted(files):

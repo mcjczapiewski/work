@@ -5,7 +5,7 @@ from natsort import natsorted, natsort_keygen
 
 nkey = natsort_keygen()
 
-xmle = r"\\waw-dt1409\h\Inowrocław"  # noqa
+xmle = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO"  # noqa
 numery_p = r"D:\_MACIEK_\python_proby\p33\p_do_xml.txt"
 count = 1
 
@@ -19,7 +19,7 @@ for subdir, dirs, files in os.walk(xmle):
         continue
     if not any(fname.upper().endswith(".XML") for fname in os.listdir(subdir)):
         with io.open(
-            r"\\waw-dt1409\h\Inowrocław\bez_xml.txt",
+            r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO\kontrole\bez_xml.txt",
             "a",
             encoding="utf-8",
         ) as bx:
@@ -87,14 +87,14 @@ for subdir, dirs, files in os.walk(xmle):
                         nowy.write(i)
             except PermissionError:
                 with io.open(
-                    r"\\waw-dt1409\h\Inowrocław\bledy_otwarcia.txt",  # noqa
+                    r"\I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO\kontrole\bledy_otwarcia.txt",  # noqa
                     "a",
                     encoding="utf-8",
                 ) as bl:
                     bl.write(xml + "\n")
             except:
                 with io.open(
-                    r"\\waw-dt1409\h\Inowrocław\bledy_nieznane.txt",  # noqa
+                    r"\I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO\kontrole\bledy_nieznane.txt",  # noqa
                     "a",
                     encoding="utf-8",
                 ) as bl:
