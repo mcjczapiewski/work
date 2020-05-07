@@ -38,7 +38,7 @@ def on_select(event):
     # print("(event)  current:", event.widget.get(event.widget.curselection()))
     root.clipboard_clear()
     selected = event.widget.get(event.widget.curselection())
-    root.clipboard_append(selected.split(" - ")[1])
+    root.clipboard_append(selected.split("---->")[0]+ "\t" + selected.split("---->")[1])
     # print("---")
 
 
