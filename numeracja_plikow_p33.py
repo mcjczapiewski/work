@@ -12,7 +12,7 @@ count = 1
 #     może pojawić się plik bledy.txt!\n\n"
 # )
 sciezka = input("Podaj ścieżkę do folderu: ")
-write_out = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO\kontrole\kontrola numeracji"  # noqa
+write_out = fr"{sciezka}\kontrole\kontrola numeracji"  # noqa
 
 for subdir, dirs, files in os.walk(sciezka):
     break_loop = 0

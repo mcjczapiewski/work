@@ -43,7 +43,7 @@ for subdir, dirs, files in os.walk(sciezka):
         if file.upper().endswith(".PDF"):
             if not regex.match(r"^P.+[0-9]\.PDF", file.upper()):
                 with io.open(
-                    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO\kontrole\kontrola nazw\niepoprawne_nazwy.txt",  # noqa
+                    fr"{sciezka}\kontrole\kontrola nazw\niepoprawne_nazwy.txt",  # noqa
                     "a",
                     encoding="utf-8",
                 ) as np:
@@ -55,14 +55,14 @@ for subdir, dirs, files in os.walk(sciezka):
                     )[1]
                 except:
                     with io.open(
-                        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO\kontrole\kontrola nazw\niepoprawne_nazwy.txt",  # noqa
+                        fr"{sciezka}\kontrole\kontrola nazw\niepoprawne_nazwy.txt",  # noqa
                         "a",
                         encoding="utf-8",
                     ) as np:
                         np.write(os.path.join(subdir, file) + "\n")
                 if nazwa not in nazwy:
                     with io.open(
-                        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO\kontrole\kontrola nazw\niepoprawne_nazwy.txt",  # noqa
+                        fr"{sciezka}\kontrole\kontrola nazw\niepoprawne_nazwy.txt",  # noqa
                         "a",
                         encoding="utf-8",
                     ) as np:
