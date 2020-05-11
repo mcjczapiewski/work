@@ -1,15 +1,14 @@
 import os
-import io
 import regex
 from natsort import natsorted, natsort_keygen
 
 nkey = natsort_keygen()
 
-xmle = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO"  # noqa
+xmle = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\ZŁOTNIKI KUJAWSKIE"  # noqa
 numery_p = r"D:\_MACIEK_\python_proby\p33\p_do_xml.txt"
 count = 1
 
-# with io.open(sciezki, "r", encoding="utf-8") as idz:
+# with open(sciezki, "r", encoding="utf-8") as idz:
 #     for line in idz:
 #         sciezka = line.split("\n")[0]
 #         print(sciezka)
@@ -18,8 +17,8 @@ for subdir, dirs, files in os.walk(xmle):
     if not os.path.basename(subdir).startswith("P"):
         continue
     if not any(fname.upper().endswith(".XML") for fname in os.listdir(subdir)):
-        with io.open(
-            r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO\kontrole\bez_xml.txt",
+        with open(
+            fr"{xmle}\kontrole\bez_xml.txt",
             "a",
             encoding="utf-8",
         ) as bx:
@@ -34,7 +33,7 @@ for subdir, dirs, files in os.walk(xmle):
                 numer = numer.split("_")[0]
             xml = os.path.join(subdir, file)
             try:
-                with io.open(xml, "r", encoding="utf-8") as r_xml:
+                with open(xml, "r", encoding="utf-8") as r_xml:
                     for line in r_xml:
                         if regex.match(r"^.*pierwszyCzlon", line):
                             zapis = regex.sub(
@@ -82,19 +81,19 @@ for subdir, dirs, files in os.walk(xmle):
                         else:
                             zapis = line
                         tresc.append(zapis)
-                with io.open(xml, "w", encoding="utf-8") as nowy:
+                with open(xml, "w", encoding="utf-8") as nowy:
                     for i in tresc:
                         nowy.write(i)
             except PermissionError:
-                with io.open(
-                    r"\I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO\kontrole\bledy_otwarcia.txt",  # noqa
+                with open(
+                    fr"{xmle}\kontrole\bledy_otwarcia.txt",  # noqa
                     "a",
                     encoding="utf-8",
                 ) as bl:
                     bl.write(xml + "\n")
             except:
-                with io.open(
-                    r"\I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\JANIKOWO\kontrole\bledy_nieznane.txt",  # noqa
+                with open(
+                    fr"{xmle}\kontrole\bledy_nieznane.txt",  # noqa
                     "a",
                     encoding="utf-8",
                 ) as bl:
@@ -107,14 +106,14 @@ for subdir, dirs, files in os.walk(xmle):
 #             tresc = []
 #             print(str(count) + "\t" + file)
 #             count += 1
-#             with io.open(numery_p, "r", encoding="utf-8") as numery:
+#             with open(numery_p, "r", encoding="utf-8") as numery:
 #                 for line in numery:
 #                     idmz, c1, c2, c3, c4 = line.split("\t")
 #                     c4 = c4.split("\n")[0]
 #                     if os.path.splitext(file)[0] == idmz:
 #                         xml = os.path.join(subdir, file)
 #                         try:
-#                             with io.open(xml, "r", encoding="utf-8") as r_xml:
+#                             with open(xml, "r", encoding="utf-8") as r_xml:
 #                                 for line in r_xml:
 #                                     if regex.match(
 #                                         r"^.*pierwszyCzlon><", line
@@ -149,18 +148,18 @@ for subdir, dirs, files in os.walk(xmle):
 #                                     else:
 #                                         zapis = line
 #                                     tresc.append(zapis)
-#                             with io.open(xml, "w", encoding="utf-8") as nowy:
+#                             with open(xml, "w", encoding="utf-8") as nowy:
 #                                 for i in tresc:
 #                                     nowy.write(i)
 #                         except PermissionError:
-#                             with io.open(
+#                             with open(
 #                                 r"D:\_MACIEK_\python_proby\p33\bledy_otwarcia.txt",  # noqa
 #                                 "a",
 #                                 encoding="utf-8",
 #                             ) as bl:
 #                                 bl.write(xml + "\n")
 #                         except:
-#                             with io.open(
+#                             with open(
 #                                 r"D:\_MACIEK_\python_proby\p33\numer_p_do_xml\bledy_nieznane.txt",  # noqa
 #                                 "a",
 #                                 encoding="utf-8",
