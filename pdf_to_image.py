@@ -4,11 +4,11 @@
 import os
 import datetime
 
+# import regex
 # import ctypes
 from pdf2image import convert_from_path
 from PIL import Image
-from natsort import natsorted
-from natsort import natsort_keygen
+from natsort import natsorted, natsort_keygen
 from pathlib import Path
 
 nkey = natsort_keygen()
@@ -17,6 +17,44 @@ Image.MAX_IMAGE_PIXELS = None
 
 # zmienna-licznik folderow
 pdfs_counter = 0
+
+
+def error_handling(page_print_errors, given_error, filename):
+    with open(page_print_errors, "a", encoding="utf-8") as errors_file:
+        errors_file.write(
+            f"PDF do rozbicia PDFillem, {given_error}!:\t"
+            + filename
+            + "\nSprawdzić pliki PDFa po nim, prawdopodobnie \
+                także trzeba poprawić.\n"
+        )
+    print(
+        f"{given_error}\tPlik musi zostać rozbity pdfillem\n"
+        + filename
+        + "\nSprawdzić pliki PDFa po nim, prawdopodobnie także trzeba \
+            poprawić.\nPrzechodzę do kolejnego pliku."
+    )
+
+
+def ppm_error_handling(page_print_errors, given_error, subdir):
+    with open(page_print_errors, "a", encoding="utf-8") as errors_file:
+        errors_file.write(
+            f"{given_error}możliwe że pliki \
+ppm do usunięcia ręcznie w folderze!:\t"
+            + subdir
+            + "\n"
+        )
+
+
+def page_not_printed_error(page_print_errors, jpg_page_number, jpg_name):
+    with open(page_print_errors, "a", encoding="utf-8") as errors_file:
+        errors_file.write(
+            "Strona się nie wydrukowała!:\t"
+            + jpg_page_number
+            + "\t"
+            + jpg_name
+            + "\n"
+        )
+
 
 # aktualna data i godzina
 time_start = datetime.datetime.now()
@@ -51,15 +89,20 @@ not_printed = (
 print("\nTrwa liczenie PDFów, poczekaj chwilkę...\n")
 
 # petla liczaca pdfy
-for _, _, filenames in os.walk(main_path):
-    for filename in filenames:
-        if filename.endswith((".pdf", ".PDF")):
-            pdfs_counter += 1
+for subdir, _, filenames in os.walk(main_path):
+    if "merge" in subdir and not any(
+        fname.lower().endswith(".jpg") for fname in os.listdir(subdir)
+    ):
+        for filename in filenames:
+            if filename.endswith((".pdf", ".PDF")):
+                pdfs_counter += 1
 
 # glowna petla
 for subdir, dirs, files in os.walk(main_path):
     dirs.sort(key=nkey)
-    if "merge" not in subdir:
+    if "merge" not in subdir or any(
+        fname.lower().endswith(".jpg") for fname in os.listdir(subdir)
+    ):
         continue
     # rozbija sciezke do folderu i bierze tylko
     # ostatni czlon jako numer operatu
@@ -106,37 +149,11 @@ for subdir, dirs, files in os.walk(main_path):
                 try:
                     page.save(jpg_name, "JPEG", dpi=[300, 300])
                 except MemoryError:
-                    with open(
-                        page_print_errors, "a", encoding="utf-8"
-                    ) as errors_file:
-                        errors_file.write(
-                            "PDF do rozbicia PDFillem, memoryerror!:\t"
-                            + filename
-                            + "\nSprawdzić pliki PDFa po nim, prawdopodobnie \
-                              także trzeba poprawić.\n"
-                        )
-                    print(
-                        "MEMORYERROR\tPlik musi zostać rozbity pdfillem\n"
-                        + filename
-                        + "\nSprawdzić pliki PDFa po nim, prawdopodobnie także trzeba \
-                          poprawić.\nPrzechodzę do kolejnego pliku."
-                    )
+                    error_handling(page_print_errors, "MEMORY ERROR", filename)
                     break
                 except:
-                    with open(
-                        page_print_errors, "a", encoding="utf-8"
-                    ) as errors_file:
-                        errors_file.write(
-                            "PDF do rozbicia PDFillem, nieokreślony bład!:\t"
-                            + filename
-                            + "\nSprawdzić pliki PDFa po nim, prawdopodobnie \
-                              także trzeba poprawić.\n"
-                        )
-                    print(
-                        "Nieznany błąd.\tPlik musi zostać rozbity pdfillem\n"
-                        + filename
-                        + "\nSprawdzić pliki PDFa po nim, prawdopodobnie także trzeba \
-                          poprawić.\nPrzechodzę do kolejnego pliku."
+                    error_handling(
+                        page_print_errors, "nieznany błąd", filename
                     )
                     break
                 page_number += 1
@@ -145,43 +162,21 @@ for subdir, dirs, files in os.walk(main_path):
                 if Path(jpg_name).exists():
                     continue
                 else:
-                    with open(
-                        page_print_errors, "a", encoding="utf-8"
-                    ) as errors_file:
-                        errors_file.write(
-                            "Strona się nie wydrukowała!:\t"
-                            + jpg_page_number
-                            + "\t"
-                            + jpg_name
-                            + "\n"
-                        )
+                    page_not_printed_error(
+                        page_print_errors, jpg_page_number, jpg_name
+                    )
 
             for entry in os.scandir(subdir):
                 if entry.name.endswith(".ppm"):
                     try:
                         os.remove(entry)
                     except PermissionError:
-                        with open(
-                            page_print_errors, "a", encoding="utf-8"
-                        ) as errors_file:
-                            errors_file.write(
-                                "PermissionError, możliwe że pliki \
-                                ppm do usunięcia"
-                                + " ręcznie w folderze!:\t"
-                                + subdir
-                                + "\n"
-                            )
+                        ppm_error_handling(
+                            page_print_errors, "PermissionError, ", subdir
+                        )
                         break
                     except:
-                        with open(
-                            page_print_errors, "a", encoding="utf-8"
-                        ) as errors_file:
-                            errors_file.write(
-                                "Możliwe, że pliki ppm do usunięcia \
-                                ręcznie w folderze!:\t"
-                                + subdir
-                                + "\n"
-                            )
+                        ppm_error_handling(page_print_errors, "", subdir)
                         break
 
             if Path(os.path.join(subdir, pdf_name + "__wpg_001.jpg")).exists():
