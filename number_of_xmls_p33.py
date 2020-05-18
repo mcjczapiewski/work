@@ -1,5 +1,4 @@
 import os
-import io
 from natsort import natsort_keygen
 
 nkey = natsort_keygen()
@@ -8,30 +7,47 @@ xmls = r"\\Waw-dt1409\h\Inowrocław"  # noqa
 count = how_much = 1
 previous = ""
 
-for subdir, dirs, files in os.walk(xmls):
-    dirs.sort(key=nkey)
-    if how_much > 1:
-        with io.open(
-            r"\\waw-dt1409\h\Inowrocław\!! KONTROLE\ponad_1_xml.txt",
-            "a",
-            encoding="utf-8",
-        ) as nowy:
-            nowy.write(str(how_much) + "\t" + previous + "\n")
+
+def if_xmls_or_pdfs(write_out, exists_extension, noexists_extension, file_name):
     if any(
-        fname.upper().endswith(".PDF") for fname in os.listdir(subdir)
+        fname.upper().endswith(exists_extension)
+        for fname in os.listdir(subdir)
     ) and not any(
-        fname.upper().endswith(".XML") for fname in os.listdir(subdir)
+        fname.upper().endswith(noexists_extension)
+        for fname in os.listdir(subdir)
     ):
-        with io.open(
-            r"\\waw-dt1409\h\Inowrocław\!! KONTROLE\brak_xml.txt",
+        with open(
+            os.path.join(write_out, f"{file_name}.txt"),
             "a",
             encoding="utf-8",
         ) as bx:
             bx.write(subdir + "\n")
-    how_much = 0
-    for file in files:
-        if file.upper().endswith(".XML"):
-            print(count)
-            count += 1
-            how_much += 1
-    previous = subdir
+
+
+write_out = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\kontrola_2020-05-14"
+with open(
+    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\sciezki.txt",
+    "r",
+    encoding="utf-8",
+) as sciezki:
+    for line in sciezki:
+        xmls = line.strip()
+
+        for subdir, dirs, files in os.walk(xmls):
+            dirs.sort(key=nkey)
+            if how_much > 1:
+                with open(
+                    os.path.join(write_out, "ponad_1_xml_w_folderze.txt"),
+                    "a",
+                    encoding="utf-8",
+                ) as nowy:
+                    nowy.write(str(how_much) + "\t" + previous + "\n")
+            if_xmls_or_pdfs(write_out, ".PDF", ".XML", "sa_pdf_brak_xml")
+            if_xmls_or_pdfs(write_out, ".XML", ".PDF", "jest_xml_brak_pdf")
+            how_much = 0
+            for file in files:
+                if file.upper().endswith(".XML"):
+                    print(count)
+                    count += 1
+                    how_much += 1
+            previous = subdir
