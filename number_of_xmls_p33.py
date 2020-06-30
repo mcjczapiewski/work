@@ -24,9 +24,9 @@ def if_xmls_or_pdfs(write_out, exists_extension, noexists_extension, file_name):
             bx.write(subdir + "\n")
 
 
-write_out = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\kontrola_2020-05-14"
+write_out = r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30"
 with open(
-    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\sciezki.txt",
+    r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\sciezki.txt",
     "r",
     encoding="utf-8",
 ) as sciezki:
@@ -37,13 +37,13 @@ with open(
             dirs.sort(key=nkey)
             if how_much > 1:
                 with open(
-                    os.path.join(write_out, "ponad_1_xml_w_folderze.txt"),
+                    os.path.join(write_out, "zaneta_4_ponad_1_xml_w_folderze.txt"),
                     "a",
                     encoding="utf-8",
                 ) as nowy:
                     nowy.write(str(how_much) + "\t" + previous + "\n")
-            if_xmls_or_pdfs(write_out, ".PDF", ".XML", "sa_pdf_brak_xml")
-            if_xmls_or_pdfs(write_out, ".XML", ".PDF", "jest_xml_brak_pdf")
+            if_xmls_or_pdfs(write_out, ".PDF", ".XML", "zaneta_4_sa_pdf_brak_xml")
+            if_xmls_or_pdfs(write_out, ".XML", ".PDF", "zaneta_5_jest_xml_brak_pdf")
             how_much = 0
             for file in files:
                 if file.upper().endswith(".XML"):

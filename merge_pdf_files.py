@@ -5,17 +5,72 @@ from natsort import natsort_keygen, natsorted
 from PyPDF2 import PdfFileMerger
 
 possible_file_names = (
-    "-AKN-", "-AWZ-", "-AMZ-", "-ADEB-", "-ADEL-", "-MATR-", "-DEC-",
-    "-DOK-IN-", "-DOK-WYJ-", "-DOK-OBL-", "-DZ-P-", "-DZ-R-",
-    "-K-BUD-", "-K-PAR-", "-M-KL-", "-M-IN-", "-M-KAT-", "-M-WYN-",
-    "-M-UZ-", "-M-WYW-", "-M-PROJ-", "-M-WPROJ-", "-MPZP-", "-ZGL-ODP-",
-    "-OPIN-", "-OIM-", "-OTOP-", "-ORZ-", "-OSW-", "-POST-", "-P-KW-",
-    "-P-G-", "-P-IN-", "-P-KAT-", "-R-IN-", "-R-GPS-", "-REJ-ARCH-",
-    "-REJ-IN-", "-REJ-SCAL-", "-SK-D-", "-SK-W-", "-SPIS-", "-S-TECH-",
-    "-STR-TYT-", "-SZK-INN-", "-SZK-KAT-", "-SZK-OSN-", "-SZK-POL-",
-    "-SZK-PRZ-", "-TR-PKT-", "-UGO-", "-UPOW-", "-WNI-IN-", "-WNI-PRZ-",
-    "-W-S-", "-W-WSP-", "-W-WYW-", "-W-ZDE-", "-Z-KAT-", "-Z-POM-",
-    "-ZASW-", "-ZAW-ZGL-", "-ZAW-IN-", "-ZAW-KW-", "-ZGL-PRAC-", "-ZW-",
+    "-AKN-",
+    "-AWZ-",
+    "-AMZ-",
+    "-ADEB-",
+    "-ADEL-",
+    "-MATR-",
+    "-DEC-",
+    "-DOK-IN-",
+    "-DOK-WYJ-",
+    "-DOK-OBL-",
+    "-DZ-P-",
+    "-DZ-R-",
+    "-K-BUD-",
+    "-K-PAR-",
+    "-M-KL-",
+    "-M-IN-",
+    "-M-KAT-",
+    "-M-WYN-",
+    "-M-UZ-",
+    "-M-WYW-",
+    "-M-PROJ-",
+    "-M-WPROJ-",
+    "-MPZP-",
+    "-ZGL-ODP-",
+    "-OPIN-",
+    "-OIM-",
+    "-OTOP-",
+    "-ORZ-",
+    "-OSW-",
+    "-POST-",
+    "-P-KW-",
+    "-P-G-",
+    "-P-IN-",
+    "-P-KAT-",
+    "-R-IN-",
+    "-R-GPS-",
+    "-REJ-ARCH-",
+    "-REJ-IN-",
+    "-REJ-SCAL-",
+    "-SK-D-",
+    "-SK-W-",
+    "-SPIS-",
+    "-S-TECH-",
+    "-STR-TYT-",
+    "-SZK-INN-",
+    "-SZK-KAT-",
+    "-SZK-OSN-",
+    "-SZK-POL-",
+    "-SZK-PRZ-",
+    "-TR-PKT-",
+    "-UGO-",
+    "-UPOW-",
+    "-WNI-IN-",
+    "-WNI-PRZ-",
+    "-W-S-",
+    "-W-WSP-",
+    "-W-WYW-",
+    "-W-ZDE-",
+    "-Z-KAT-",
+    "-Z-POM-",
+    "-ZASW-",
+    "-ZAW-ZGL-",
+    "-ZAW-IN-",
+    "-ZAW-KW-",
+    "-ZGL-PRAC-",
+    "-ZW-",
 )
 
 
@@ -103,55 +158,57 @@ def changes(change_type, numbers_to_change):
         )
 
 
-while True:
-    folder_path = input("\nWklej ścieżkę:\n> ")
+# while True:
+#     folder_path = input("\nWklej ścieżkę:\n> ")
 
-# with open(
-#     r"D:\_MACIEK_\python_proby\zmiana.txt", "r", encoding="UTF-8"
-# ) as lista:
-#     for line in lista:
-#         folder_path = line.strip()
+with open(
+    r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527\040707_5\prawne\040707_5.0005\zmiana.txt",
+    "r",
+    encoding="UTF-8",
+) as lista:
+    for line in lista:
+        folder_path = line.strip()
 
-    for subdir, dirs, files in os.walk(folder_path):
-        stop_it = 0
-        dirs.sort(key=natsort_keygen())
-        merge_existed = os.path.join(subdir, "merge")
+        for subdir, dirs, files in os.walk(folder_path):
+            stop_it = 0
+            dirs.sort(key=natsort_keygen())
+            merge_existed = os.path.join(subdir, "merge")
 
-        names = {}
-        for file in natsorted(files):
-            name = regex.search("-([A-Z].*[A-Z])-", file)[0]
-            if name not in possible_file_names:
-                print(f"Niepoprawna nazwa: {file}")
-                stop_it = 1
-                break
-            if name not in names:
-                names[name] = [os.path.join(subdir, file)]
-            else:
-                names[name].append(os.path.join(subdir, file))
-        if stop_it:
-            break
-
-        if os.path.exists(merge_existed):
-            shutil.rmtree(merge_existed)
-
-        new_merge = os.path.join(subdir, "__merge")
-        if not os.path.exists(new_merge):
-            os.mkdir(new_merge)
-
-        for key, val in names.items():
-            merger = PdfFileMerger()
-            continue_loop = 0
-            for item in natsorted(val):
-                if "-M-" in item or "-SZK-" in item or "-Z-" in item:
-                    merger.append(item)
-                    save_merged_pdf(item)
-                    merger = PdfFileMerger()
-                    continue_loop = 1
+            names = {}
+            for file in natsorted(files):
+                name = regex.search("-([A-Z].*[A-Z])-", file)[0]
+                if name not in possible_file_names:
+                    print(f"Niepoprawna nazwa: {file}")
+                    stop_it = 1
+                    break
+                if name not in names:
+                    names[name] = [os.path.join(subdir, file)]
                 else:
-                    merger.append(item)
-            if continue_loop == 1:
-                continue
-            else:
-                save_merged_pdf(names[key][0])
+                    names[name].append(os.path.join(subdir, file))
+            if stop_it:
+                break
 
-    fix_numbers(folder_path)
+            if os.path.exists(merge_existed):
+                shutil.rmtree(merge_existed)
+
+            new_merge = os.path.join(subdir, "__merge")
+            if not os.path.exists(new_merge):
+                os.mkdir(new_merge)
+
+            for key, val in names.items():
+                merger = PdfFileMerger()
+                continue_loop = 0
+                for item in natsorted(val):
+                    if "-M-" in item or "-SZK-" in item or "-Z-" in item:
+                        merger.append(item)
+                        save_merged_pdf(item)
+                        merger = PdfFileMerger()
+                        continue_loop = 1
+                    else:
+                        merger.append(item)
+                if continue_loop == 1:
+                    continue
+                else:
+                    save_merged_pdf(names[key][0])
+
+        fix_numbers(folder_path)

@@ -40,11 +40,11 @@ def check_if_all_named(path):
         left_to_name = []
         for subdir, dirs, _ in os.walk(path):
             dirs.sort(key=natsort_keygen())
-            if regex.match(r"^.+040701..\.....", subdir):
-                get_steps = regex.match(r"^.+040701..\.....", subdir)[0]
+            if regex.match(r"^.+04070...\.....", subdir):
+                get_steps = regex.match(r"^.+04070...\.....", subdir)[0]
             else:
                 continue
-            if regex.search(r"040701..\.....$", get_steps):
+            if regex.search(r"04070...\.....$", get_steps):
                 steps_inside_path = len(get_steps.split("\\")) + 1
             if len(subdir.split("\\")) == steps_inside_path:
                 up_to_merge = os.path.join(
@@ -214,6 +214,7 @@ def fix_numbers(path):
     doc_numbers_to_change = []
     page_numbers_to_change = []
     for subdir, dirs, files in os.walk(path):
+        print(subdir)
         dirs.sort(key=natsort_keygen())
         if not any(
             regex.search(r"-.+-", fname) for fname in os.listdir(subdir)

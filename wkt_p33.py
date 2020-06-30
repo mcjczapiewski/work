@@ -485,48 +485,48 @@ count = 1
 #                             shutil.copy(wkt, new)
 
 # rozkopiowanie wkt operatow na poszczegolne dokumenty
-sciezka = r"\\waw-dt1409\h\Poprawa_Inowrocław_cz.3\INOWROCŁAW\dla_macka_wkt"
-with open(
-    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\sciezki.txt", "r", encoding="utf-8"
-) as sciezki:
-    for line in sciezki:
-        sciezka = line.strip()
-        for subdir, dirs, files in os.walk(sciezka):
-            dirs.sort(key=nkey)
-            wkt_operatu = os.path.join(
-                subdir, os.path.basename(subdir) + ".wkt"
-            )
-            if os.path.exists(wkt_operatu):
-                for file in natsorted(files):
-                    if regex.match(r".+((-M-)|(-SZK-)|(-Z-KAT-)|(-Z-POM-)|(-MPZP-)).+\.PDF", file.upper()):
-                        new_wkt = os.path.join(
-                            subdir, os.path.splitext(file)[0] + ".wkt"
-                        )
-                        if os.path.exists(new_wkt):
-                            continue
-                        else:
-                            try:
-                                shutil.copy(wkt_operatu, new_wkt)
-                                print(str(count) + "\t" + new_wkt)
-                                count += 1
-                            except:
-                                with open(
-                                    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\kontrola_2020-05-14\nie_udalo_sie_utworzyc_wkt.txt",  # noqa
-                                    "a",
-                                    encoding="utf-8",
-                                ) as bledy:
-                                    bledy.write(new_wkt + "\n")
-            else:
-                if any(
-                    fname.upper().endswith(".PDF")
-                    for fname in os.listdir(subdir)
-                ):
-                    with open(
-                        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\kontrola_2020-05-14\1549_brak_wkt_operatu.txt",
-                        "a",
-                        encoding="utf-8",
-                    ) as bledy:
-                        bledy.write(subdir + "\n")
+# sciezka = r"\\waw-dt1409\h\Poprawa_Inowrocław_cz.3\INOWROCŁAW\dla_macka_wkt"
+# with open(
+#     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\sciezki.txt", "r", encoding="utf-8"
+# ) as sciezki:
+#     for line in sciezki:
+#         sciezka = line.strip()
+#         for subdir, dirs, files in os.walk(sciezka):
+#             dirs.sort(key=nkey)
+#             wkt_operatu = os.path.join(
+#                 subdir, os.path.basename(subdir) + ".wkt"
+#             )
+#             if os.path.exists(wkt_operatu):
+#                 for file in natsorted(files):
+#                     if regex.match(r".+((-M-)|(-SZK-)|(-Z-KAT-)|(-Z-POM-)|(-MPZP-)).+\.PDF", file.upper()):
+#                         new_wkt = os.path.join(
+#                             subdir, os.path.splitext(file)[0] + ".wkt"
+#                         )
+#                         if os.path.exists(new_wkt):
+#                             continue
+#                         else:
+#                             try:
+#                                 shutil.copy(wkt_operatu, new_wkt)
+#                                 print(str(count) + "\t" + new_wkt)
+#                                 count += 1
+#                             except:
+#                                 with open(
+#                                     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\kontrola_2020-05-14\nie_udalo_sie_utworzyc_wkt.txt",  # noqa
+#                                     "a",
+#                                     encoding="utf-8",
+#                                 ) as bledy:
+#                                     bledy.write(new_wkt + "\n")
+#             else:
+#                 if any(
+#                     fname.upper().endswith(".PDF")
+#                     for fname in os.listdir(subdir)
+#                 ):
+#                     with open(
+#                         r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\kontrola_2020-05-14\1549_brak_wkt_operatu.txt",
+#                         "a",
+#                         encoding="utf-8",
+#                     ) as bledy:
+#                         bledy.write(subdir + "\n")
 
 # czy wkt są tylko dla szkiców i map
 # with open(
@@ -564,47 +564,47 @@ with open(
 #                         bledy.write(os.path.join(subdir, file) + "\n")
 
 # czy sa wkt dla plikow i operatow
-# with open(
-#     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\sciezki.txt", "r", encoding="utf-8"
-# ) as sciezki:
-#     for line in sciezki:
-#         sciezka = line.split("\n")[0]
-#         for subdir, dirs, files in os.walk(sciezka):
-#             dirs.sort(key=nkey)
-#             if not any(
-#                 fname.upper().endswith(".PDF") for fname in os.listdir(subdir)
-#             ):
-#                 continue
-#             print(count)
-#             count += 1
-#             wkt_operatu = os.path.join(
-#                 subdir, os.path.basename(subdir) + ".wkt"
-#             )
-#             for file in natsorted(files):
-#                 if regex.match(
-#                     r".+((-M-)|(-SZK-)|(-Z-KAT-)).+\.PDF", file.upper()
-#                 ):
-#                     new_wkt = os.path.join(
-#                         subdir, os.path.splitext(file)[0] + ".wkt"
-#                     )
-#                     if not os.path.exists(new_wkt):
-#                         with open(
-#                             r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\brak_wkt_dla_plikow.txt",  # noqa
-#                             "a",
-#                             encoding="utf-8",
-#                         ) as bledy:
-#                             bledy.write(new_wkt + "\n")
-#             if not os.path.exists(wkt_operatu):
-#                 with open(
-#                     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\brak_wkt_operatu.txt",
-#                     "a",
-#                     encoding="utf-8",
-#                 ) as bledy:
-#                     bledy.write(subdir + "\n")
+with open(
+    r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\sciezki.txt", "r", encoding="utf-8"
+) as sciezki:
+    for line in sciezki:
+        sciezka = line.split("\n")[0]
+        for subdir, dirs, files in os.walk(sciezka):
+            dirs.sort(key=nkey)
+            if not any(
+                fname.upper().endswith(".PDF") for fname in os.listdir(subdir)
+            ):
+                continue
+            print(count)
+            count += 1
+            wkt_operatu = os.path.join(
+                subdir, os.path.basename(subdir) + ".wkt"
+            )
+            for file in natsorted(files):
+                if regex.match(
+                    r".+((-M-)|(-SZK-)|(-Z-KAT-)).+\.PDF", file.upper()
+                ):
+                    new_wkt = os.path.join(
+                        subdir, os.path.splitext(file)[0] + ".wkt"
+                    )
+                    if not os.path.exists(new_wkt):
+                        with open(
+                            r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\paulina_1_dla_plikow.txt",  # noqa
+                            "a",
+                            encoding="utf-8",
+                        ) as bledy:
+                            bledy.write(new_wkt + "\n")
+            if not os.path.exists(wkt_operatu):
+                with open(
+                    r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\paulina_1_dla_operatu.txt",
+                    "a",
+                    encoding="utf-8",
+                ) as bledy:
+                    bledy.write(subdir + "\n")
 
 # czy jak nie ma wkt głównej to czy jest jakaś do pliku
 # with open(
-#     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\sciezki.txt",
+#     r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\sciezki.txt",
 #     "r",
 #     encoding="utf-8",
 # ) as sciezki:
@@ -617,7 +617,7 @@ with open(
 #                 os.path.join(subdir, os.path.basename(subdir) + ".wkt")
 #             ):
 #                 with open(
-#                     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\kontrola_2020-05-14\brak_wkt_glownej_jest_do_pliku.txt",
+#                     r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\paulina_3.txt",
 #                     "a",
 #                     encoding="utf-8",
 #                 ) as bledy:

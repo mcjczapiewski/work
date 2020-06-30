@@ -38,44 +38,44 @@ ile = 1
 
 ###########################################################
 
-# with open(r"D:\_MACIEK_\python_proby\sciezki.txt", "r") as sciezki:
-#     for line in sciezki:
-#         sprawdzanie = line.split("\n")[0]
+with open(r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\sciezki.txt", "r") as sciezki:
+    for line in sciezki:
+        tutaj = line.strip()
 
-for subdir, dirs, files in os.walk(tutaj):
-    dirs.sort(key=nkey)
-    if not any(fname.upper().endswith(".PDF") for fname in os.listdir(subdir)):
-        continue
-    nrope = (
-        os.path.basename(os.path.dirname(subdir))
-        + "_"
-        + os.path.basename(subdir)
-    )
-    print(str(countope) + "\t" + nrope)
-    # print(str(ile) + "_" + str(countope) + "\t" + nrope)
-    countope += 1
-    for file in natsorted(files):
-        if file.upper().endswith(".PDF") and regex.match(
-            r"^.+(-SZK-|-M-).+\.PDF", file.upper()
-        ):
-            plik = os.path.join(subdir, file)
-            try:
-                doc = fitz.open(plik)
-                strony = doc.pageCount
-                # for page in doc:
-                #     x = str(page.MediaBox).split(" ")[2].split(",")[0]
-                #     y = str(page.MediaBox).split(" ")[3].split(")")[0]
-                #     area = (float(x) * float(y)) / (72 * 72)
-                if not strony == 1:
-                    with io.open(
-                        plikwynik, "a", encoding="utf-8"
-                    ) as wynik:
-                        wynik.write(str(strony) + "\t" + plik + "\n")
-                    continue
-            except:
-                with io.open(bledny, "a", encoding="utf-8") as bl:
-                    bl.write("Nie udało się otworzyć:\t" + plik + "\n")
+        for subdir, dirs, files in os.walk(tutaj):
+            dirs.sort(key=nkey)
+            if not any(fname.upper().endswith(".PDF") for fname in os.listdir(subdir)):
                 continue
+            nrope = (
+                os.path.basename(os.path.dirname(subdir))
+                + "_"
+                + os.path.basename(subdir)
+            )
+            print(str(countope) + "\t" + nrope)
+            # print(str(ile) + "_" + str(countope) + "\t" + nrope)
+            countope += 1
+            for file in natsorted(files):
+                if file.upper().endswith(".PDF") and regex.match(
+                    r"^.+(-SZK-|-M-|-Z-).+\.PDF", file.upper()
+                ):
+                    plik = os.path.join(subdir, file)
+                    try:
+                        doc = fitz.open(plik)
+                        strony = doc.pageCount
+                        # for page in doc:
+                        #     x = str(page.MediaBox).split(" ")[2].split(",")[0]
+                        #     y = str(page.MediaBox).split(" ")[3].split(")")[0]
+                        #     area = (float(x) * float(y)) / (72 * 72)
+                        if not strony == 1:
+                            with io.open(
+                                plikwynik, "a", encoding="utf-8"
+                            ) as wynik:
+                                wynik.write(str(strony) + "\t" + plik + "\n")
+                            continue
+                    except:
+                        with io.open(bledny, "a", encoding="utf-8") as bl:
+                            bl.write("Nie udało się otworzyć:\t" + plik + "\n")
+                        continue
 # ile += 1
 
 czaskoniec = datetime.datetime.now()

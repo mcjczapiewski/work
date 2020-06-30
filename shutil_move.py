@@ -2,7 +2,7 @@ import os
 import shutil
 
 counter = 1
-my_file = r"P:\cyfryzacja_powiat_inowroclawski\SKANY\040701_7\przenies.txt"  # noqa
+my_file = r"P:\cyfryzacja_powiat_inowroclawski\SKANY_II\040701_1\syt-wys_trasy\przenies.txt"  # noqa
 
 with open(my_file, "r", encoding="utf-8") as paths:
     for line in paths:
