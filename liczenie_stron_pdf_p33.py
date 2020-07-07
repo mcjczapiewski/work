@@ -12,39 +12,47 @@ nkey = natsort_keygen()
 
 czasstart = datetime.datetime.now()
 print("~~~~~~START~~~~~~\t" + str(czasstart).split(".")[0])
-print("\nPodaj ścieżkę do liczenia:")
-tutaj = input()
-print("\nPodaj ścieżkę do folderu od pliku wynikowego:")
-sciezka = input()
-wynikowy = os.path.basename(os.path.normpath(sciezka))
-plikwynik = (
-    sciezka
-    + "\\"
-    + wynikowy
-    + "_strony_"
-    + czasstart.strftime("%Y-%m-%d")
-    + ".txt"
-)
-bledny = (
-    sciezka
-    + "\\"
-    + wynikowy
-    + "_BLEDY_"
-    + czasstart.strftime("%Y-%m-%d")
-    + ".txt"
-)
+# print("\nPodaj ścieżkę do liczenia:")
+# tutaj = input()
+# print("\nPodaj ścieżkę do folderu od pliku wynikowego:")
+# sciezka = input()
+# wynikowy = os.path.basename(os.path.normpath(sciezka))
+# plikwynik = (
+#     sciezka
+#     + "\\"
+#     + wynikowy
+#     + "_strony_"
+#     + czasstart.strftime("%Y-%m-%d")
+#     + ".txt"
+# )
+# bledny = (
+#     sciezka
+#     + "\\"
+#     + wynikowy
+#     + "_BLEDY_"
+#     + czasstart.strftime("%Y-%m-%d")
+#     + ".txt"
+# )
 countope = 1
 ile = 1
 
 ###########################################################
 
-with open(r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\sciezki.txt", "r") as sciezki:
+plikwynik = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\wiecej_niz_1_strona.txt"  # noqa
+bledny = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\nie_udalo_sie_policzyc_stron.txt"  # noqa
+with open(
+    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt",  # noqa
+    "r",
+    encoding="utf-8",
+) as sciezki:
     for line in sciezki:
         tutaj = line.strip()
 
         for subdir, dirs, files in os.walk(tutaj):
             dirs.sort(key=nkey)
-            if not any(fname.upper().endswith(".PDF") for fname in os.listdir(subdir)):
+            if not any(
+                fname.upper().endswith(".PDF") for fname in os.listdir(subdir)
+            ):
                 continue
             nrope = (
                 os.path.basename(os.path.dirname(subdir))
@@ -62,10 +70,6 @@ with open(r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\sciezki.txt", "r
                     try:
                         doc = fitz.open(plik)
                         strony = doc.pageCount
-                        # for page in doc:
-                        #     x = str(page.MediaBox).split(" ")[2].split(",")[0]
-                        #     y = str(page.MediaBox).split(" ")[3].split(")")[0]
-                        #     area = (float(x) * float(y)) / (72 * 72)
                         if not strony == 1:
                             with io.open(
                                 plikwynik, "a", encoding="utf-8"
@@ -74,7 +78,7 @@ with open(r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\sciezki.txt", "r
                             continue
                     except:
                         with io.open(bledny, "a", encoding="utf-8") as bl:
-                            bl.write("Nie udało się otworzyć:\t" + plik + "\n")
+                            bl.write(plik + "\n")
                         continue
 # ile += 1
 

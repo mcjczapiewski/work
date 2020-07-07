@@ -21,12 +21,12 @@ nazwy = (
 
 # path = input("Enter the path: ")
 path = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\M.JANIKOWO"  # noqa
-errors = r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30"
+errors = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06"  # noqa
 
 count = 1
 
 with open(
-    r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\sciezki.txt",
+    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt",  # noqa
     "r",
     encoding="utf-8",
 ) as sciezki:
@@ -37,7 +37,7 @@ with open(
 
             if not any(
                 fname.upper().endswith(".PDF") for fname in os.listdir(subdir)
-            ) or not os.path.basename(subdir).startswith("P"):
+            ):
                 continue
 
             print(
@@ -53,8 +53,8 @@ with open(
                 if file.upper().endswith(".PDF"):
                     if not regex.match(r"^P.+[0-9]\.PDF", file.upper()):
                         with io.open(
-                            # fr"{errors}\niepoprawne_nazwy.txt",  # noqa
-                            fr"{errors}\paulina_2.txt",  # noqa
+                            fr"{errors}\niepoprawne_nazwy.txt",  # noqa
+                            # fr"{errors}\paulina_2.txt",  # noqa
                             "a",
                             encoding="utf-8",
                         ) as np:
@@ -66,14 +66,14 @@ with open(
                             )[1]
                         except:
                             with io.open(
-                                fr"{errors}\paulina_2.txt",  # noqa
+                                fr"{errors}\niepoprawne_nazwy.txt",  # noqa
                                 "a",
                                 encoding="utf-8",
                             ) as np:
                                 np.write(os.path.join(subdir, file) + "\n")
                         if nazwa not in nazwy:
                             with io.open(
-                                fr"{errors}\paulina_2.txt",  # noqa
+                                fr"{errors}\niepoprawne_nazwy.txt",  # noqa
                                 "a",
                                 encoding="utf-8",
                             ) as np:

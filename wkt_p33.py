@@ -51,14 +51,14 @@ count = 1
 
 # # rozrzucenie wkt od plikow do folderow z wkt operatow
 # for subdir, dirs, files in os.walk(
-#     r"D:\_MACIEK_\python_proby\p33\do_operatow"
+#     r"V:\P32_kopie_prac\Cyfryzacja_powiat inowroclawski\_MACIEK\oddanie_I-II\do_operatow"
 # ):
 #     dirs.sort(key=nkey)
 #     for file in natsorted(files):
 #         czesc = subdir
 #         nazwa = file.split(".wkt")[0]
 #         for subdir, _, files in os.walk(
-#             r"D:\_MACIEK_\python_proby\p33\do_plikow"
+#             r"V:\P32_kopie_prac\Cyfryzacja_powiat inowroclawski\_MACIEK\oddanie_I-II\do_plikow"
 #         ):
 #             for file in natsorted(files):
 #                 nowa = regex.sub(r"^(.+)?(?=(_.-|_..-)|_...-).+", "\\1", file)
@@ -77,22 +77,22 @@ count = 1
 
 # # usuniecie jednego nawiasu jak jest polygon a nie multi
 # for subdir, dirs, files in os.walk(
-#     r"D:\_MACIEK_\python_proby\p33\do_operatow"
+#     r"V:\P32_kopie_prac\Cyfryzacja_powiat inowroclawski\_MACIEK\oddanie_I-II\do_plikow"
 # ):
-#     dirs.sort(key=nkey)
-#     for file in natsorted(files):
+#     for file in files:
 #         if file.endswith(".wkt"):
+#             temporary_lines = ""
 #             plik = os.path.join(subdir, file)
-#             with open(plik, "r") as wkt:
+#             with open(plik, "r", encoding='utf-8') as wkt:
 #                 for line in wkt:
 #                     if regex.match(r"^POLYGON.+", line):
 #                         nowa = regex.sub(
 #                             r"(^.+)\((\(\(.+\)\))\)", "\\1\\2", line
 #                         )
-#                         with open(
-#                             plik.split(".wkt")[0] + "_nn.wkt", "a"
-#                         ) as nowywkt:
-#                             nowywkt.write(nowa)
+#                         temporary_lines += nowa
+#             if temporary_lines:
+#                 with open(plik, 'w', encoding='utf-8') as nowywkt:
+#                     nowywkt.write(temporary_lines)
 
 
 # # dopasowanie folderow z wkt do folderow operatow
@@ -314,7 +314,7 @@ count = 1
 # braki = 0
 # sciezka = r"\\waw-dt1409\h\Poprawa_Inowrocław_cz.3\INOWROCŁAW\dla_macka_wkt"
 # with open(
-#     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\sciezki.txt", "r", encoding="utf-8"
+#     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt", "r", encoding="utf-8"
 # ) as sciezki:
 #     for line in sciezki:
 #         sciezka = line.strip()
@@ -332,7 +332,7 @@ count = 1
 #                         # braki += 1
 #                         # print("\t\t" + str(braki))
 #                         with io.open(
-#                             r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\kontrola_2020-05-14\wkt_bez_odpowiednika_pdf.txt",  # noqa
+#                             r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\wkt_bez_odpowiednika_pdf.txt",  # noqa
 #                             "a",
 #                             encoding="utf-8",
 
@@ -485,9 +485,9 @@ count = 1
 #                             shutil.copy(wkt, new)
 
 # rozkopiowanie wkt operatow na poszczegolne dokumenty
-# sciezka = r"\\waw-dt1409\h\Poprawa_Inowrocław_cz.3\INOWROCŁAW\dla_macka_wkt"
+# sciezka = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\10.06.2020\INOWROCŁAW"
 # with open(
-#     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\sciezki.txt", "r", encoding="utf-8"
+#     r"P:\cyfryzacja_powiat_inowroclawski\kontrole_2020-07-06\sciezki.txt", "r", encoding="utf-8"
 # ) as sciezki:
 #     for line in sciezki:
 #         sciezka = line.strip()
@@ -511,7 +511,7 @@ count = 1
 #                                 count += 1
 #                             except:
 #                                 with open(
-#                                     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\kontrola_2020-05-14\nie_udalo_sie_utworzyc_wkt.txt",  # noqa
+#                                     r"P:\cyfryzacja_powiat_inowroclawski\kontrole_2020-07-06\nie_udalo_sie_utworzyc_wkt.txt",  # noqa
 #                                     "a",
 #                                     encoding="utf-8",
 #                                 ) as bledy:
@@ -522,7 +522,7 @@ count = 1
 #                     for fname in os.listdir(subdir)
 #                 ):
 #                     with open(
-#                         r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\kontrola_2020-05-14\1549_brak_wkt_operatu.txt",
+#                         r"P:\cyfryzacja_powiat_inowroclawski\kontrole_2020-07-06\brak_wkt_operatu.txt",
 #                         "a",
 #                         encoding="utf-8",
 #                     ) as bledy:
@@ -530,12 +530,13 @@ count = 1
 
 # czy wkt są tylko dla szkiców i map
 # with open(
-#     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\sciezki.txt",
+#     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt",
 #     "r",
 #     encoding="utf-8",
 # ) as sciezki:
 #     for line in sciezki:
 #         sciezka = line.strip()
+# # sciezka = r'I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\10.06.2020\INOWROCŁAW'
 #         for subdir, dirs, files in os.walk(sciezka):
 #             dirs.sort(key=nkey)
 #             if not any(
@@ -557,7 +558,7 @@ count = 1
 #                     and "-MPZP-" not in file
 #                 ):
 #                     with open(
-#                         r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\04_KOPIA_PLIKOWA\kontrola_2020-05-14\wkt_do_niewlasciwych_plikow.txt",
+#                         r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\wkt_do_niewlasciwych_plikow.txt",
 #                         "a",
 #                         encoding="utf-8",
 #                     ) as bledy:
@@ -565,7 +566,7 @@ count = 1
 
 # czy sa wkt dla plikow i operatow
 with open(
-    r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\sciezki.txt", "r", encoding="utf-8"
+    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt", "r", encoding="utf-8"
 ) as sciezki:
     for line in sciezki:
         sciezka = line.split("\n")[0]
@@ -589,14 +590,14 @@ with open(
                     )
                     if not os.path.exists(new_wkt):
                         with open(
-                            r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\paulina_1_dla_plikow.txt",  # noqa
+                            r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\brak_wkt_dla_plikow.txt",  # noqa
                             "a",
                             encoding="utf-8",
                         ) as bledy:
                             bledy.write(new_wkt + "\n")
             if not os.path.exists(wkt_operatu):
                 with open(
-                    r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\paulina_1_dla_operatu.txt",
+                    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\brak_wkt_dla_operatu.txt",
                     "a",
                     encoding="utf-8",
                 ) as bledy:
@@ -604,7 +605,7 @@ with open(
 
 # czy jak nie ma wkt głównej to czy jest jakaś do pliku
 # with open(
-#     r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\sciezki.txt",
+#     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt",
 #     "r",
 #     encoding="utf-8",
 # ) as sciezki:
@@ -617,7 +618,7 @@ with open(
 #                 os.path.join(subdir, os.path.basename(subdir) + ".wkt")
 #             ):
 #                 with open(
-#                     r"\\waw-dt1407\I\04_KOPIA_PLIKOWA\kontrole_2020-06-30\paulina_3.txt",
+#                     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\brak_glownej_jest_do_pliku.txt",
 #                     "a",
 #                     encoding="utf-8",
 #                 ) as bledy:
@@ -666,10 +667,11 @@ with open(
 # with open(r"D:\_MACIEK_\python_proby\p33\spis.txt", "r") as spis:
 #     for line in spis:
 #         sciezka = line.split("\n")[0]
-#         if not os.path.exists(
-#             os.path.join(sciezka, os.path.basename(sciezka) + ".wkt")
-#         ):
-#             print(sciezka)
+# for subdir, dirs, _ in os.walk(r'I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\10.06.2020\INOWROCŁAW'):
+#     if not os.path.exists(
+#         os.path.join(subdir, os.path.basename(subdir) + ".wkt")
+#     ):
+#         print(subdir)
 
 
 # # rozrzucanie wkt modernizacji

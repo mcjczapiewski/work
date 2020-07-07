@@ -3,9 +3,9 @@ import shutil
 
 count = 1
 
-for subdir, dirs, _ in os.walk(r'P:\cyfryzacja_powiat_inowroclawski\SKANY'):
-    if r'SKANY\040701_2' in subdir:
-        continue
+for subdir, dirs, _ in os.walk(r'P:\cyfryzacja_powiat_inowroclawski\SKANY_II'):
+    # if r'SKANY\040701_2' in subdir:
+    #     continue
     merge = os.path.join(subdir, os.path.basename(subdir), "merge")
     if os.path.exists(merge):
         print(count)
