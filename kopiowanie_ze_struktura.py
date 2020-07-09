@@ -6,32 +6,32 @@ nkey = natsort_keygen()
 
 count = 1
 
-zrodlo = input('podaj źródło: ')
+# zrodlo = input('podaj źródło: ')
 desti = input('podaj dest: ')
 
-for subdir, dirs, _ in os.walk(zrodlo):
-#    if 'gotowe' not in subdir:
-#        continue
-    dirs.sort(key=nkey)
-    opis = os.path.join(subdir, 'opis.txt')
-    if os.path.exists(opis):
+# for subdir, dirs, _ in os.walk(zrodlo):
+# #    if 'gotowe' not in subdir:
+# #        continue
+#     dirs.sort(key=nkey)
+#     opis = os.path.join(subdir, 'opis.txt')
+#     if os.path.exists(opis):
+#         print(count)
+#         count += 1
+
+with io.open(r'P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200528\copy.txt', 'r', encoding = 'utf-8') as opisy:
+    for line in opisy:
         print(count)
         count += 1
+        opis = line.strip()
+        # subdir = os.path.dirname(opis)
 
-# with io.open(r'P:\cyfryzacja_powiat_wloclawski\ETAP_4_WR\kopiuj.txt', 'r', encoding = 'utf-8') as opisy:
-#    for line in opisy:
-#        print(count)
-#        count += 1
-#        opis = line.split('\n')[0]
-#        subdir = os.path.dirname(opis)
-
-        tutaj = os.path.join(desti, str.split(subdir, ':\\')[1])
-        if os.path.exists(tutaj):
-            continue
-        else:
-            os.makedirs(tutaj)
+        tutaj = os.path.join(desti, str.split(opis, ':\\')[1])
+        # if os.path.exists(tutaj):
+        #     continue
+        # else:
+        #     os.makedirs(tutaj)
         try:
-            shutil.copy2(opis, tutaj)
+            shutil.copytree(opis, tutaj)
         except:
             raise
             print(opis)

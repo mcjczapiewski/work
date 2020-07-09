@@ -4,7 +4,7 @@ from natsort import natsorted, natsort_keygen
 
 nkey = natsort_keygen()
 
-xmle = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\ZŁOTNIKI KUJAWSKIE"  # noqa
+xmle = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\M.KRUSZWICA"  # noqa
 numery_p = r"D:\_MACIEK_\python_proby\p33\p_do_xml.txt"
 count = 1
 
@@ -18,7 +18,7 @@ for subdir, dirs, files in os.walk(xmle):
         continue
     if not any(fname.upper().endswith(".XML") for fname in os.listdir(subdir)):
         with open(
-            fr"{xmle}\kontrole\bez_xml.txt",
+            fr"{xmle}\bez_xml.txt",
             "a",
             encoding="utf-8",
         ) as bx:
@@ -86,82 +86,15 @@ for subdir, dirs, files in os.walk(xmle):
                         nowy.write(i)
             except PermissionError:
                 with open(
-                    fr"{xmle}\kontrole\bledy_otwarcia.txt",  # noqa
+                    fr"{xmle}\bledy_otwarcia.txt",  # noqa
                     "a",
                     encoding="utf-8",
                 ) as bl:
                     bl.write(xml + "\n")
             except:
                 with open(
-                    fr"{xmle}\kontrole\bledy_nieznane.txt",  # noqa
+                    fr"{xmle}\bledy_nieznane.txt",  # noqa
                     "a",
                     encoding="utf-8",
                 ) as bl:
                     bl.write(xml + "\n")
-
-# for subdir, dirs, files in os.walk(xmle):
-#     dirs.sort(key=nkey)
-#     for file in natsorted(files):
-#         if file.upper().endswith(".XML"):
-#             tresc = []
-#             print(str(count) + "\t" + file)
-#             count += 1
-#             with open(numery_p, "r", encoding="utf-8") as numery:
-#                 for line in numery:
-#                     idmz, c1, c2, c3, c4 = line.split("\t")
-#                     c4 = c4.split("\n")[0]
-#                     if os.path.splitext(file)[0] == idmz:
-#                         xml = os.path.join(subdir, file)
-#                         try:
-#                             with open(xml, "r", encoding="utf-8") as r_xml:
-#                                 for line in r_xml:
-#                                     if regex.match(
-#                                         r"^.*pierwszyCzlon><", line
-#                                     ):
-#                                         zapis = regex.sub(
-#                                             r"(^.*<pierwszyCzlon>)(.+$)",
-#                                             r"\g<1>" + c1 + r"\g<2>",
-#                                             line,
-#                                         )
-#                                     elif regex.match(r"^.*drugiCzlon><", line):
-#                                         zapis = regex.sub(
-#                                             r"(^.*<drugiCzlon>)(.+$)",
-#                                             r"\g<1>" + c2 + r"\g<2>",
-#                                             line,
-#                                         )
-#                                     elif regex.match(
-#                                         r"^.*trzeciCzlon><", line
-#                                     ):
-#                                         zapis = regex.sub(
-#                                             r"(^.*<trzeciCzlon>)(.+$)",
-#                                             r"\g<1>" + c3 + r"\g<2>",
-#                                             line,
-#                                         )
-#                                     elif regex.match(
-#                                         r"^.*czwartyCzlon><", line
-#                                     ):
-#                                         zapis = regex.sub(
-#                                             r"(^.*<czwartyCzlon>)(.+$)",
-#                                             r"\g<1>" + c4 + r"\g<2>",
-#                                             line,
-#                                         )
-#                                     else:
-#                                         zapis = line
-#                                     tresc.append(zapis)
-#                             with open(xml, "w", encoding="utf-8") as nowy:
-#                                 for i in tresc:
-#                                     nowy.write(i)
-#                         except PermissionError:
-#                             with open(
-#                                 r"D:\_MACIEK_\python_proby\p33\bledy_otwarcia.txt",  # noqa
-#                                 "a",
-#                                 encoding="utf-8",
-#                             ) as bl:
-#                                 bl.write(xml + "\n")
-#                         except:
-#                             with open(
-#                                 r"D:\_MACIEK_\python_proby\p33\numer_p_do_xml\bledy_nieznane.txt",  # noqa
-#                                 "a",
-#                                 encoding="utf-8",
-#                             ) as bl:
-#                                 bl.write(xml + "\n")
