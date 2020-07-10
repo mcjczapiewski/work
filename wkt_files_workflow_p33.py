@@ -15,7 +15,53 @@ def execute_proper_function(function_number, path, error_file_path):
     if function_number == 1:
         move_wkt_files_to_their_folders(path, error_file_path)
     elif function_number == 2:
-        pass  # TODO: itd.
+        add_precinct_name_to_folder(path)
+    elif function_number == 3:
+        move_wkt_for_files_to_main_wkt(path, error_file_path)
+    elif function_number == 4:
+        delete_parenthesis_if_not_multipolygon(path)
+    elif function_number == 5:
+        match_wkt_folders_to_operat_folder(path, error_file_path)
+    elif function_number == 6:
+        check_if_all_operat_from_list_matched(path, error_file_path)
+    elif function_number == 7:
+        find_duplicate_lines_in_cdc_file(path, error_file_path)
+    elif function_number == 8:
+        remove_from_cdc_lines_moved_to_duplicated(path, error_file_path)
+    elif function_number == 9:
+        copy_wkt_to_corresponding_operat_folder(path, error_file_path)
+    elif function_number == 10:
+        delete_successfuly_moved_files(path, error_file_path)
+    elif function_number == 11:
+        cleanup_more_than_one_fit(path, error_file_path)
+    elif function_number == 12:
+        check_for_pdf_equivalent_for_wkt(path, error_file_path)
+    elif function_number == 13:
+        check_error_wkt_creation_date(path, error_file_path)
+    elif function_number == 14:
+        check_wkt_structure(path, error_file_path)
+    elif function_number == 15:
+        merge_wkt_with_wrong_structure(path, error_file_path)
+    elif function_number == 16:
+        check_file_encoding_chardet(path, error_file_path)
+    elif function_number == 17:
+        check_file_encoding_universal_detector(path, error_file_path)
+    elif function_number == 18:
+        save_files_with_utf_8(path)
+    elif function_number == 19:
+        copy_wkt_files_to_sketches(path)
+    elif function_number == 20:
+        copy_wkt_files_to_required_documents(path, error_file_path)
+    elif function_number == 21:
+        check_for_wkt_to_wrong_files(path, error_file_path)
+    elif function_number == 22:
+        check_wkt_files_for_required_documents(path, error_file_path)
+    elif function_number == 23:
+        check_for_any_wkt_if_main_not_exists(path, error_file_path)
+    elif function_number == 24:
+        check_if_there_is_main_wkt(path, error_file_path)
+    elif function_number == 25:
+        move_modernization_wkt(path, error_file_path)
 
 
 def txt_list_based_or_path_based():
@@ -112,7 +158,7 @@ def move_wkt_for_files_to_main_wkt(path, error_file_path):
                             count += 1
                         except:
                             errors_file = os.path.join(
-                                error_file_path, "document_wkt_not_moved.txt"
+                                error_file_path, "documents_wkt_not_moved.txt"
                             )
                             with open(
                                 errors_file, "a", encoding="utf-8"
@@ -142,8 +188,8 @@ def delete_parenthesis_if_not_multipolygon(path):
 
 def match_wkt_folders_to_operat_folder(path, error_file_path):
     count = 1
-    wkt_files_list_path = input("Path to directory with wkt_list.txt:\n> ")
-    pdf_files_list_path = input("Path to directory with pdf_list.txt:\n> ")
+    wkt_files_list_path = os.path.join(error_file_path, "wkt_list.txt")
+    pdf_files_list_path = os.path.join(error_file_path, "pdf_list.txt")
     with open(wkt_files_list_path, "r", encoding="utf-8",) as from_here:
         for line in from_here:
             print(count)
@@ -172,7 +218,7 @@ def match_wkt_folders_to_operat_folder(path, error_file_path):
                         print(name_wkt)
                         print("\t" + name_pdf)
                         matched_files_list = os.path.join(
-                            error_file_path, "matched_wkt_pdf.txt"
+                            error_file_path, "matched_wkt_to_pdf.txt"
                         )
                         with open(
                             matched_files_list, "a", encoding="utf-8",
@@ -182,112 +228,81 @@ def match_wkt_folders_to_operat_folder(path, error_file_path):
                             )
 
 
-def match_files_based_on_name_not_folder_only(path, error_file_path):
-    count = 1
-    with open(
-        r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\wkt_bez_odpowiednika_pdf.txt",  # noqa
-        "r",
-        encoding="utf-8",
-    ) as stad:
-        for line in stad:
-            print(count)
-            count += 1
-            pelne = line.strip()
-            nazwa = os.path.basename(pelne).split(".wkt")[0]
-            sciezka = os.path.basename(os.path.dirname(pelne))
-            with open(
-                r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\lista_plikow_p33.txt",  # noqa
-                "r",
-                encoding="utf-8",
-            ) as tutaj:
-                for line in tutaj:
-                    pelne1 = line.strip()
-                    nazwa1 = os.path.basename(pelne1).split(".PDF")[0]
-                    sciezka1 = os.path.basename(os.path.dirname(pelne1))
-                    if sciezka1 + nazwa1 == sciezka + nazwa:
-                        with open(
-                            r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\co_do_czego.txt",  # noqa
-                            "a",
-                        ) as cdc:
-                            cdc.write(pelne + "\t" + pelne1 + "\n")
-
-
 def check_if_all_operat_from_list_matched(path, error_file_path):
-    dopasowane = set()
+    matched_lines = set()
     with open(
-        r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\co_do_czego.txt",
+        os.path.join(error_file_path, "matched_wkt_to_pdf.txt"),
         "r",
         encoding="utf-8",
     ) as cdc:
         for line in cdc:
-            dopasowane.add(line.split("\t")[0])
+            matched_lines.add(line.split("\t")[0])
     with open(
-        r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\lista_wkt.txt",
-        "r",
-        encoding="utf-8",
-    ) as stad:
-        for line in stad:
-            if not line.strip() in dopasowane:
+        os.path.join(error_file_path, "wkt_list.txt"), "r", encoding="utf-8",
+    ) as from_here:
+        for line in from_here:
+            if not line.strip() in matched_lines:
                 with open(
-                    r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\niedopasowane_wkt.txt",  # noqa
+                    os.path.join(error_file_path, "unmatched_wkt.txt"),
                     "a",
                     encoding="utf-8",
-                ) as niedopasowane:
-                    niedopasowane.write(line.strip() + "\n")
+                ) as unmatched:
+                    unmatched.write(line.strip() + "\n")
 
 
 def find_duplicate_lines_in_cdc_file(path, error_file_path):
-    poprzednia = pierwsza = ""
+    previous = first = ""
     with open(
-        r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\co_do_czego.txt",
+        os.path.join(error_file_path, "matched_wkt_to_pdf.txt"),
         "r",
         encoding="utf-8",
     ) as cdc:
         for line in cdc:
             linia = line.split("\t")[0]
-            if poprzednia == "":
-                pierwsza = line
-                poprzednia = linia
+            if previous == "":
+                first = line
+                previous = linia
                 czy1 = 1
                 continue
-            if linia != poprzednia:
-                pierwsza = line
+            if linia != previous:
+                first = line
                 czy1 = 1
-                poprzednia = linia
+                previous = linia
                 continue
-            elif poprzednia == linia:
+            elif previous == linia:
                 if czy1 == 1:
                     with open(
-                        r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\kilka_dopasowan.txt",  # noqa
+                        os.path.join(error_file_path, "several_matches.txt"),
                         "a",
                     ) as kilka:
-                        kilka.write(pierwsza)
+                        kilka.write(first)
                     czy1 = 0
                 with open(
-                    r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\kilka_dopasowan.txt",  # noqa
-                    "a",
+                    os.path.join(error_file_path, "several_matches.txt"), "a",
                 ) as kilka:
                     kilka.write(line)
 
 
 def remove_from_cdc_lines_moved_to_duplicated(path, error_file_path):
-    usunac = set()
+    remove_them = set()
     with open(
-        r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\kilka_dopasowan.txt",
+        os.path.join(error_file_path, "several_matches.txt"),
         "r",
         encoding="utf-8",
-    ) as kilka:
-        for line in kilka:
-            usunac.add(line)
+    ) as several_matches:
+        for line in several_matches:
+            remove_them.add(line)
     with open(
-        r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\co_do_czego.txt",
+        os.path.join(error_file_path, "matched_wkt_to_pdf.txt"),
         "r",
         encoding="utf-8",
     ) as cdc:
         for line in cdc:
-            if line not in usunac:
+            if line not in remove_them:
                 with open(
-                    r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\n_co_do_czego.txt",  # noqa
+                    os.path.join(
+                        error_file_path, "new_matche_wkt_to_pdf.txt"
+                    ),  # noqa
                     "a",
                 ) as ncdc:
                     ncdc.write(line)
@@ -296,475 +311,458 @@ def remove_from_cdc_lines_moved_to_duplicated(path, error_file_path):
 def copy_wkt_to_corresponding_operat_folder(path, error_file_path):
     count = 1
     with io.open(
-        r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\co_do_czego.txt",
+        os.path.join(error_file_path, "new_matched_wkt_to_pdf.txt"),
         "r",
         encoding="utf-8",
     ) as cdc:
         for line in cdc:
             print(count)
             count += 1
-            stad = line.split("\t")[0]
-            tutaj = (line.split("\t")[1]).split("\n")[0]
-            for _, _, files in os.walk(stad):
+            from_here = line.split("\t")[0]
+            move_there = (line.split("\t")[1]).strip()
+            for _, _, files in os.walk(from_here):
                 for file in natsorted(files):
                     if file.upper().endswith(".WKT"):
-                        plik = os.path.join(stad, file)
-                        docelowe = os.path.join(tutaj, file)
-                        if not os.path.exists(docelowe):
+                        wkt_file = os.path.join(from_here, file)
+                        destination = os.path.join(move_there, file)
+                        if not os.path.exists(destination):
                             try:
-                                shutil.copy2(plik, docelowe)
+                                shutil.copy2(wkt_file, destination)
                                 with io.open(
-                                    r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\mozna_usunac.txt",  # noqa
+                                    os.path.join(
+                                        error_file_path, "can_be_removed.txt"
+                                    ),
                                     "a",
                                     encoding="utf-8",
-                                ) as usun:
-                                    usun.write(plik + "\n")
+                                ) as remove_them:
+                                    remove_them.write(wkt_file + "\n")
                             except:
                                 with io.open(
-                                    r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\bledy_kopiowania.txt",  # noqa
+                                    os.path.join(
+                                        error_file_path, "copying_errors.txt"
+                                    ),
                                     "a",
                                     encoding="utf-8",
-                                ) as bledy:
-                                    bledy.write(plik + "\n")
+                                ) as errors:
+                                    errors.write(wkt_file + "\n")
                         else:
                             with io.open(
-                                r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\wkt_juz_istnieje.txt",  # noqa
+                                os.path.join(
+                                    error_file_path, "wkt_already_exists.txt"
+                                ),
                                 "a",
                                 encoding="utf-8",
-                            ) as istnieje:
-                                istnieje.write(plik + "\n")
+                            ) as already_exists:
+                                already_exists.write(wkt_file + "\n")
 
 
 def delete_successfuly_moved_files(path, error_file_path):
     count = 1
     with open(
-        r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\mozna_usunac.txt", "r"
-    ) as usun:
-        for line in usun:
+        os.path.join(error_file_path, "can_be_removed.txt"),
+        "r",
+        encoding="utf-8",
+    ) as remove_them:
+        for line in remove_them:
             print(count)
             count += 1
             try:
                 os.remove(line.strip())
             except:
                 with open(
-                    r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\nie_da_sie_usunac.txt",  # noqa
+                    os.path.join(error_file_path, "cant_be_deleted.txt"),
                     "a",
-                ) as nds:
-                    nds.write(line)
+                    encoding="utf-8",
+                ) as errors:
+                    errors.write(line)
 
 
 def cleanup_more_than_one_fit(path, error_file_path):
     with open(
-        r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\kilka_dopasowan.txt",
+        os.path.join(error_file_path, "several_matches.txt"),
         "r",
-    ) as kilka:
-        for line in kilka:
-            obreb = (
+        encoding="utf-8",
+    ) as several_matches:
+        for line in several_matches:
+            precinct = (
                 regex.sub(
                     r"^.+do_operatow.+\.[0-9][0-9][0-9][0-9](.+?)\t.+",
                     "\\1",
                     line,
                 )
-            ).split("\n")[0]
-            if obreb.upper() in (line.split("\t")[1]).upper(
-                path, error_file_path
-            ):
+            ).strip()
+            if precinct.upper() in (line.split("\t")[1]).upper():
                 with io.open(
-                    r"D:\_MACIEK_\python_proby\p33\wkt_rozrzucenie\wyczyszczone.txt",  # noqa
+                    os.path.join(
+                        error_file_path, "several_matches_cleared.txt"
+                    ),
                     "a",
                     encoding="utf-8",
-                ) as czyste:
-                    czyste.write(line)
+                ) as clean:
+                    clean.write(line)
 
 
 def check_for_pdf_equivalent_for_wkt(path, error_file_path):
     count = 1
-    sciezka = (
-        r"\\waw-dt1409\h\Poprawa_Inowrocław_cz.3\INOWROCŁAW\dla_macka_wkt"
-    )
-    with open(
-        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt",  # noqa
-        "r",
-        encoding="utf-8",
-    ) as sciezki:
-        for line in sciezki:
-            sciezka = line.strip()
-            for subdir, dirs, files in os.walk(sciezka):
-                dirs.sort(key=nkey)
-                for file in natsorted(files):
-                    if file.endswith(".wkt"):
-                        wkt = os.path.join(subdir, file)
-                        print(str(count))
-                        count += 1
-                        if (
-                            not os.path.exists((wkt.split(".wkt")[0]) + ".PDF")
-                            and os.path.basename(subdir)
-                            != file.split(".wkt")[0]
-                        ):
-                            with io.open(
-                                r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\wkt_bez_odpowiednika_pdf.txt",  # noqa
-                                "a",
-                                encoding="utf-8",
-                            ) as brak:
-                                brak.write(wkt + "\n")
+    for subdir, dirs, files in os.walk(path):
+        dirs.sort(key=nkey)
+        for file in natsorted(files):
+            if file.endswith(".wkt"):
+                wkt_file = os.path.join(subdir, file)
+                print(str(count))
+                count += 1
+                if (
+                    not os.path.exists((wkt_file.split(".wkt")[0]) + ".PDF")
+                    and os.path.basename(subdir) != file.split(".wkt")[0]
+                ):
+                    with io.open(
+                        os.path.join(
+                            error_file_path, "wkt_without_pdf_equivalent.txt"
+                        ),
+                        "a",
+                        encoding="utf-8",
+                    ) as missing_equivalent:
+                        missing_equivalent.write(wkt_file + "\n")
 
 
 def check_error_wkt_creation_date(path, error_file_path):
     with open(
-        r"D:\_MACIEK_\python_proby\p33\wkt_bez_odpowiednika_pdf.txt", "r"
-    ) as braki:
-        for line in braki:
-            sciezka = line.strip()
-            data = (
-                str(datetime.datetime.fromtimestamp(os.path.getmtime(sciezka)))
+        os.path.join(error_file_path, "wkt_without_pdf_equivalent.txt"),
+        "r",
+        encoding="utf-8",
+    ) as missing_equivalent:
+        for line in missing_equivalent:
+            wkt_file_path = line.strip()
+            creation_date = (
+                str(
+                    datetime.datetime.fromtimestamp(
+                        os.path.getmtime(wkt_file_path)
+                    )
+                )
             ).split(" ")[0]
             with open(
-                r"D:\_MACIEK_\python_proby\p33\wkt_daty.txt", "a"
-            ) as daty:
-                daty.write(sciezka + "\t" + data + "\n")
+                os.path.join(error_file_path, "wkt_creation_date.txt"),
+                "a",
+                encoding="utf-8",
+            ) as wkt_date:
+                wkt_date.write(wkt_file_path + "\t" + creation_date + "\n")
 
 
 def check_wkt_structure(path, error_file_path):
     count = 1
-    braki = 0
-    for subdir, dirs, files in os.walk(
-        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\Zmiana_kodowania_test"
-    ):
+    wrong_wkt_structure = 0
+    for subdir, dirs, files in os.walk(path):
         dirs.sort(key=nkey)
         for file in natsorted(files):
             if file.endswith(".wkt"):
-                zeruj = 0
                 print(count)
                 count += 1
-                wkt = os.path.join(subdir, file)
-                with open(wkt, "r") as sprawdz:
-                    for line in sprawdz:
-                        if zeruj == 0:
-                            zeruj = 1
-                            if not regex.match(
-                                r"^POLYGON|MULTI.*", line.upper()
-                            ):
-                                braki += 1
-                                print("\t\t" + str(braki))
-                                with open(
-                                    r"D:\_MACIEK_\python_proby\p33\wkt_bledne_struktuaaary.txt",  # noqa
-                                    "a",
-                                ) as brak:
-                                    brak.write(wkt + "\n")
-                        else:
-                            continue
+                wkt_file = os.path.join(subdir, file)
+                with open(wkt_file, "r", encoding="utf-8") as check_this:
+                    for line in check_this:
+                        if not regex.match(r"^POLYGON|MULTI.*", line.upper()):
+                            wrong_wkt_structure += 1
+                            print("\t\t" + str(wrong_wkt_structure))
+                            with open(
+                                os.path.join(
+                                    error_file_path, "wkt_wrong_structure.txt",
+                                ),
+                                "a",
+                            ) as errors:
+                                errors.write(wkt_file + "\n")
+                        break
 
 
 def merge_wkt_with_wrong_structure(path, error_file_path):
     with open(
-        r"D:\_MACIEK_\python_proby\p33\wkt_bledne_struktury.txt", "r"
-    ) as braki:
-        for line in braki:
-            bb = 0
-            sciezka = line.strip()
-            with open(sciezka, "r") as wkt:
-                for line in wkt:
+        os.path.join(error_file_path, "wkt_wrong_structure.txt"),
+        "r",
+        encoding="utf-8",
+    ) as wrong_structure:
+        for line in wrong_structure:
+            files_separator_on_off = 1
+            wkt_file_path = line.strip()
+            with open(wkt_file_path, "r", encoding="utf-8") as wkt_file:
+                for line in wkt_file:
                     with open(
-                        r"D:\_MACIEK_\python_proby\p33\wkt_bledne_zlaczone.txt",  # noqa
+                        os.path.join(
+                            error_file_path, "merged_wkt_wrong_structure.txt"
+                        ),
                         "a",
-                    ) as bledne:
-                        if bb == 0:
-                            bledne.write(
+                        encoding="utf-8",
+                    ) as errors:
+                        if files_separator_on_off == 1:
+                            errors.write(
                                 "\n~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                                + sciezka
+                                + wkt_file_path
                                 + "\n\n"
                             )
-                            bb = 1
-                        bledne.write(line)
+                            files_separator_on_off = 0
+                        errors.write(line)
 
 
 def check_file_encoding_chardet(path, error_file_path):
     count = 1
-    for subdir, dirs, files in os.walk(r"W:\dla Maćka\przykłady wkt"):
+    for subdir, dirs, files in os.walk(path):
         dirs.sort(key=nkey)
         for file in natsorted(files):
             if file.endswith(".wkt"):
                 print(count)
                 count += 1
-                wkt = os.path.join(subdir, file)
-                rawdata = open(wkt, "rb").read()
+                wkt_file_path = os.path.join(subdir, file)
+                rawdata = open(wkt_file_path, "rb").read()
                 result = chardet.detect(rawdata)
                 print(result)
                 charenc = result["encoding"]
                 with open(
-                    r"D:\_MACIEK_\python_proby\p33\kodowania_plikow.txt", "a"
-                ) as kodowanie:
-                    kodowanie.write(wkt + "\t" + charenc + "\n")
+                    os.path.join(error_file_path, "files_encoding.txt"),
+                    "a",
+                    encoding="utf-8",
+                ) as encoding:
+                    encoding.write(wkt_file_path + "\t" + charenc + "\n")
 
 
 def check_file_encoding_universal_detector(path, error_file_path):
     count = 1
     detector = UniversalDetector()
-    for subdir, dirs, files in os.walk(
-        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\DĄBROWA BISKUPIA\RADOJEWICE"  # noqa
-    ):
+    for subdir, dirs, files in os.walk(path):
         dirs.sort(key=nkey)
         for file in natsorted(files):
             if file.endswith(".xml"):
                 print(count)
                 count += 1
-                wkt = os.path.join(subdir, file)
+                wkt_file_path = os.path.join(subdir, file)
                 detector.reset()
-                with open(wkt, "rb") as sprawdz:
-                    for line in sprawdz:
+                with open(wkt_file_path, "rb") as check_it:
+                    for line in check_it:
                         detector.feed(line)
                         if detector.done:
                             break
                 detector.close()
                 if "utf-8" not in str(detector.result):
                     with open(
-                        r"D:\_MACIEK_\python_proby\p33\numer_p_do_xml\kodowania_plikow.txt",  # noqa
+                        os.path.join(error_file_path, "files_encoding.txt"),
                         "a",
-                    ) as kodowanie:
-                        kodowanie.write(
-                            wkt + "\t" + str(detector.result) + "\n"
+                        encoding="utf-8",
+                    ) as encoding:
+                        encoding.write(
+                            wkt_file_path + "\t" + str(detector.result) + "\n"
                         )
 
 
-def save_files_with_utf_8(path, error_file_path):
-    for subdir, dirs, files in os.walk(
-        r"W:\dla Maćka\przykłady wkt\P.0410.1999.241"
-    ):
+def save_files_with_utf_8(path):
+    for subdir, dirs, files in os.walk(path):
         dirs.sort(key=nkey)
         for file in natsorted(files):
-            stad = os.path.join(subdir, file)
-            with io.open(stad, "r", encoding="utf-16") as pobierz:
-                tresc = pobierz.read()
-            with io.open(
-                stad + ".new", "w", encoding="utf-8", errors="ignore"
-            ) as zapisz:
-                zapisz.write(tresc)
+            from_here = os.path.join(subdir, file)
+            with open(from_here, "r", encoding="utf-16") as get_content:
+                content = get_content.read()
+            with open(
+                from_here + ".new", "w", encoding="utf-8", errors="ignore"
+            ) as write_content:
+                write_content.write(content)
 
 
-def copy_wkt_files_to_sketches(path, error_file_path):
+def copy_wkt_files_to_sketches(path):
     count = 1
-    for subdir, dirs, files in os.walk(
-        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\INOWROCŁAW"
-    ):
+    for subdir, dirs, files in os.walk(path):
         for file in files:
             if file.endswith(".PDF") and "SZK-POL" in file:
                 if not os.path.exists(
                     os.path.join(subdir, os.path.splitext(file)[0] + ".wkt")
                 ):
-                    plik = file
+                    wkt_file = file
                     if any(
                         fname.endswith(".wkt") and "SZK-POL" in fname
                         for fname in os.listdir(subdir)
                     ):
                         for file in files:
                             if file.endswith(".wkt") and "SZK-POL" in file:
-                                wkt = os.path.join(subdir, file)
-                                new = os.path.join(
-                                    subdir, os.path.splitext(plik)[0] + ".wkt"
+                                wkt_file_path = os.path.join(subdir, file)
+                                new_wkt_file = os.path.join(
+                                    subdir,
+                                    os.path.splitext(wkt_file)[0] + ".wkt",
                                 )
                                 print(count)
                                 count += 1
-                                shutil.copy(wkt, new)
+                                shutil.copy(wkt_file_path, new_wkt_file)
 
 
 def copy_wkt_files_to_required_documents(path, error_file_path):
     count = 1
-    sciezka = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 2\10.06.2020\INOWROCŁAW"  # noqa
-    with open(
-        r"P:\cyfryzacja_powiat_inowroclawski\kontrole_2020-07-06\sciezki.txt",
-        "r",
-        encoding="utf-8",
-    ) as sciezki:
-        for line in sciezki:
-            sciezka = line.strip()
-            for subdir, dirs, files in os.walk(sciezka):
-                dirs.sort(key=nkey)
-                wkt_operatu = os.path.join(
-                    subdir, os.path.basename(subdir) + ".wkt"
-                )
-                if os.path.exists(wkt_operatu):
-                    for file in natsorted(files):
-                        if regex.match(
-                            r".+((-M-)|(-SZK-)|(-Z-KAT-)|(-Z-POM-)|(-MPZP-)).+\.PDF",  # noqa
-                            file.upper(),
-                        ):
-                            new_wkt = os.path.join(
-                                subdir, os.path.splitext(file)[0] + ".wkt"
-                            )
-                            if os.path.exists(new_wkt):
-                                continue
-                            else:
-                                try:
-                                    shutil.copy(wkt_operatu, new_wkt)
-                                    print(str(count) + "\t" + new_wkt)
-                                    count += 1
-                                except:
-                                    with open(
-                                        r"P:\cyfryzacja_powiat_inowroclawski\kontrole_2020-07-06\nie_udalo_sie_utworzyc_wkt.txt",  # noqa
-                                        "a",
-                                        encoding="utf-8",
-                                    ) as bledy:
-                                        bledy.write(new_wkt + "\n")
-                else:
-                    if any(
-                        fname.upper().endswith(".PDF")
-                        for fname in os.listdir(subdir)
-                    ):
-                        with open(
-                            r"P:\cyfryzacja_powiat_inowroclawski\kontrole_2020-07-06\brak_wkt_operatu.txt",  # noqa
-                            "a",
-                            encoding="utf-8",
-                        ) as bledy:
-                            bledy.write(subdir + "\n")
+    for subdir, dirs, files in os.walk(path):
+        dirs.sort(key=nkey)
+        main_wkt_file = os.path.join(subdir, os.path.basename(subdir) + ".wkt")
+        if os.path.exists(main_wkt_file):
+            for file in natsorted(files):
+                if regex.match(
+                    r".+((-M-)|(-SZK-)|(-Z-KAT-)|(-Z-POM-)|(-MPZP-)).+\.PDF",
+                    file.upper(),
+                ):
+                    new_wkt = os.path.join(
+                        subdir, os.path.splitext(file)[0] + ".wkt"
+                    )
+                    if os.path.exists(new_wkt):
+                        continue
+                    else:
+                        try:
+                            shutil.copy(main_wkt_file, new_wkt)
+                            print(str(count) + "\t" + new_wkt)
+                            count += 1
+                        except:
+                            with open(
+                                os.path.join(
+                                    error_file_path,
+                                    "failed_to_create_wkt.txt",
+                                ),
+                                "a",
+                                encoding="utf-8",
+                            ) as errors:
+                                errors.write(new_wkt + "\n")
+        else:
+            if any(
+                fname.upper().endswith(".PDF") for fname in os.listdir(subdir)
+            ):
+                with open(
+                    os.path.join(error_file_path, "missing_main_wkt.txt"),
+                    "a",
+                    encoding="utf-8",
+                ) as errors:
+                    errors.write(subdir + "\n")
 
 
 def check_for_wkt_to_wrong_files(path, error_file_path):
     count = 1
-    with open(
-        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt",  # noqa
-        "r",
-        encoding="utf-8",
-    ) as sciezki:
-        for line in sciezki:
-            sciezka = line.strip()
-            for subdir, dirs, files in os.walk(sciezka):
-                dirs.sort(key=nkey)
-                if not any(
-                    fname.upper().endswith(".WKT")
-                    for fname in os.listdir(subdir)
-                ):
-                    continue
-                print(count)
-                count += 1
-                for file in files:
-                    if file.endswith(".wkt") and (
-                        file != (os.path.basename(subdir) + ".wkt")
-                        and "-M-" not in file
-                        and "-SZK-" not in file
-                        and "-Z-KAT-" not in file
-                        and "-Z-POM-" not in file
-                        and "-MPZP-" not in file
-                    ):
-                        with open(
-                            r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\wkt_do_niewlasciwych_plikow.txt",  # noqa
-                            "a",
-                            encoding="utf-8",
-                        ) as bledy:
-                            bledy.write(os.path.join(subdir, file) + "\n")
+    for subdir, dirs, files in os.walk(path):
+        dirs.sort(key=nkey)
+        if not any(
+            fname.upper().endswith(".WKT") for fname in os.listdir(subdir)
+        ):
+            continue
+        print(count)
+        count += 1
+        for file in files:
+            if file.endswith(".wkt") and (
+                file != (os.path.basename(subdir) + ".wkt")
+                and "-M-" not in file
+                and "-SZK-" not in file
+                and "-Z-KAT-" not in file
+                and "-Z-POM-" not in file
+                and "-MPZP-" not in file
+            ):
+                with open(
+                    os.path.join(error_file_path, "wkt_for_wrong_files.txt",),
+                    "a",
+                    encoding="utf-8",
+                ) as errors:
+                    errors.write(os.path.join(subdir, file) + "\n")
 
 
 def check_wkt_files_for_required_documents(path, error_file_path):
     count = 1
-    with open(
-        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt",  # noqa
-        "r",
-        encoding="utf-8",
-    ) as sciezki:
-        for line in sciezki:
-            sciezka = line.strip()
-            for subdir, dirs, files in os.walk(sciezka):
-                dirs.sort(key=nkey)
-                if not any(
-                    fname.upper().endswith(".PDF")
-                    for fname in os.listdir(subdir)
-                ):
-                    continue
-                print(count)
-                count += 1
-                wkt_operatu = os.path.join(
-                    subdir, os.path.basename(subdir) + ".wkt"
+    for subdir, dirs, files in os.walk(path):
+        dirs.sort(key=nkey)
+        if not any(
+            fname.upper().endswith(".PDF") for fname in os.listdir(subdir)
+        ):
+            continue
+        print(count)
+        count += 1
+        main_wkt_file = os.path.join(subdir, os.path.basename(subdir) + ".wkt")
+        for file in natsorted(files):
+            if regex.match(
+                r".+((-M-)|(-SZK-)|(-Z-KAT-)).+\.PDF", file.upper()
+            ):
+                new_wkt = os.path.join(
+                    subdir, os.path.splitext(file)[0] + ".wkt"
                 )
-                for file in natsorted(files):
-                    if regex.match(
-                        r".+((-M-)|(-SZK-)|(-Z-KAT-)).+\.PDF", file.upper()
-                    ):
-                        new_wkt = os.path.join(
-                            subdir, os.path.splitext(file)[0] + ".wkt"
-                        )
-                        if not os.path.exists(new_wkt):
-                            with open(
-                                r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\brak_wkt_dla_plikow.txt",  # noqa
-                                "a",
-                                encoding="utf-8",
-                            ) as bledy:
-                                bledy.write(new_wkt + "\n")
-                if not os.path.exists(wkt_operatu):
+                if not os.path.exists(new_wkt):
                     with open(
-                        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\brak_wkt_dla_operatu.txt",  # noqa
+                        os.path.join(
+                            error_file_path, "missing_document_wkt.txt"
+                        ),
                         "a",
                         encoding="utf-8",
-                    ) as bledy:
-                        bledy.write(subdir + "\n")
+                    ) as errors:
+                        errors.write(new_wkt + "\n")
+        if not os.path.exists(main_wkt_file):
+            with open(
+                os.path.join(error_file_path, "missing_main_wkt.txt"),
+                "a",
+                encoding="utf-8",
+            ) as errors:
+                errors.write(subdir + "\n")
 
 
 def check_for_any_wkt_if_main_not_exists(path, error_file_path):
     count = 1
-    with open(
-        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt",  # noqa
-        "r",
-        encoding="utf-8",
-    ) as sciezki:
-        for line in sciezki:
-            sciezka = line.strip()
-            for subdir, dirs, _ in os.walk(sciezka):
-                if any(
-                    fname.upper().endswith(".WKT")
-                    for fname in os.listdir(subdir)
-                ) and not os.path.exists(
-                    os.path.join(subdir, os.path.basename(subdir) + ".wkt")
-                ):
-                    with open(
-                        r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\brak_glownej_jest_do_pliku.txt",  # noqa
-                        "a",
-                        encoding="utf-8",
-                    ) as bledy:
-                        bledy.write(subdir + "\n")
-                    print(count)
-                    count += 1
+    for subdir, dirs, _ in os.walk(path):
+        if any(
+            fname.upper().endswith(".WKT") for fname in os.listdir(subdir)
+        ) and not os.path.exists(
+            os.path.join(subdir, os.path.basename(subdir) + ".wkt")
+        ):
+            with open(
+                os.path.join(
+                    error_file_path,
+                    "missing_main_wkt_but_there_is_something.txt",
+                ),
+                "a",
+                encoding="utf-8",
+            ) as errors:
+                errors.write(subdir + "\n")
+            print(count)
+            count += 1
 
 
 def check_if_there_is_main_wkt(path, error_file_path):
-    with open(r"D:\_MACIEK_\python_proby\p33\spis.txt", "r") as spis:
-        for line in spis:
-            sciezka = line.strip()
-    for subdir, dirs, _ in os.walk(sciezka):
+    for subdir, dirs, _ in os.walk(path):
         if not os.path.exists(
             os.path.join(subdir, os.path.basename(subdir) + ".wkt")
         ):
-            print(subdir)
+            with open(
+                os.path.join(error_file_path, "missing_main_wkt.txt"),
+                "a",
+                encoding="utf-8",
+            ) as errors:
+                errors.write(subdir + "\n")
 
 
 def move_modernization_wkt(path, error_file_path):
     count = 1
-    for subdir, dirs, files in os.walk(
-        r"I:\INOWROCŁAW\DANE PODGiK\SKANY OPERATÓW\!modernizacja inowrocław"
-    ):
+    for subdir, dirs, files in os.walk(path):
         dirs.sort(key=nkey)
         if "-00" in subdir:
-            glowny = subdir
-            nrobr = subdir.split("\\")[5].split("-")[1]
+            main_folder = subdir
+            precinct_number = subdir.split("\\")[5].split("-")[1]
             for file in natsorted(files):
                 if file.upper().endswith(".PDF"):
-                    pdf = os.path.splitext(file)[0]
+                    pdf_file = os.path.splitext(file)[0]
                     for subdir, dirs, files in os.walk(
-                        r"D:\_MACIEK_\python_proby\p33\do_operatow"
+                        os.path.join(error_file_path, "do_operatow")
                     ):
                         dirs.sort(key=nkey)
                         if ".00" in subdir:
-                            obreb = subdir.split("\\")[5].split(".")[1]
-                            if nrobr == obreb:
+                            precinct = subdir.split("\\")[5].split(".")[1]
+                            if precinct_number == precinct:
                                 for file in natsorted(files):
                                     if file.upper().endswith(".WKT"):
-                                        wkt = os.path.splitext(file)[0]
-                                        if wkt == pdf:
-                                            stad = os.path.join(subdir, file)
-                                            nowy = os.path.join(glowny, file)
+                                        wkt_file = os.path.splitext(file)[0]
+                                        if wkt_file == pdf_file:
+                                            from_here = os.path.join(
+                                                subdir, file
+                                            )
+                                            move_there = os.path.join(
+                                                main_folder, file
+                                            )
                                             try:
-                                                shutil.copy(stad, nowy)
+                                                shutil.copy(
+                                                    from_here, move_there
+                                                )
                                                 print(
                                                     str(count)
                                                     + "\t"
-                                                    + obreb
+                                                    + precinct
                                                     + "_"
                                                     + file
                                                 )
@@ -789,27 +787,26 @@ Choose one of the following:
     (3)   move_wkt_for_files_to_main_wkt
     (4)   delete_parenthesis_if_not_multipolygon
     (5)   match_wkt_folders_to_operat_folder
-    (6)   match_files_based_on_name_not_folder_only
-    (7)   check_if_all_operat_from_list_matched
-    (8)   find_duplicate_lines_in_cdc_file
-    (9)   remove_from_cdc_lines_moved_to_duplicated
-    (10)  copy_wkt_to_corresponding_operat_folder
-    (11)  delete_successfuly_moved_files
-    (12)  cleanup_more_than_one_fit
-    (13)  check_for_pdf_equivalent_for_wkt
-    (14)  check_error_wkt_creation_date
-    (15)  check_wkt_structure
-    (16)  merge_wkt_with_wrong_structure
-    (17)  check_file_encoding_chardet
-    (18)  check_file_encoding_universal_detector
-    (19)  save_files_with_utf_8
-    (20)  copy_wkt_files_to_sketches
-    (21)  copy_wkt_files_to_required_documents
-    (22)  check_for_wkt_to_wrong_files
-    (23)  check_wkt_files_for_required_documents
-    (24)  check_for_any_wkt_if_main_not_exists
-    (25)  check_if_there_is_main_wkt
-    (26)  move_modernization_wkt
+    (6)   check_if_all_operat_from_list_matched
+    (7)   find_duplicate_lines_in_cdc_file
+    (8)   remove_from_cdc_lines_moved_to_duplicated
+    (9)   copy_wkt_to_corresponding_operat_folder
+    (10)  delete_successfuly_moved_files
+    (11)  cleanup_more_than_one_fit
+    (12)  check_for_pdf_equivalent_for_wkt
+    (13)  check_error_wkt_creation_date
+    (14)  check_wkt_structure
+    (15)  merge_wkt_with_wrong_structure
+    (16)  check_file_encoding_chardet
+    (17)  check_file_encoding_universal_detector
+    (18)  save_files_with_utf_8
+    (19)  copy_wkt_files_to_sketches
+    (20)  copy_wkt_files_to_required_documents
+    (21)  check_for_wkt_to_wrong_files
+    (22)  check_wkt_files_for_required_documents
+    (23)  check_for_any_wkt_if_main_not_exists
+    (24)  check_if_there_is_main_wkt
+    (25)  move_modernization_wkt
 > """
             )
         )
