@@ -1,7 +1,7 @@
 import os
 import regex
 
-path = r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200528\040707_5"  # noqa
+path = r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527\040707_5\prawne"  # noqa
 
 files_by_folder = {}
 count_all = 0

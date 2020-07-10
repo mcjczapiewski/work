@@ -3,7 +3,9 @@ import datetime
 
 today = datetime.datetime.now().date()
 
-path = r"P:\cyfryzacja_powiat_inowroclawski\SKANY\040701_1\prawne\040701_1.0001"
+path = (
+    r"P:\cyfryzacja_powiat_inowroclawski\SKANY\040701_1\prawne\040701_1.0001"
+)
 # path = input("Wklej ścieżkę do folderu głównego: ")
 count_all = count_today = 0
 

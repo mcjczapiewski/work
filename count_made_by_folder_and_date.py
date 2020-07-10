@@ -3,7 +3,7 @@ import datetime
 import regex
 
 count_all = 0
-path = r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III"  # noqa
+path = r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527"  # noqa
 made_by_folder = {}
 made_by_day = {}
 previous_folder = ""
@@ -62,7 +62,6 @@ if the_day_before in made_by_day:
             made_by_day[the_day_before][key] = made_by_folder[key]
 else:
     made_by_day[the_day_before] = made_by_folder
-# made_by_day[the_day_before] = made_by_folder
 for key, value in sorted(made_by_day.items()):
     print(key)
     for item in sorted(value):

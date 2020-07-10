@@ -162,13 +162,15 @@ def changes(change_type, numbers_to_change):
 #     folder_path = input("\nWklej ścieżkę:\n> ")
 
 with open(
-    r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527\040707_5\prawne\040707_5.0005\zmiana.txt",
+    r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527\040707_5\prawne\zmiana.txt",
     "r",
     encoding="UTF-8",
 ) as lista:
+    count = 1
     for line in lista:
         folder_path = line.strip()
-
+        print(count)
+        count += 1
         for subdir, dirs, files in os.walk(folder_path):
             stop_it = 0
             dirs.sort(key=natsort_keygen())

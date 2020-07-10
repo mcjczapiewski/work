@@ -21,12 +21,12 @@ nazwy = (
 
 # path = input("Enter the path: ")
 path = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\M.JANIKOWO"  # noqa
-errors = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06"  # noqa
+errors = r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527\040707_5\prawne"  # noqa
 
 count = 1
 
 with open(
-    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt",  # noqa
+    r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527\040707_5\prawne\zmiana.txt",  # noqa
     "r",
     encoding="utf-8",
 ) as sciezki:
@@ -51,7 +51,7 @@ with open(
 
             for file in natsorted(files):
                 if file.upper().endswith(".PDF"):
-                    if not regex.match(r"^P.+[0-9]\.PDF", file.upper()):
+                    if not regex.match(r"^.+[0-9]\.PDF", file.upper()):
                         with io.open(
                             fr"{errors}\niepoprawne_nazwy.txt",  # noqa
                             # fr"{errors}\paulina_2.txt",  # noqa

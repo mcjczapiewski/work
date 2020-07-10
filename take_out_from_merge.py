@@ -3,7 +3,7 @@ import shutil
 
 count = 1
 
-for subdir, dirs, _ in os.walk(r'D:\_MACIEK_\python_proby\20200528'):
+for subdir, dirs, _ in os.walk(r'D:\_MACIEK_\python_proby\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527'):
     merge = os.path.join(subdir, os.path.basename(subdir), "merge")
     if os.path.exists(merge):
         print(count)
