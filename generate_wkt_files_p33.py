@@ -14,7 +14,7 @@ def operaty():
             if not regex.search(r"\(\(\(.+\(", line):
                 line = regex.sub(r"MULTI", "", line)
             if "EMPTY" in line:
-                braki.add(str(nrope))
+                braki.add(str(line))
                 brak_zakresu += 1
                 nrope += 1
                 continue
@@ -46,7 +46,7 @@ def pliki():
             if not regex.search(r"\(\(\(.+\(", line):
                 line = regex.sub(r"MULTI", "", line)
             if "EMPTY" in line:
-                braki.add(str(nrope))
+                braki.add(str(line))
                 brak_zakresu += 1
                 nrope += 1
                 continue

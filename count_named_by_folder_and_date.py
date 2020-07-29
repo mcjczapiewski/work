@@ -3,7 +3,7 @@ import datetime
 import regex
 
 count_all = 0
-path = r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527"  # noqa
+path = r"C:\Users\mczapiewski\Downloads\040707_5.0006\040707_5.0006\040707_5.0006"  # noqa
 made_by_folder = {}
 made_by_day = {}
 previous_folder = ""
@@ -34,7 +34,8 @@ for subdir, dirs, files in os.walk(path):
             str(folder_creation_time),
         )
         subdir_splitted = subdir.split("\\")
-        current_folder = fr"{subdir_splitted[3]}\{subdir_splitted[4]}\{subdir_splitted[5]}\{subdir_splitted[6]}"
+        current_folder = fr"{subdir_splitted[3]}\{subdir_splitted[4]}"\
+                         + fr"\{subdir_splitted[5]}\{subdir_splitted[6]}"
         if first_run:
             previous_folder = current_folder
             the_day_before = folder_creation_time

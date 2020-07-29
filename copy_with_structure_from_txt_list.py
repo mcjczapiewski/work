@@ -9,7 +9,7 @@ count = 1
 desti = input("podaj dest: ")
 
 with io.open(
-    r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527\copy.txt",
+    r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\zmiany.txt",
     "r",
     encoding="utf-8",
 ) as paths:

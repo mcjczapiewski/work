@@ -90,20 +90,20 @@ print("\nTrwa liczenie PDFów, poczekaj chwilkę...\n")
 
 # petla liczaca pdfy
 for subdir, _, filenames in os.walk(main_path):
-    if "merge" in subdir and not any(
-        fname.lower().endswith(".jpg") for fname in os.listdir(subdir)
-    ):
-        for filename in filenames:
-            if filename.endswith((".pdf", ".PDF")):
-                pdfs_counter += 1
+    # if "merge" in subdir and not any(
+    #     fname.lower().endswith(".jpg") for fname in os.listdir(subdir)
+    # ):
+    for filename in filenames:
+        if filename.endswith((".pdf", ".PDF")):
+            pdfs_counter += 1
 
 # glowna petla
 for subdir, dirs, files in os.walk(main_path):
     dirs.sort(key=nkey)
-    if "merge" not in subdir or any(
-        fname.lower().endswith(".jpg") for fname in os.listdir(subdir)
-    ):
-        continue
+    # if "merge" not in subdir or any(
+    #     fname.lower().endswith(".jpg") for fname in os.listdir(subdir)
+    # ):
+    #     continue
     # rozbija sciezke do folderu i bierze tylko
     # ostatni czlon jako numer operatu
     operat_number = os.path.basename(os.path.dirname(subdir))

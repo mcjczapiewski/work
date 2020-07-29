@@ -135,8 +135,6 @@ _--_{operat}{tail.split(file_page_number)[0]}{str(names_seen[file_type]).zfill(3
     if page_numbers_to_change:
         changes("stron", page_numbers_to_change)
 
-    if not doc_numbers_to_change and not page_numbers_to_change:
-        print(" --- NAJPIERW POPRAW --- ")
     else:
         print(" --- GOTOWE --- ")
 
@@ -162,7 +160,7 @@ def changes(change_type, numbers_to_change):
 #     folder_path = input("\nWklej ścieżkę:\n> ")
 
 with open(
-    r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527\040707_5\prawne\zmiana.txt",
+    r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527\040707_5\ewidencyjne\zmiany.txt",
     "r",
     encoding="UTF-8",
 ) as lista:

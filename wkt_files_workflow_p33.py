@@ -771,14 +771,14 @@ def move_modernization_wkt(path, error_file_path):
                                                 raise
 
 
-def main():
-    error_file_path = input(
-        "Where should I save errors files (onetime input)?\n> "
-    )
-    while True:
-        paths_list = txt_list_based_or_path_based()
-        function_number = int(
-            input(
+# def main():
+error_file_path = input(
+    "Where should I save errors files (onetime input)?\n> "
+)
+while True:
+    paths_list = txt_list_based_or_path_based()
+    function_number = int(
+        input(
                 """
 Choose one of the following:
 
@@ -808,11 +808,11 @@ Choose one of the following:
     (24)  check_if_there_is_main_wkt
     (25)  move_modernization_wkt
 > """
-            )
         )
-        for path in paths_list:
-            execute_proper_function(function_number, path, error_file_path)
+    )
+    for path in paths_list:
+        execute_proper_function(function_number, path, error_file_path)
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
