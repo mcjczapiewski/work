@@ -12,36 +12,17 @@ nkey = natsort_keygen()
 
 czasstart = datetime.datetime.now()
 print("~~~~~~START~~~~~~\t" + str(czasstart).split(".")[0])
-# print("\nPodaj ścieżkę do liczenia:")
-# tutaj = input()
-# print("\nPodaj ścieżkę do folderu od pliku wynikowego:")
-# sciezka = input()
-# wynikowy = os.path.basename(os.path.normpath(sciezka))
-# plikwynik = (
-#     sciezka
-#     + "\\"
-#     + wynikowy
-#     + "_strony_"
-#     + czasstart.strftime("%Y-%m-%d")
-#     + ".txt"
-# )
-# bledny = (
-#     sciezka
-#     + "\\"
-#     + wynikowy
-#     + "_BLEDY_"
-#     + czasstart.strftime("%Y-%m-%d")
-#     + ".txt"
-# )
 countope = 1
 ile = 1
 
 ###########################################################
 
-plikwynik = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\wiecej_niz_1_strona.txt"  # noqa
-bledny = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\nie_udalo_sie_policzyc_stron.txt"  # noqa
+tutaj = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\GNIEWKOWO- M 28.07.2020\Obreb Gniewkowo"
+plikwynik = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole\wiecej_niz_1_strona.txt"  # noqa
+bledny = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole\nie_udalo_sie_policzyc_stron.txt"  # noqa
+
 with open(
-    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt",  # noqa
+    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole\sciezki.txt",  # noqa
     "r",
     encoding="utf-8",
 ) as sciezki:

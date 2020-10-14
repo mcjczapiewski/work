@@ -20,18 +20,19 @@ nazwy = (
 )
 
 # path = input("Enter the path: ")
-path = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\M.JANIKOWO"  # noqa
-errors = r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527\040707_5\prawne"  # noqa
+path = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\GNIEWKOWO- M 28.07.2020\Obreb Gniewkowo"  # noqa
+errors = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole"  # noqa
 
 count = 1
 
 with open(
-    r"P:\cyfryzacja_powiat_inowroclawski\SKANY_III\20200527\040707_5\prawne\zmiana.txt",  # noqa
+    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole\sciezki.txt",  # noqa
     "r",
     encoding="utf-8",
 ) as sciezki:
     for line in sciezki:
         path = line.strip()
+
         for subdir, dirs, files in os.walk(path):
             dirs.sort(key=nkey)
 

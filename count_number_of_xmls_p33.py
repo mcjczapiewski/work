@@ -3,7 +3,7 @@ from natsort import natsort_keygen
 
 nkey = natsort_keygen()
 
-xmls = r"\\Waw-dt1409\h\Inowrocław"  # noqa
+xmls = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\GNIEWKOWO- M 28.07.2020\Obreb Gniewkowo"  # noqa
 count = how_much = 1
 previous = ""
 
@@ -24,9 +24,9 @@ def if_xmls_or_pdfs(write_out, exists_extension, noexists_extension, file_name):
             bx.write(subdir + "\n")
 
 
-write_out = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06"
+write_out = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole"
 with open(
-    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 4\kontrole_2020-07-06\sciezki.txt",
+    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole\sciezki.txt",
     "r",
     encoding="utf-8",
 ) as sciezki:

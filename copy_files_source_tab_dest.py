@@ -11,8 +11,8 @@ from pathlib import Path
 czasstart = datetime.datetime.now()
 print("~~~~~~START~~~~~~\t" + str(czasstart).split(".")[0])
 
-textfile = r"D:\_MACIEK_\python_proby\polaczone.txt"
-bledny = r"D:\_MACIEK_\python_proby\polaczone_bledy.txt"
+textfile = r"I:\INOWROCŁAW\DANE PODGiK\dokumentacja cyfrowa- miasto Gniewkowo, miasto Pakośc, gmina Pakość\Nowy folder\skopiuj.txt"
+bledny = r"I:\INOWROCŁAW\DANE PODGiK\dokumentacja cyfrowa- miasto Gniewkowo, miasto Pakośc, gmina Pakość\Nowy folder\skopiuj_bledy.txt"
 
 alllines = 0
 line_nb = 1
@@ -46,7 +46,7 @@ with open(textfile, "r", encoding="utf-8") as otxt:
             try:
                 shutil.copy2(sourcefile, destpath)
             except:
-                with open(bledny, "a") as bl:
+                with open(bledny, "a", encoding='utf-8') as bl:
                     bl.write(
                         "Wystąpił nieokreślony błąd w linii:\t"
                         + str(line_nb)
@@ -54,7 +54,7 @@ with open(textfile, "r", encoding="utf-8") as otxt:
                     )
                     continue
         else:
-            with open(bledny, "a") as bl:
+            with open(bledny, "a", encoding='utf-8') as bl:
                 bl.write(
                     "Plik z linii nr ~~"
                     + str(line_nb)
