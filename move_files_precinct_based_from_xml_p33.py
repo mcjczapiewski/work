@@ -9,10 +9,10 @@ nkey = natsort_keygen()
 count = 1
 
 for subdir, dirs, files in os.walk(
-    r"I:\INOWROCŁAW\DANE PODGiK\SKANY OPERATÓW\gmina Inowroclaw\!OPERATY_KTÓRE_ODDAJEMY"  # noqa
+    r"I:\INOWROCŁAW\DANE_SKAN_SERWIS\CZĘŚĆ II"  # noqa
 ):
     dirs.sort(key=nkey)
-    if "brak_nr_obrebu_w_xml" in subdir:
+    if "040703_5\\syt-wys_trasy" in subdir:
         continue
     if any(fname.upper().endswith(".XML") for fname in os.listdir(subdir)):
         nrope = os.path.basename(subdir)
@@ -29,27 +29,26 @@ for subdir, dirs, files in os.walk(
                                 print(xml)
                             break
                     with io.open(
-                        r"D:\_MACIEK_\python_proby\p33\id_nazwa_obrebu.txt",
+                        r"I:\INOWROCŁAW\DANE_SKAN_SERWIS\CZĘŚĆ II\maciek_2020-04-22\id_nazwa_obrebu.txt",
                         "r",
                         encoding="utf-8",
                     ) as lista:
                         for line in lista:
-                            porownaj = line.split("\t")[0]
-                            nazwa = line.split("\t")[1].split("\n")[0]
+                            porownaj, nazwa = line.strip().split("\t")
                             if porownaj == obreb:
                                 for fname in os.listdir(
-                                    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\INOWROCŁAW"  # noqa
+                                    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\ZŁOTNIKI KUJAWSKIE"  # noqa
                                 ):
                                     if fname == nazwa:
                                         folder = os.path.join(
-                                            r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\INOWROCŁAW",  # noqa
+                                            r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 3\ZŁOTNIKI KUJAWSKIE",  # noqa
                                             fname,
                                         )
                                         if os.path.exists(
                                             os.path.join(folder, nrope)
                                         ):
                                             with io.open(
-                                                r"D:\_MACIEK_\python_proby\p33\juz_istnialy.txt",  # noqa
+                                                r"I:\INOWROCŁAW\DANE_SKAN_SERWIS\CZĘŚĆ II\maciek_2020-04-22\juz_istnialy.txt",  # noqa
                                                 "a",
                                                 encoding="utf-8",
                                             ) as przeniesione:
@@ -64,13 +63,15 @@ for subdir, dirs, files in os.walk(
                                                 operat,
                                                 os.path.join(folder, nrope),
                                             )
+                                            # print(operat)
+                                            # print(os.path.join(folder, nrope))
                                             print(
                                                 str(count)
-                                                + "\t"
-                                                + os.path.join(folder, nrope)
+                                                # + "\t"
+                                                # + os.path.join(folder, nrope)
                                             )
                                             with io.open(
-                                                r"D:\_MACIEK_\python_proby\p33\przeniesione.txt",  # noqa
+                                                r"I:\INOWROCŁAW\DANE_SKAN_SERWIS\CZĘŚĆ II\maciek_2020-04-22\przeniesione.txt",  # noqa
                                                 "a",
                                                 encoding="utf-8",
                                             ) as przeniesione:

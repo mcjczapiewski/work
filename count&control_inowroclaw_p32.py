@@ -40,11 +40,11 @@ def check_if_all_named(path):
         left_to_name = []
         for subdir, dirs, _ in os.walk(path):
             dirs.sort(key=natsort_keygen())
-            if regex.match(r"^.+040701..\.....", subdir):
-                get_steps = regex.match(r"^.+040701..\.....", subdir)[0]
+            if regex.match(r"^.+04070...\.....", subdir):
+                get_steps = regex.match(r"^.+04070...\.....", subdir)[0]
             else:
                 continue
-            if regex.search(r"040701..\.....$", get_steps):
+            if regex.search(r"04070...\.....$", get_steps):
                 steps_inside_path = len(get_steps.split("\\")) + 1
             if len(subdir.split("\\")) == steps_inside_path:
                 up_to_merge = os.path.join(
@@ -293,6 +293,12 @@ t/n\n> ",
     if make_changes == "t":
         delete_double_underscore = []
         for change in natsorted(numbers_to_change):
+            # with open(
+            #     r"V:\P32_kopie_prac\Cyfryzacja_powiat inowroclawski\_MACIEK\20200527_040707_5_ewidencyjne-zmiany_w_nazwach\python.txt",
+            #     "a",
+            #     encoding="utf-8",
+            # ) as pyt_dok:
+            #     pyt_dok.write(f"{change}\n")
             file_path = change.split("\t")[0]
             old_name, new_name = change.split("\t")[1].split(" --> ")
             os.rename(

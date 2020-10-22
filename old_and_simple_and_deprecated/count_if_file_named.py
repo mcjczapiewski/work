@@ -4,7 +4,9 @@ import msvcrt
 
 today = datetime.datetime.now().date()
 
-path = r"D:\WPG\inowroclawski\040701_1.0006"
+path = (
+    r"P:\cyfryzacja_powiat_inowroclawski\SKANY\040701_1\prawne\040701_1.0001"
+)
 # path = input("Wklej ścieżkę do folderu głównego: ")
 again = "t"
 

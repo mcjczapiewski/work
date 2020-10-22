@@ -14,7 +14,7 @@ def operaty():
             if not regex.search(r"\(\(\(.+\(", line):
                 line = regex.sub(r"MULTI", "", line)
             if "EMPTY" in line:
-                braki.add(str(nrope))
+                braki.add(str(line))
                 brak_zakresu += 1
                 nrope += 1
                 continue
@@ -46,7 +46,7 @@ def pliki():
             if not regex.search(r"\(\(\(.+\(", line):
                 line = regex.sub(r"MULTI", "", line)
             if "EMPTY" in line:
-                braki.add(str(nrope))
+                braki.add(str(line))
                 brak_zakresu += 1
                 nrope += 1
                 continue
@@ -126,7 +126,7 @@ def teraz_kopiuj():
 def czy_kopiuj():
     czy_kopia = input(
         "\n~~~~~~~~~~~~~~\nCzy chcesz teraz także skopiowac WKT do \
-            odpowiednich folderów? t/n:  "
+odpowiednich folderów? t/n:  "
     )
     if czy_kopia == "t":
         teraz_kopiuj()
@@ -175,7 +175,7 @@ co_robimy = input(
     2 - utworzenie dla wkt dla plików z csv
     3 - kopiowanie wkt do folderów operatów
     4 - rozkopiowanie istniejących wkt dla operatów do szkiców i map, które \
-        ich jeszcze nie mają
+ich jeszcze nie mają
     Podaj cyfrę: """
 )
 if co_robimy == "1":
@@ -183,7 +183,7 @@ if co_robimy == "1":
     zbiorczy_wkt = os.path.join(
         input(
             "Podaj ścieżkę folderu, w którym znajduje się plik \
-                                      dla_operatow.csv: "
+dla_operatow.csv: "
         ),
         "dla_operatow.csv",
     )
@@ -194,7 +194,7 @@ elif co_robimy == "2":
     zbiorczy_wkt = os.path.join(
         input(
             "Podaj ścieżkę folderu, w którym znajduje się plik \
-                                      dla_plikow.csv: "
+dla_plikow.csv: "
         ),
         "dla_plikow.csv",
     )

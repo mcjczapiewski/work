@@ -11,33 +11,15 @@ from pathlib import Path
 czasstart = datetime.datetime.now()
 print("~~~~~~START~~~~~~\t" + str(czasstart).split(".")[0])
 
-print(
-    """\nPodaj ścieżkę, w której znajduje się plik lista.txt
-    (plik_zrodlowy TABULATOR folder_docelowy; kodowanie pliku txt w ANSI):"""
-)
-plik_lista = input()
-textfile = plik_lista + "\\lista.txt"
-print("\nPodaj lokalizację dla pliku z błędami:")
-sciezka = input()
-wynikowy = os.path.basename(os.path.normpath(sciezka))
-bledny = (
-    sciezka
-    + "\\"
-    + wynikowy
-    + "_BLEDY_"
-    + czasstart.strftime("%Y-%m-%d")
-    + ".txt"
-)
-# print('\nPodaj nazwę okna skryptu:')
-# nazwaokna = input()
-# ctypes.windll.kernel32.SetConsoleTitleW(nazwaokna)
+textfile = r"I:\INOWROCŁAW\DANE PODGiK\dokumentacja cyfrowa- miasto Gniewkowo, miasto Pakośc, gmina Pakość\Nowy folder\skopiuj.txt"
+bledny = r"I:\INOWROCŁAW\DANE PODGiK\dokumentacja cyfrowa- miasto Gniewkowo, miasto Pakośc, gmina Pakość\Nowy folder\skopiuj_bledy.txt"
 
 alllines = 0
 line_nb = 1
 
 # liczy ilosc plikow do skopiowania na podstawie
 # ilosci wierszy w pliku tekstowym
-with open(textfile, "r") as otxtl:
+with open(textfile, "r", encoding="utf-8") as otxtl:
     for line in otxtl:
         alllines += 1
 
@@ -48,7 +30,7 @@ input(
 )
 
 # glowna petla
-with open(textfile, "r") as otxt:
+with open(textfile, "r", encoding="utf-8") as otxt:
     for line in otxt:
 
         # odlicza do konca
@@ -57,19 +39,14 @@ with open(textfile, "r") as otxt:
 
         # regex rozdzielajacy sciezke z ktorej
         # kopiowac od sciezki DO ktorej kopiowac
-        file2copy = re.findall(r"(^.+?(?=\t))\t(.+)", line)
-
-        # pierwsza czesc wyniku to zrodlo, druga to docelowy folder
-        for tuple in file2copy:
-            sourcefile = tuple[0]
-            destpath = tuple[1]
+        sourcefile, destpath = line.strip().split("\t")
 
         # wykona tylko, jesli plik do skopiowania wciaz istnieje
         if Path(sourcefile).exists():
             try:
                 shutil.copy2(sourcefile, destpath)
             except:
-                with open(bledny, "a") as bl:
+                with open(bledny, "a", encoding='utf-8') as bl:
                     bl.write(
                         "Wystąpił nieokreślony błąd w linii:\t"
                         + str(line_nb)
@@ -77,7 +54,7 @@ with open(textfile, "r") as otxt:
                     )
                     continue
         else:
-            with open(bledny, "a") as bl:
+            with open(bledny, "a", encoding='utf-8') as bl:
                 bl.write(
                     "Plik z linii nr ~~"
                     + str(line_nb)
