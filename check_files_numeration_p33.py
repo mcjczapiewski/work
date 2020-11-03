@@ -15,9 +15,7 @@ count = 1
 sciezka = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\GNIEWKOWO- M 28.07.2020\Obreb Gniewkowo"
 write_out = fr"{sciezka}\kontrola"  # noqa
 
-write_out = (
-    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole"  # noqa
-)
+write_out = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole"  # noqa
 with open(
     r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole\sciezki.txt",  # noqa
     "r",
@@ -29,12 +27,8 @@ with open(
         for subdir, dirs, files in os.walk(sciezka):
             break_loop = 0
             dirs.sort(key=nkey)
-            if (
-                not any(
-                    fname.upper().endswith(".PDF")
-                    for fname in os.listdir(subdir)
-                )
-                # or not os.path.basename(subdir).startswith("P")
+            if not any(
+                fname.upper().endswith(".PDF") for fname in os.listdir(subdir)
             ):
                 continue
             print(str(count) + "\t" + subdir)

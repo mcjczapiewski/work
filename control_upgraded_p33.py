@@ -9,6 +9,19 @@ from natsort import natsort_keygen, natsorted
 count = 1
 nkey = natsort_keygen()
 characters = r"[A-Z0-9]|!| |:|\.|-|_|\\|Ą|Ę|Ó|Ś|Ł|Ż|Ź|Ć|Ń"
+documents_names = (
+    "AKN", "AWZ", "AMZ", "ADEB", "ADEL", "MATR", "DEC",
+    "DOK-IN", "DOK-WYJ", "DOK-OBL", "DZ-P", "DZ-R",
+    "K-BUD", "K-PAR", "M-KL", "M-IN", "M-KAT", "M-WYN",
+    "M-UZ", "M-WYW", "M-PROJ", "M-WPROJ", "MPZP", "ZGL-ODP",
+    "OPIN", "OIM", "OTOP", "ORZ", "OSW", "POST", "P-KW",
+    "P-G", "P-IN", "P-KAT", "R-IN", "R-GPS", "REJ-ARCH",
+    "REJ-IN", "REJ-SCAL", "SK-D", "SK-W", "SPIS", "S-TECH",
+    "STR-TYT", "SZK-INN", "SZK-KAT", "SZK-OSN", "SZK-POL",
+    "SZK-PRZ", "TR-PKT", "UGO", "UPOW", "WNI-IN", "WNI-PRZ",
+    "W-S", "W-WSP", "W-WYW", "W-ZDE", "Z-KAT", "Z-POM",
+    "ZASW", "ZAW-ZGL", "ZAW-IN", "ZAW-KW", "ZGL-PRAC", "ZW",
+)
 
 
 def write_results(file_name, message):
@@ -104,15 +117,27 @@ def count_pages_in_sketch_files():
         write_results("nie_udalo_sie_policzyc_stron.txt", f"{pdf_file}\n")
 
 
+def check_if_doc_name_is_valid(pdf_file):
+    if not regex.match(r"^.+[0-9]\.PDF", file.upper()):
+        write_results("niepoprawne_nazwy.txt", f"{pdf_file}\n")
+    else:
+        try:
+            document_name = regex.match(
+                r"^.+?-(.+[A-Z])-[0-9].+PDF", file.upper()
+            )[1]
+            if document_name not in documents_names:
+                write_results("niepoprawne_nazwy.txt", f"{pdf_file}\n")
+        except:
+            write_results("niepoprawne_nazwy.txt", f"{pdf_file}\n")
+
+
 start_time = datetime.datetime.now()
 print("~~~~~~START~~~~~~\t" + str(start_time).split(".")[0])
 
-paths_file = input("Enter the path to file with paths (sciezki.txt):\n> ")
-write_out = os.path.join(r'D:\_MACIEK_\python_proby', "kontrole")
-paths_file = os.path.join(paths_file, "sciezki.txt")
-
-if not os.path.exists(write_out):
-    os.mkdir(write_out)
+write_out = input(
+    "Enter the path to folder 'kontrole' containing file with paths (sciezki.txt):\n> "
+)
+paths_file = os.path.join(write_out, "sciezki.txt")
 
 with open(paths_file, "r", encoding="utf-8",) as file_with_paths:
     for line in file_with_paths:
@@ -158,10 +183,13 @@ with open(paths_file, "r", encoding="utf-8",) as file_with_paths:
                 if file.lower().endswith(".wkt"):
                     wkt = os.path.join(subdir, file)
                     if_not_match_for_wkt_exists(wkt)
-                elif file.upper().endswith(".PDF") and regex.match(
-                    r"^.+(-SZK-|-M-|-Z-).+\.PDF", file.upper()
-                ):
-                    count_pages_in_sketch_files()
+                elif file.upper().endswith(".PDF"):
+                    pdf_file = os.path.join(subdir, file)
+                    check_if_doc_name_is_valid(pdf_file)
+                    if regex.match(
+                        r"^.+(-SZK-|-M-|-Z-).+\.PDF", file.upper()
+                    ):
+                        count_pages_in_sketch_files(pdf_file)
 
 end_time = datetime.datetime.now()
 delta_time = end_time - start_time
