@@ -15,9 +15,9 @@ count = 1
 sciezka = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\GNIEWKOWO- M 28.07.2020\Obreb Gniewkowo"
 write_out = fr"{sciezka}\kontrola"  # noqa
 
-write_out = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole"  # noqa
+write_out = r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 5\INOWROCŁAW CAŁOŚĆ\kontrole\numeracja_dam_znac"  # noqa
 with open(
-    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 6\2020-09-03_kontrole\sciezki.txt",  # noqa
+    r"I:\INOWROCŁAW\DANE_IRON_MOUNTAIN\20190614\ZADANIE 5\INOWROCŁAW CAŁOŚĆ\kontrole\sciezki.txt",  # noqa
     "r",
     encoding="utf-8",
 ) as sciezki:

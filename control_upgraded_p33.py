@@ -103,8 +103,7 @@ def if_not_match_for_wkt_exists(wkt):
         write_results("wkt_do_nieistniejacych_plikow.txt", f"{wkt}\n")
 
 
-def count_pages_in_sketch_files():
-    pdf_file = os.path.join(subdir, file)
+def count_pages_in_sketch_files(pdf_file):
     try:
         doc = fitz.open(pdf_file)
         pdf_pages = doc.pageCount
