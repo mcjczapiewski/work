@@ -6,7 +6,7 @@ from natsort import natsorted
 
 names_list = []
 changed_files_list = []
-path = r"Y:\PIOTRKÓW_TRYB_OSNOWA\DANE_TEREN\07.12.2020\Damian\Foteczki"
+path = input("PATH:\n> ")
 names_file_dest = os.path.join(path, "names.txt")
 missing_names = os.path.join(path, "missing_names.txt")
 photos_dest = os.path.join(path, "org")
@@ -26,8 +26,19 @@ def read_names_list_from_file():
     with open(names_file_dest, "r", encoding="utf-8") as new_names:
         for line in new_names:
             if "\t" in line:
-                old_name, new_name = line.strip().split("\t")
+                old_name, new_name = regex.split(r"\t{1,}", line.strip())
                 names_list.append([old_name, new_name])
+
+
+def change_name_structure():
+    all_name_parts = split_name_to_parts(name[0])
+    switch_rome_to_arab(all_name_parts)
+    name_joined = join_parts_in_name(all_name_parts)
+    names_list[names_list.index(name)][0] = name_joined
+
+
+def split_name_to_parts(name_to_split):
+    return regex.split(r"\.|_|-| |,", name_to_split.lower())
 
 
 def switch_rome_to_arab(parts_list):
@@ -47,10 +58,12 @@ def write_to_log(log_file_path, message):
 
 
 def set_document_number(next_number):
-    if name[0] == previous_name:
+    if name[0].lower() == previous_name.lower():
         next_number += 1
     else:
         next_number = 1
+        if name_from_list_to_delete in names_list:
+            names_list.remove(name_from_list_to_delete)
     return next_number
 
 
@@ -72,24 +85,24 @@ switcher = {
 create_dest_folder()
 read_names_list_from_file()
 
-for subdir, _, files in os.walk(photos_dest):
-    how_much_left = len(os.listdir(subdir)) - 1
+for _, _, files in os.walk(photos_dest):
+    how_much_left = len(os.listdir(photos_dest)) - 1
     previous_name = ""
+    name_from_list_to_delete = ""
     next_number = 1
+    for name in names_list:
+        change_name_structure()
     for file in natsorted(files):
+        all_file_parts = split_name_to_parts(file)
+        switch_rome_to_arab(all_file_parts)
+        filename_joined = join_parts_in_name(all_file_parts)
         for name in names_list:
-            all_name_parts = regex.split(r"\.|_|-", name[0])
-            all_file_parts = regex.split(r"\.|_|-", file.lower())
-            switch_rome_to_arab(all_name_parts)
-            switch_rome_to_arab(all_file_parts)
-            name_joined = join_parts_in_name(all_name_parts)
-            filename_joined = join_parts_in_name(all_file_parts)
-            if filename_joined.startswith(name_joined):
+            if filename_joined.startswith(name[0]):
                 print(how_much_left)
                 how_much_left -= 1
                 next_number = set_document_number(next_number)
                 new_filename = f"{name[1]}-{next_number}{os.path.splitext(file)[1]}"
-                old_file = os.path.join(subdir, file)
+                old_file = os.path.join(photos_dest, file)
                 new_file = os.path.join(new_photos_dest, new_filename)
                 write_to_log(
                     changed_names, f"{file}\t{name[0]}\t{new_filename}\n",
@@ -98,8 +111,17 @@ for subdir, _, files in os.walk(photos_dest):
                     raise FileExistsError(f"{file}\t{name}")
                 copy_file()
                 previous_name = name[0]
+                name_from_list_to_delete = name
                 changed_files_list.append(file)
                 break
     for file in natsorted(files):
         if file not in changed_files_list and file.lower().endswith((".jpg", ".jpeg")):
             write_to_log(missing_names, f"{file}\t\n")
+        else:
+            old_file = os.path.join(photos_dest, file)
+            found_folder = os.path.join(photos_dest, "znalezione")
+            found_file = os.path.join(found_folder, file)
+            if not os.path.exists(found_folder):
+                os.mkdir(found_folder)
+            shutil.move(old_file, found_file)
+    break
