@@ -10,8 +10,16 @@ path = input("PATH:\n> ")
 names_file_dest = os.path.join(path, "names.txt")
 missing_names = os.path.join(path, "missing_names.txt")
 photos_dest = os.path.join(path, "org")
+found_folder = os.path.join(photos_dest, "znalezione")
 new_photos_dest = os.path.join(path, "zmienione")
 changed_names = os.path.join(new_photos_dest, "jak_zmienione_nazwy.txt")
+
+
+def move_back_from_found_folder():
+    if os.listdir(found_folder):
+        for _, _, files in os.walk(found_folder):
+            for file in files:
+                shutil.move(os.path.join(found_folder, file), photos_dest)
 
 
 def create_dest_folder():
@@ -82,6 +90,8 @@ switcher = {
     "v": 5,
 }
 
+if os.path.exists(found_folder):
+    move_back_from_found_folder()
 create_dest_folder()
 read_names_list_from_file()
 
@@ -119,7 +129,6 @@ for _, _, files in os.walk(photos_dest):
             write_to_log(missing_names, f"{file}\t\n")
         else:
             old_file = os.path.join(photos_dest, file)
-            found_folder = os.path.join(photos_dest, "znalezione")
             found_file = os.path.join(found_folder, file)
             if not os.path.exists(found_folder):
                 os.mkdir(found_folder)
